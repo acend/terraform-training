@@ -1,0 +1,22 @@
+{
+  "name": "terraform-training",
+  "version": "0.0.9",
+  "description": "Terraform Training",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acend/terraform-training.git"
+  },
+  "author": "acend gmbh",
+  "scripts": {
+    "mdlint": "markdownlint --config .markdownlint.json content *.md",
+    "prepare": "husky install"
+  },
+  "bugs": {
+    "url": "https://github.com/acend/terraform-training/issues"
+  },
+  "homepage": "https://github.com/acend/terraform-training#readme",
+  "devDependencies": {
+    "husky": "6.0.0",
+    "markdownlint-cli": "0.27.1"
+  }
+}
