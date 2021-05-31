@@ -50,7 +50,8 @@ jobs:
         with:
           image-ref: 'quay.io/acend/terraform-training:latest'
           format: 'table'
-          exit-code: '1'
+          output: 'trivy-results.txt'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os'
           severity: 'CRITICAL,HIGH'

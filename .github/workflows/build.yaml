@@ -48,7 +48,8 @@ jobs:
         with:
           image-ref: 'quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}'
           format: 'table'
-          exit-code: '1'
+          output: 'trivy-results.txt'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os'
           severity: 'CRITICAL,HIGH'
