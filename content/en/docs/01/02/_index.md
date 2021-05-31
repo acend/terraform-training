@@ -6,6 +6,7 @@ sectionnumber: 1.2
 
 Now it is time to add more configuration and some variables.
 
+
 ## Configuration
 
 Typically Terraform needs some basic config to work well. Here is an example:
@@ -27,6 +28,7 @@ You can choose versions of different provides as well as Terraform itself. This 
 {{% alert title="Warning" color="secondary" %}}
 The usage of an operator like `>=` can be dangerous as it can be use as a man in the middle attack. For more information ask your teacher about this topic.
 {{% /alert %}}
+
 
 ## Variables
 
@@ -53,6 +55,7 @@ resource "random_string" "random" {
 ```
 
 Now use Terraform to apply all the new files from this chapter:
+
 * `provider.tf`
 * `main.tf`
 * `variables.tf`

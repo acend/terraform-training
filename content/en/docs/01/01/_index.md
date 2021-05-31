@@ -6,6 +6,7 @@ sectionnumber: 1.1
 
 In this Chapter we will leran the real bascis of terraform. You will understand how you can plan and apply your config. After all the work is done you will also learn how to destroy your content.
 
+
 ## Initialisation
 
 Lets create an initial local setup by running:
@@ -13,6 +14,7 @@ Lets create an initial local setup by running:
 ```bash
 terraform init
 ```
+
 
 ## Creation
 
@@ -28,6 +30,7 @@ resource "random_string" "random" {
 
 Name the file `main.tf`
 
+
 ## Planing
 
 The planing will help Terraform to understand your configuration and verfiy the content ruffly.
@@ -39,10 +42,9 @@ terraform plan
 You may see some output like:
 
 ```bash
-
 blah blah blah
-
 ```
+
 
 ## Applying
 
@@ -54,7 +56,8 @@ terraform apply
 
 You will get asked, after a short repeating of the planing, if you really want to apply this. So type `yes`
 
-Now you can use your created content. 
+Now you can use your created content.
+
 
 ## Destruction
 
