@@ -28,6 +28,7 @@ provider "azurerm" {
 
 Terraform needs the provider information to load all possible objects of this provider in the `terraform init`.
 
+
 ## Resource group
 
 In Azure everything is separated by resourcegroups (RG). A RG can have several objects which are grouped and combined. They can have single authorisation or an own cost budget.

@@ -6,6 +6,7 @@ sectionnumber: 2.3
 
 Now we have all sub ressources to create our AKS
 
+
 ## AKS
 
 This is one of the simplest examples for an AKS cluster. Append it to the file `aks.tf` and let it apply:
