@@ -48,6 +48,7 @@ you run "terraform init" in the future.
 Terraform has been successfully initialized!
 ```
 
+
 ## Planing
 
 The planing will help Terraform to understand your configuration and verfiy the content ruffly.

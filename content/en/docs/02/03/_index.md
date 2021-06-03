@@ -83,7 +83,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 }
 ```
 
-Wow, that's a tough one! 
+Wow, that's a tough one!
 
 If you check the blocks you can see, that every block contains the informations about objects we've created before. Apply it, and take a coffee.
 
@@ -112,7 +112,7 @@ resource "azurerm_role_assignment" "aks_identity_acr" {
 }
 ```
 
-Now AKS is allowed to 
+Now AKS is allowed to:
 
 * "pull" images from our container registry.
 * write logs into the log workspace

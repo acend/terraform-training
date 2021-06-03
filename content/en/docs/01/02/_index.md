@@ -65,6 +65,7 @@ terraform plan
 terraform apply
 ```
 
-If you see any errors in the Terraform output, check your files! 
+If you see any errors in the Terraform output, check your files!
 
 Final Question: What is the value of your random number?
+

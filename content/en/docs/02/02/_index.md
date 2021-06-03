@@ -119,3 +119,4 @@ resource "azurerm_log_analytics_workspace" "aks" {
   sku                 = "PerGB2018"
 }
 ```
+
