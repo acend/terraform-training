@@ -21,7 +21,7 @@ terraform {
 }
 ```
 
-Save those informations in file named `provider.tf`.
+Save those informations in file named `main.tf`.
 
 You can choose versions of different provides as well as Terraform itself. This is important for the usage in a production environment to be comprehensible.
 
@@ -38,25 +38,25 @@ Create a new file called `variables.tf`.
 This file will be used to seperate all needed input variables from the main configruation.
 
 ```bash
-variable "random_length" {
+variable "random_min_value" {
   type        = number
-  default     = 8
-  description = "define the lenght ot the random number"
+  default     = 1000
+  description = "define the min value of the random number"
 }
 ```
 
 Let's change our random_string in the `main.tf` to the following to use the variable:
 
 ```bash
-resource "random_string" "random" {
-  length  = var.random_length
-  special = false
+resource "random_integer" "acr" {
+  min = var.random_min_value
+  max = 9999
 }
 ```
 
 Now use Terraform to apply all the new files from this chapter:
 
-* `provider.tf`
+* `acr.tf`
 * `main.tf`
 * `variables.tf`
 
@@ -65,4 +65,6 @@ terraform plan
 terraform apply
 ```
 
-If you see any errors in the Terraform output, check your files!
+If you see any errors in the Terraform output, check your files! 
+
+Final Question: What is the value of your random number?

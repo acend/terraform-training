@@ -4,12 +4,12 @@ weight: 22
 sectionnumber: 2.2
 ---
 
-Let's start with the things we need before we can create our cluster.
+Let's start with the things we need before we can create our cluster. After each step you can run `terraform apply` the check the outcome.
 
 
 ## Terraform Azure config
 
-Start with a new folder named `azure` and create a basic `provider.tf` like from the chapter before. This time we will add the `azurerm` to configure our endpoints:
+Create a new basic `main.tf` file like from the chapter before in the `azure` folder. This time we will add the `azurerm` to configure our endpoints:
 
 ```bash
 terraform {
@@ -22,23 +22,28 @@ terraform {
 }
 
 provider "azurerm" {
+  subscription_id = var.subscription_id
   features {}
 }
 ```
 
-Terraform needs the provider information to load all possible objects of this provider in the `terraform init`.
+Terraform needs the provider information to load all possible objects of this provider in the `terraform init`. So run it:
+
+```bash
+terraform init -backend-config=config/lab_backend.tfvars
+```
 
 
 ## Resource group
 
 In Azure everything is separated by resourcegroups (RG). A RG can have several objects which are grouped and combined. They can have single authorisation or an own cost budget.
 
-Save the following to a file called `main.tf`.
+Save the following to the `main.tf`.
 
 ```bash
-resource "azurerm_resource_group" "<student>-aks" {
-  name     = "<student>-aks-rg"
-  location = "West Europe"
+resource "azurerm_resource_group" "default" {
+  name     = "rg-${local.prefix}"
+  location = var.location
 }
 ```
 
@@ -47,23 +52,31 @@ resource "azurerm_resource_group" "<student>-aks" {
 
 We also need a network for our cluster. This could be done by the AKS ressource as well, but here you can configure your network range which is maybe needed by your company as every application has its own network range.
 
-Save this to a file called `aks.tf` as it belongs directly to the aks and nothing else.
+Save this to a file called `network.tf` as it belongs directly to the aks and nothing else.
 
 ```bash
-resource "azurerm_virtual_network" "aks" {
-  name                = "aks-vnet"
-  location            = azurerm_resource_group.<student>-aks.location
-  resource_group_name = azurerm_resource_group.<student>-aks.name
-  address_space       = ["10.0.0.0/8"]
+resource "azurerm_virtual_network" "vnet" {
+  name                = "vnet-${local.prefix}"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+  address_space       = [var.subnets.vnet]
 }
 
-resource "azurerm_subnet" "aksnodes" {
-  name                      = "aksnodes"
-  resource_group_name       = azurerm_resource_group.<student>-aks.name
-  virtual_network_name      = azurerm_virtual_network.aks.name
-  address_prefixes          = ["10.240.0.0/16"]
+resource "azurerm_network_watcher" "default" {
+  name                = "nw-${local.prefix}"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+}
+
+resource "azurerm_subnet" "private" {
+  name                 = "snet-${local.prefix}-private"
+  resource_group_name  = azurerm_virtual_network.vnet.resource_group_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = [var.subnets.private]
 }
 ```
+
+Uff, that looks complicated! Can you figure out the meanings of it?
 
 
 ## Azure container registry
@@ -71,31 +84,38 @@ resource "azurerm_subnet" "aksnodes" {
 For the use of container we will use the container registry from Azure itself. So let's create one `acr.tf`:
 
 ```bash
-resource "azurerm_container_registry" "acr" {
-  name                     = "aks-acr"
-  resource_group_name      = azurerm_resource_group.<student>-aks.location
-  location                 = azurerm_resource_group.<student>-aks.name
-  sku                      = "Basic"
+resource "random_integer" "acr" {
+  max = 1000
+  min = 9999
+}
+
+resource "azurerm_container_registry" "aks" {
+  name                = "cr${replace(local.prefix, "-", "")}${random_integer.acr.result}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.default.name
+  admin_enabled       = true
+  sku                 = "standard"
 }
 ```
 
 
-## Advanced topics
+## Log Analytics Workspace
 
-As you may noticed we are using the `<student>-aks` often. If you don't wan't to repeat that, we could also created so called "Local Values". They are helpful to avoid repeating the same values multiplie times. They are look like:
+Yes, there is another thing AKS need. Here AKS can save all his logs to review anything which happend:
+
+log_analytics.tf
 
 ```bash
-locals {
-  rg_name  = azurerm_resource_group.<student>-aks.location
-  loc_name = azurerm_resource_group.<student>-aks.name
+resource "random_string" "log_analytics_workspace" {
+  length  = 4
+  special = false
+  upper   = false
 }
 
-resource "azurerm_container_registry" "acr" {
-  name                     = "aks-acr"
-  resource_group_name      = local.rg_name
-  location                 = local.loc_name
-  sku                      = "Basic"
+resource "azurerm_log_analytics_workspace" "aks" {
+  name                = "log-${local.prefix}-${random_string.log_analytics_workspace.result}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.aks.name
+  sku                 = "PerGB2018"
 }
 ```
-
-Try it out!
