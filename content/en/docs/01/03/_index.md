@@ -9,7 +9,7 @@ Now that we have our content created we should use it somewhere. As we have for 
 
 ## Output
 
-We will create another file called `output.tf`. Here we will list all the content we want to get, so we can use it.
+We will create another file called `outputs.tf`. Here we will list all the content we want to get, so we can use it.
 
 ```bash
 output "random_result" {
@@ -19,6 +19,12 @@ output "random_result" {
 ```
 
 By again applying this config with Terraform, you will see how this value appears at the end of the command.
+
+```
+Outputs:
+
+random_result = 3033
+```
 
 You are also able to use those output values by using:
 
