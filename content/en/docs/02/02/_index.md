@@ -25,6 +25,8 @@ provider "azurerm" {
   subscription_id = var.subscription_id
   features {}
 }
+
+data "azurerm_subscription" "current" {}
 ```
 
 Terraform needs the provider information to load all possible objects of this provider in the `terraform init`. So run it:
@@ -81,7 +83,8 @@ Uff, that looks complicated! Can you figure out the meanings of it?
 
 ## Azure container registry
 
-For the use of container we will use the container registry from Azure itself. So let's create one `acr.tf`:
+For the use of container we will use the container registry from Azure itself.
+So let's create `acr.tf`:
 
 ```bash
 resource "random_integer" "acr" {
@@ -103,7 +106,7 @@ resource "azurerm_container_registry" "aks" {
 
 Yes, there is another thing AKS need. Here AKS can save all his logs to review anything which happend:
 
-log_analytics.tf
+Into `log_analytics.tf`:
 
 ```bash
 resource "random_string" "log_analytics_workspace" {
