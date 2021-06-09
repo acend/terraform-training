@@ -1,5 +1,5 @@
 ---
-title: "Local states"
+title: "Local environment"
 weight: 3
 sectionnumber: 3
 ---
@@ -92,6 +92,19 @@ random_integer.acr: Creation complete after 0s [id=9437]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
+
+
+## Local state
+
+After creating all the ressources you may ask now, wehre does Terraform has stored the data which has been created? As we are not in Cloud yet, where does your state live?
+
+```
+ls -l
+```
+
+You will find a file called `terraform.tfstate`. This file cointains all information about your whole Terraform run. Even your random number is saved here. Terraform will always have such a `tfstate` file to save all your configurations. It is used to compare your desired state against the real world.
+
+In the AKS chapter we will learn how save this file into cloud itself a why this is recommended.
 
 
 ## Destruction

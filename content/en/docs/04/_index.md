@@ -1,5 +1,5 @@
 ---
-title: "Configuration"
+title: "Variables"
 weight: 4
 sectionnumber: 4
 ---

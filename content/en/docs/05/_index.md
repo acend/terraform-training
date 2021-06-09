@@ -38,10 +38,26 @@ Can you see the different between those outputs?
 
 ## Taint
 
-TODO
+This command can be used to mark an object as "damaged". Do so, causes Terraform to replace the project on the next apply:
+
+```
+terraform taint random_string.acr
+```
+
+Since Terraform 0.15.2 you also can do this with the option `-replace <terraform object name>` e.g:
+
+```
+terraform apply -replace="random_string.acr"
+```
+
+The random number should now be recreated.
 
 
 ## Untaint
 
-TODO
+You are also able to untaint your tained object by:
+
+```
+terraform untaint random_string.acr
+```
 
