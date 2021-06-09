@@ -34,6 +34,14 @@ resource "azurerm_resource_group" "aks" {
 Then an "easy" example for an AKS cluster. Append it to the file `aks.tf` and let it apply:
 
 ```bash
+resource "azurerm_public_ip" "aks_lb_ingress" {
+  name                = "pip-${local.prefix}-aks-lb-ingress"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.aks.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "aks-${local.prefix}"
   location            = var.location

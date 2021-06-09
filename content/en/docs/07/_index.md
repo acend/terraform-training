@@ -51,8 +51,8 @@ kubectl get service example-web-python -o wide
 ```
 
 ```
-NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)		AGE
-example-web-python   LoadBalancer   10.243.223.12    20.50.241.69   5000:31662/TCP	14m
+NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)             AGE
+example-web-python   LoadBalancer   10.243.223.12    20.50.241.69   5000:31662/TCP      14m
 ```
 
 In the field `EXTERNAL-IP` you have your public IP to access the application. If the IP is missing, you may have to wait some more seconds. Repeat the command to see if it is there.
