@@ -14,10 +14,10 @@ We will need the following objects:
 
 TODO: create a n awesome architecture graph ;)
 
-{{< mermaid align="left" theme="neutral" >}}
+```mermaid
 graph LR
    a --> b & c--> d
-{{< /mermaid >}}
+```
 
 
 ## Initialisation

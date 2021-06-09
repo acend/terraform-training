@@ -46,6 +46,7 @@ anchor = "smart"
 
 [params.mermaid]
 enable = true
+theme = "neutral"
 
 [Languages]
 [Languages.en]
@@ -69,7 +70,7 @@ url = "https://www.acend.ch"
   # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
   style = "tango"
   # Uncomment if you want your chosen highlight style used for code blocks without a specified language
-  guessSyntax = "true"
+  guessSyntax = "false"
 
 [params]
 copyright = "acend gmbh"
