@@ -1,7 +1,7 @@
 ---
 title: "Configuration"
-weight: 12
-sectionnumber: 1.2
+weight: 4
+sectionnumber: 4
 ---
 
 Now it is time to add more configuration and some variables.
@@ -21,7 +21,7 @@ terraform {
 }
 ```
 
-Save those informations in file named `main.tf`.
+Put this content into the head of the file `main.tf`.
 
 You can choose versions of different provides as well as Terraform itself. This is important for the usage in a production environment to be comprehensible.
 
@@ -56,7 +56,6 @@ resource "random_integer" "acr" {
 
 Now use Terraform to apply all the new files from this chapter:
 
-* `acr.tf`
 * `main.tf`
 * `variables.tf`
 

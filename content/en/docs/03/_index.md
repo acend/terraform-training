@@ -1,10 +1,10 @@
 ---
 title: "Local states"
-weight: 11
-sectionnumber: 1.1
+weight: 3
+sectionnumber: 3
 ---
 
-In this Chapter we will leran the real bascis of terraform. You will understand how you can plan and apply your config. After all the work is done you will also learn how to destroy your content.
+Here you will understand how you can plan and apply your config. After all the work is done you will also learn how to destroy your content.
 
 
 ## Creation
@@ -19,7 +19,7 @@ resource "random_integer" "acr" {
 }
 ```
 
-Name the file `acr.tf`
+Name the file `main.tf`
 
 
 ## Initialisation
@@ -107,3 +107,4 @@ terraform destroy
 ```
 
 You will again be asked, if you want destroy the content. After your decision the content has your desired state.
+

@@ -1,7 +1,7 @@
 ---
 title: "Outputs"
-weight: 12
-sectionnumber: 1.2
+weight: 5
+sectionnumber: 5
 ---
 
 Now that we have our content created we should use it somewhere. As we have for e.g. a VM in the cloud, we need some information about the created content to access it!
@@ -44,3 +44,4 @@ TODO
 ## Untaint
 
 TODO
+

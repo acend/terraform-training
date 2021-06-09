@@ -1,7 +1,7 @@
 ---
 title: "Provisioning Foundation"
-weight: 22
-sectionnumber: 2.2
+weight: 62
+sectionnumber: 6.2
 ---
 
 Let's start with the things we need before we can create our cluster. After each step you can run `terraform apply` the check the outcome.
@@ -122,4 +122,3 @@ resource "azurerm_log_analytics_workspace" "aks" {
   sku                 = "PerGB2018"
 }
 ```
-

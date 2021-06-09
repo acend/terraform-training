@@ -44,6 +44,9 @@ resampleFilter = "CatmullRom"
 quality = 75
 anchor = "smart"
 
+[params.mermaid]
+enable = true
+
 [Languages]
 [Languages.en]
 title = "Terraform Training"

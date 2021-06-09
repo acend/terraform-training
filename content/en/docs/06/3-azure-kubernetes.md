@@ -1,7 +1,7 @@
 ---
 title: "Azure Kubernetes Service"
-weight: 23
-sectionnumber: 2.3
+weight: 63
+sectionnumber: 6.3
 ---
 
 Now we have all sub ressources to create our AKS

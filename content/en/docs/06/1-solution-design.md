@@ -1,7 +1,7 @@
 ---
 title: "Solution Design"
-weight: 21
-sectionnumber: 2.1
+weight: 61
+sectionnumber: 6.1
 ---
 
 To understand what we are doing we will first have a look on the design we are creating.
@@ -13,6 +13,11 @@ We will need the following objects:
 * NGINX Ingress Controller
 
 TODO: create a n awesome architecture graph ;)
+
+{{< mermaid align="left" theme="neutral" >}}
+graph LR
+   a --> b & c--> d
+{{< /mermaid >}}
 
 
 ## Initialisation
