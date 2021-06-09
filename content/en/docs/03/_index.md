@@ -98,7 +98,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 After creating all the ressources you may ask now, wehre does Terraform has stored the data which has been created? As we are not in Cloud yet, where does your state live?
 
-```
+```bash
 ls -l
 ```
 
