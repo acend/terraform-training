@@ -6,17 +6,22 @@ sectionnumber: 6.1
 
 To understand what we are doing we will first have a look on the design we are creating.
 
-We will need the following objects:
-
-* Azure Container Registry
-* Azure Kubernetes Cluster
-* NGINX Ingress Controller
-
-TODO: create a n awesome architecture graph ;)
-
 ```mermaid
-graph LR
-   a --> b & c--> d
+graph TD
+  subgraph Kubernetes
+  AKS((AKS))
+  K5[Certmanager] --> AKS
+  K4[(Postgresql)]
+  K3[Awesome App] ---> K4
+  K1[Ingress] --> AKS
+  end
+  subgraph Foundations
+  F1[Container Registry] --> AKS
+  F2[Virtual Network] --> AKS
+  AKS --> F3[Log Analytics Workspace]
+  F4(AD Group) --> AKS
+  F5[Resource Group] --> AKS
+  end
 ```
 
 
