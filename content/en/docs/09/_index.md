@@ -1,5 +1,5 @@
 ---
-title: "Advanced Terraform Operations"
+title: "9. Advanced Terraform Operations"
 weight: 9
 sectionnumber: 9
 ---
@@ -13,7 +13,7 @@ There are many more topics regarding Terraform. Here we will have look over some
 * tflint
 
 
-## State Inspection
+## Task {{% param sectionnumber %}}.1: State Inspection
 
 As you have learned, the Terraform state represents the applied objects which have been successfully applied. Here is the example from our first applied config:
 
@@ -57,7 +57,7 @@ This file should be handled as sensible data, as it can contain passwords as wel
 {{% /alert %}}
 
 
-## Remove States from file
+## Task {{% param sectionnumber %}}.2: Remove States from file
 
 Now remove the line "result" from this file and apply again, what happend? Terraform won't update the result field again! Because everything is done from his perspective. Try to delete the complete field of the `acr` resource in the file.
 
@@ -68,17 +68,17 @@ By delete the line with the `id`, Terraform will re-create the whole resource.
 {{% /alert %}}
 
 
-## Import
+## Task {{% param sectionnumber %}}.3: Import
 
 Sometimes you have already created resources in your environment. By describing them afterwards in a Terraform config, Terraform will complain this resources exist already. If you are not able to delete for re-creation you can import it in the actual state file.
 
 For more informations check out this HashiCorp Learn example: https://learn.hashicorp.com/tutorials/terraform/state-import?in=terraform/state
 
 
-## Debugging
+## Task {{% param sectionnumber %}}.4: Debugging
 
 
-## Linting
+## Task {{% param sectionnumber %}}.5: Linting
 
 The use of linting your Terraform config is always a good thing. You can define rules for naming conventions and force people to write readable code.
 

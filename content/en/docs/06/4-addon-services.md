@@ -1,5 +1,5 @@
 ---
-title: "Addon Services"
+title: "6.4 Addon Services"
 weight: 64
 sectionnumber: 6.4
 ---
@@ -10,7 +10,7 @@ To get a full working Kubernetes cluster we need some last steps to deploy some 
 * cert-manager (automated certificates)
 
 
-## Kubernetes Provider
+## Task {{% param sectionnumber %}}.1: Kubernetes Provider
 
 As we will also use Terraform to deploy to Kubernetes we need to setup new providers. Just add them behind the other provider config in the `main.tf`:
 
@@ -35,7 +35,7 @@ provider "helm" {
 ```
 
 
-## Ingress
+## Task {{% param sectionnumber %}}.2: Ingress
 
 The ingress allow us to route traffic coming from url's like http://app.labz.ch to a service in Kubernetes. Create the config in the file `ingress.tf`
 
@@ -75,7 +75,7 @@ resource "helm_release" "nginx_ingress" {
 ```
 
 
-## Certificate Manager
+## Task {{% param sectionnumber %}}.3: Certificate Manager
 
 This manager is able to interact with "Let's Encrypt" to sign valid certitifcates in a public envirnoment. To `certmanager.tf`:
 

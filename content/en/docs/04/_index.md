@@ -1,5 +1,5 @@
 ---
-title: "Variables"
+title: "4. Variables"
 weight: 4
 sectionnumber: 4
 ---
@@ -7,7 +7,7 @@ sectionnumber: 4
 Now it is time to add more configuration and some variables.
 
 
-## Configuration
+## Task {{% param sectionnumber %}}.1: Configuration
 
 Typically Terraform needs some basic config to work well. Here is an example:
 
@@ -30,7 +30,7 @@ The usage of an operator like `>=` can be dangerous as it can be use as a man in
 {{% /alert %}}
 
 
-## Variables
+## Task {{% param sectionnumber %}}.2: Variables
 
 Variables are used to have an input into the Terraform configuration. They are mandantory for the applying of the configuration. But you can also use pre-defined values to avoid an input interrupt.
 

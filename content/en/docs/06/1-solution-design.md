@@ -1,5 +1,5 @@
 ---
-title: "Solution Design"
+title: "6.1 Solution Design"
 weight: 61
 sectionnumber: 6.1
 ---
@@ -25,7 +25,7 @@ graph TD
 ```
 
 
-## Initialisation
+## Task {{% param sectionnumber %}}.1: Initialisation
 
 Again? Yes, but this time we won't save our state locally. We want to save the state in the cloud!
 But first, lets create a new folder name `azure` an change into it.

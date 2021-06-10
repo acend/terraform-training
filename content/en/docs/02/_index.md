@@ -1,5 +1,5 @@
 ---
-title: "Terraform basics"
+title: "2. Terraform basics"
 weight: 2
 sectionnumber: 2
 ---
@@ -15,7 +15,7 @@ The Terraform configuration is based on files. Each and every object will be sto
 In the next lab chapters you will create these files and understand how and when so sperate the content.
 
 
-## First Steps
+## Task {{% param sectionnumber %}}.1: First Steps
 
 Let's start with the creation of an own folder for the beginning and change into it:
 

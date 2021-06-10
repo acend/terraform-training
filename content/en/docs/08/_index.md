@@ -1,5 +1,5 @@
 ---
-title: "Database Setup"
+title: "8. Database Setup"
 weight: 8
 sectionnumber: 8
 ---
@@ -9,7 +9,7 @@ What would an application without a database in the cloud?
 In this chapter we are going to create a mariadb in azure and connect our application to it.
 
 
-## Create a MariaDB server
+## Task {{% param sectionnumber %}}.1: Create a MariaDB server
 
 Azure comes with a build service for a MariaDB. With the help of Terraform we can easy create a server and a database. Save the content to `mariadb.tf` and apply it:
 
@@ -62,7 +62,7 @@ output "mariadb_uri" {
 ```
 
 
-## Attach the database to the application
+## Task {{% param sectionnumber %}}.2: Attach the database to the application
 
 By default, our `example-web-python` application uses an SQLite memory database. However, this can be changed by defining the following environment variable(`MYSQL_URI`) to use the newly created MariaDB database:
 

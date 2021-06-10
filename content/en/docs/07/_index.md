@@ -1,5 +1,5 @@
 ---
-title: "Application Setup"
+title: "7. Application Setup"
 weight: 7
 sectionnumber: 7
 ---
@@ -30,7 +30,7 @@ aks-default-33164174-vmss00000b   Ready    agent   1h    v1.20.7   10.240.0.105 
 ```
 
 
-## Deployments
+## Task {{% param sectionnumber %}}.1: Deployments
 
 To deploy our awesome application your need to run the following:
 
@@ -42,7 +42,7 @@ kubectl expose deployment example-web-python --type="LoadBalancer" --name="examp
 We won't go into details over here. Because you should learn Terrafrom instead.
 
 
-## Access the Application
+## Task {{% param sectionnumber %}}.2: Access the Application
 
 After the deplyoment has been placed we can now try to access it over the IP adress. We can get this information by get some details about the service:
 

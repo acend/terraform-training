@@ -1,5 +1,5 @@
 ---
-title: "Azure AKS"
+title: "6. Azure AKS"
 weight: 6
 sectionnumber: 6
 ---
