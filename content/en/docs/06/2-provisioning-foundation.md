@@ -32,7 +32,7 @@ data "azurerm_subscription" "current" {}
 Terraform needs the provider information to load all possible objects of this provider in the `terraform init`. So run it:
 
 ```bash
-terraform init -backend-config=config/lab_backend.tfvars
+terraform init -backend-config=config/lab.tfvars
 ```
 
 
