@@ -9,7 +9,7 @@ You can also build a kind of Terraform libraries, so named "modules". These modu
 
 ## Container Registry
 
-We will create a new folder called `module` and create some base files in there:
+We will create two new folders called `modules/acr` with `mkdir -p modules/acr` and create some base files in `acr`:
 
 main.tf
 ```bash
@@ -85,6 +85,16 @@ The important thing in modules is, you can abstract a lot of things which you no
 
 The usage of the created module would look like:
 ```bash
+module "acr" {
+    source   = "./modules/acr"
+    acr_name = <name>
+    rg_name  = <name>
+}
+
+output "acr_server" {
+    description = "acr server"
+    value       = module.acr.logon_server
+}
 ```
 
 
