@@ -1,13 +1,13 @@
 ---
-title: "Local states"
-weight: 11
-sectionnumber: 1.1
+title: "3. Local environment"
+weight: 3
+sectionnumber: 3
 ---
 
-In this Chapter we will leran the real bascis of terraform. You will understand how you can plan and apply your config. After all the work is done you will also learn how to destroy your content.
+Here you will understand how you can plan and apply your config. After all the work is done you will also learn how to destroy your content.
 
 
-## Creation
+## Task {{% param sectionnumber %}}.1: Creation
 
 We will start with a simple example by creating a ressource ...
 So start your editor of choice and insert the following lines:
@@ -19,10 +19,10 @@ resource "random_integer" "acr" {
 }
 ```
 
-Name the file `acr.tf`
+Name the file `main.tf`
 
 
-## Initialisation
+## Task {{% param sectionnumber %}}.2: Initialisation
 
 Lets create an initial local setup by running:
 
@@ -49,7 +49,7 @@ Terraform has been successfully initialized!
 ```
 
 
-## Planing
+## Task {{% param sectionnumber %}}.3: Planing
 
 The planing will help Terraform to understand your configuration and verfiy the content ruffly.
 
@@ -74,7 +74,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 
 
-## Applying
+## Task {{% param sectionnumber %}}.4: Applying
 
 After planing our content we will let Terraform create it by appliyng the configuration:
 
@@ -94,7 +94,20 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
 
-## Destruction
+## Task {{% param sectionnumber %}}.5: Local state
+
+After creating all the ressources you may ask now, wehre does Terraform has stored the data which has been created? As we are not in Cloud yet, where does your state live?
+
+```bash
+ls -l
+```
+
+You will find a file called `terraform.tfstate`. This file cointains all information about your whole Terraform run. Even your random number is saved here. Terraform will always have such a `tfstate` file to save all your configurations. It is used to compare your desired state against the real world.
+
+In the AKS chapter we will learn how save this file into cloud itself a why this is recommended.
+
+
+## Task {{% param sectionnumber %}}.6: Destruction
 
 There are different ways to get rid of your content.
 
@@ -107,3 +120,4 @@ terraform destroy
 ```
 
 You will again be asked, if you want destroy the content. After your decision the content has your desired state.
+

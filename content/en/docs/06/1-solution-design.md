@@ -1,21 +1,31 @@
 ---
-title: "Solution Design"
-weight: 21
-sectionnumber: 2.1
+title: "6.1 Solution Design"
+weight: 61
+sectionnumber: 6.1
 ---
 
 To understand what we are doing we will first have a look on the design we are creating.
 
-We will need the following objects:
+```mermaid
+graph TD
+  subgraph Kubernetes
+  AKS((AKS))
+  K5[Certmanager] --> AKS
+  K4[(Postgresql)]
+  K3[Awesome App] ---> K4
+  K1[Ingress] --> AKS
+  end
+  subgraph Foundations
+  F1[Container Registry] --> AKS
+  F2[Virtual Network] --> AKS
+  AKS --> F3[Log Analytics Workspace]
+  F4(AD Group) --> AKS
+  F5[Resource Group] --> AKS
+  end
+```
 
-* Azure Container Registry
-* Azure Kubernetes Cluster
-* NGINX Ingress Controller
 
-TODO: create a n awesome architecture graph ;)
-
-
-## Initialisation
+## Task {{% param sectionnumber %}}.1: Initialisation
 
 Again? Yes, but this time we won't save our state locally. We want to save the state in the cloud!
 But first, lets create a new folder name `azure` an change into it.

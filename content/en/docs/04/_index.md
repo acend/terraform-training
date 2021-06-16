@@ -1,13 +1,13 @@
 ---
-title: "Configuration"
-weight: 12
-sectionnumber: 1.2
+title: "4. Variables"
+weight: 4
+sectionnumber: 4
 ---
 
 Now it is time to add more configuration and some variables.
 
 
-## Configuration
+## Task {{% param sectionnumber %}}.1: Configuration
 
 Typically Terraform needs some basic config to work well. Here is an example:
 
@@ -21,7 +21,7 @@ terraform {
 }
 ```
 
-Save those informations in file named `main.tf`.
+Put this content into the head of the file `main.tf`.
 
 You can choose versions of different provides as well as Terraform itself. This is important for the usage in a production environment to be comprehensible.
 
@@ -30,7 +30,7 @@ The usage of an operator like `>=` can be dangerous as it can be use as a man in
 {{% /alert %}}
 
 
-## Variables
+## Task {{% param sectionnumber %}}.2: Variables
 
 Variables are used to have an input into the Terraform configuration. They are mandantory for the applying of the configuration. But you can also use pre-defined values to avoid an input interrupt.
 
@@ -56,7 +56,6 @@ resource "random_integer" "acr" {
 
 Now use Terraform to apply all the new files from this chapter:
 
-* `acr.tf`
 * `main.tf`
 * `variables.tf`
 

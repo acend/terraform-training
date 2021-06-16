@@ -1,13 +1,13 @@
 ---
-title: "Azure Kubernetes Service"
-weight: 23
-sectionnumber: 2.3
+title: "6.3 Azure Kubernetes Service"
+weight: 63
+sectionnumber: 6.3
 ---
 
 Now we have all sub ressources to create our AKS
 
 
-## Credentials
+## Task {{% param sectionnumber %}}.1: Credentials
 
 To get access to the AKS cluster we need to read the ad group. This group will be permitted to access AKS in a admin context:
 
@@ -20,7 +20,7 @@ data "azuread_group" "aks_admins" {
 ```
 
 
-## AKS
+## Task {{% param sectionnumber %}}.2: AKS
 
 To separate all types of ressources we will first create a ressource group again in the file `aks.tf`:
 
@@ -34,6 +34,14 @@ resource "azurerm_resource_group" "aks" {
 Then an "easy" example for an AKS cluster. Append it to the file `aks.tf` and let it apply:
 
 ```bash
+resource "azurerm_public_ip" "aks_lb_ingress" {
+  name                = "pip-${local.prefix}-aks-lb-ingress"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.aks.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "aks-${local.prefix}"
   location            = var.location
@@ -88,7 +96,7 @@ Wow, that's a tough one!
 If you check the blocks you can see, that every block contains the informations about objects we've created before. Apply it, and take a coffee.
 
 
-## Permissions
+## Task {{% param sectionnumber %}}.3: Permissions
 
 AKS needs an container registry. And AKS needs access to the other objects as well! Now we have to connect our AKS to the other objects by giving role permissions to it:
 

@@ -1,13 +1,13 @@
 ---
-title: "Provisioning Foundation"
-weight: 22
-sectionnumber: 2.2
+title: "6.2 Provisioning Foundation"
+weight: 62
+sectionnumber: 6.2
 ---
 
 Let's start with the things we need before we can create our cluster. After each step you can run `terraform apply` the check the outcome.
 
 
-## Terraform Azure config
+## Task {{% param sectionnumber %}}.1: Terraform Azure config
 
 Create a new basic `main.tf` file like from the chapter before in the `azure` folder. This time we will add the `azurerm` to configure our endpoints:
 
@@ -32,11 +32,11 @@ data "azurerm_subscription" "current" {}
 Terraform needs the provider information to load all possible objects of this provider in the `terraform init`. So run it:
 
 ```bash
-terraform init -backend-config=config/lab_backend.tfvars
+terraform init -backend-config=config/lab.tfvars
 ```
 
 
-## Resource group
+## Task {{% param sectionnumber %}}.2: Resource group
 
 In Azure everything is separated by resourcegroups (RG). A RG can have several objects which are grouped and combined. They can have single authorisation or an own cost budget.
 
@@ -50,7 +50,7 @@ resource "azurerm_resource_group" "default" {
 ```
 
 
-## Network
+## Task {{% param sectionnumber %}}.3: Network
 
 We also need a network for our cluster. This could be done by the AKS ressource as well, but here you can configure your network range which is maybe needed by your company as every application has its own network range.
 
@@ -81,7 +81,7 @@ resource "azurerm_subnet" "private" {
 Uff, that looks complicated! Can you figure out the meanings of it?
 
 
-## Azure container registry
+## Task {{% param sectionnumber %}}.4: Azure container registry
 
 For the use of container we will use the container registry from Azure itself.
 So let's create `acr.tf`:
@@ -102,7 +102,7 @@ resource "azurerm_container_registry" "aks" {
 ```
 
 
-## Log Analytics Workspace
+## Task {{% param sectionnumber %}}.5: Log Analytics Workspace
 
 Yes, there is another thing AKS need. Here AKS can save all his logs to review anything which happend:
 
@@ -122,4 +122,3 @@ resource "azurerm_log_analytics_workspace" "aks" {
   sku                 = "PerGB2018"
 }
 ```
-
