@@ -1,7 +1,7 @@
 ---
-title: "6.3 Azure Kubernetes Service"
-weight: 63
-sectionnumber: 6.3
+title: "8.3 Azure Kubernetes Service"
+weight: 83
+sectionnumber: 8.3
 ---
 
 Now we have all sub ressources to create our AKS

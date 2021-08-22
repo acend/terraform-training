@@ -1,61 +1,93 @@
 ---
-title: "7. Application Setup"
+title: "7. Condtionals"
 weight: 7
 sectionnumber: 7
 ---
 
-Now we have a running Kubernetes cluster let's deploy something!
+Sometimes you need more than on resource of a specific type. Here are some examples how to archive this function.
 
 
-## Connection
+## Task {{% param sectionnumber %}}.1: Multiple resources
 
-Check if we are able to connect and get some informations:
-
-```bash
-kubectl get nodes -o wide
-```
-
-Got an error? As expected. We need to get the credentials to your local system. You can do this by running:
+By adding the identifier `count` to any resource you will get back a tuple with all the results:
 
 ```bash
-az aks get-credentials --name xxx --resource-group xxx --subscription xxx
+resource "random_integer" "acr" {
+  count = 4
+  min = 1000
+  max = 9999
+}
+
+output "random_result_all" {
+    description = "example output"
+    value       = random_integer.acr
+}
+
+output "random_result_one" {
+    description = "example output"
+    value       = random_integer.acr[0].result
+}
 ```
 
-Now repeat the lines above. You will be asked to enter the login page with an digit code to verify your user. The output should be like:
+This example has not a big usage at all, but imagine you'll have to give one permission to a list of users. With count it would look like:
 
 ```
-NAME                              STATUS   ROLES   AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
-aks-default-33164174-vmss00000a   Ready    agent   1h    v1.20.7   10.240.0.4     <none>        Ubuntu 18.04.5 LTS   5.4.0-1048-azure   containerd://1.4.4+azure
-aks-default-33164174-vmss00000b   Ready    agent   1h    v1.20.7   10.240.0.105   <none>        Ubuntu 18.04.5 LTS   5.4.0-1048-azure   containerd://1.4.4+azure
+variable "user_groups" {
+  type        = list(string)
+  description = "user groups for permissions"
+  default     = ['user1', 'user2', 'user3']
+}
+
+resource "azurerm_role_assignment" "read_permission" {
+  count                = lenght(var.user_groups)
+  scope                = example.id
+  role_definition_name = "Read Permission"
+  principal_id         = var.user_groups[count.index]]
+}
 ```
 
 
-## Task {{% param sectionnumber %}}.1: Deployments
+## Task {{% param sectionnumber %}}.2: Optional resources
 
-To deploy our awesome application your need to run the following:
+It is a bit tricky to create those type of function. Therefore we can use the `count` operator as well to enable or disable resources based on a variable (feature token):
 
 ```bash
-kubectl create deployment example-web-python --image=quay.io/acend/example-web-python
-kubectl expose deployment example-web-python --type="LoadBalancer" --name="example-web-python" --port=5000 --target-port=5000
+variable "random_enabled" {
+  type        = bool
+  description = "enable random number"
+  default     = true
+}
+
+locals {
+    random_enabled = var.random_enabled == true ? 1 : 0
+}
+
+resource "random_integer" "acr" {
+  count = local.random_enabled
+  min   = 1000
+  max   = 9999
+}
 ```
 
-We won't go into details over here. Because you should learn Terrafrom instead.
+Other resources could react on this to create, or not, resources based on this information.
 
 
-## Task {{% param sectionnumber %}}.2: Access the Application
+## Task {{% param sectionnumber %}}.3: Loops
 
-After the deplyoment has been placed we can now try to access it over the IP adress. We can get this information by get some details about the service:
-
-```bash
-kubectl get service example-web-python -o wide
-```
+There are "real" loops as well. But there are only working with `sets` or `maps` as their content is unique. Here just an example how to create a list of users:
 
 ```
-NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)             AGE
-example-web-python   LoadBalancer   10.243.223.12    20.50.241.69   5000:31662/TCP      14m
+variable "user_names" {
+  description = "IAM usernames"
+  type        = set(string)
+  default     = ["user1", "user2", "user3"]
+}
+
+resource "azuread_user" "users" {
+  for_each            = var.user_names
+  user_principal_name = "${each.value}@examle.onmicrosoft.com"
+  display_name        = each.value
+  password            = random_password.example.result
+}
 ```
-
-In the field `EXTERNAL-IP` you have your public IP to access the application. If the IP is missing, you may have to wait some more seconds. Repeat the command to see if it is there.
-
-Now open the browser, enter the IP and the correct port, and see the awesome application.
 

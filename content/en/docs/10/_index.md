@@ -1,109 +1,89 @@
 ---
-title: "10. Terraform Modules"
+title: "10. Database Setup"
 weight: 10
 sectionnumber: 10
 ---
 
-You can also build a kind of Terraform libraries, so named "modules". These modules can be reused if they are build well.
+What would an application without a database in the cloud?
+
+In this chapter we are going to create a mariadb in azure and connect our application to it.
 
 
-## Container Registry
+## Task {{% param sectionnumber %}}.1: Create a MariaDB server
 
-We will create two new folders called `modules/acr` with `mkdir -p modules/acr` and create some base files in `acr`:
+Azure comes with a build service for a MariaDB. With the help of Terraform we can easy create a server and a database. Save the content to `mariadb.tf` and apply it:
 
-main.tf
 ```bash
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=2.46.0"
-    }
-  }
-}
-```
-
-acr.tf
-```bash
-resource "random_integer" "acr" {
-  max = 1000
-  min = 9999
+locals {
+  mariadb_name = "acendexampledb"
+  mariadb_user = "acend-user"
+  mariadb_pass = "mysqlpassword"
 }
 
-resource "azurerm_container_registry" "acr" {
-  name                = "cr${var.acr_name}${random_integer.acr.result}"
-  location            = var.location
-  resource_group_name = var.rg_name
-  admin_enabled       = true
-  sku                 = "standard"
-}
-```
+resource "azurerm_mariadb_server" "mariadb" {
+  name                = "mdb-${local.prefix}"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
 
-variables.tf
-```bash
-variable "acr_name" {
-  type        = string
-  description = "base name for acr"
-}
+  sku_name = "B_Gen5_1"
 
-variable "rg_name" {
-  type        = string
-  description = "ressource group for acr"
+  storage_mb                   = 5120
+  backup_retention_days        = 7
+  geo_redundant_backup_enabled = false
+
+  administrator_login          = local.mariadb_user
+  administrator_login_password = local.mariadb_pass
+  version                      = "10.2"
+  ssl_enforcement_enabled      = false
 }
 
-variable "location" {
-  type        = string
-  default     = "westeurope"
-  description = "default location to westeurope"
-}
-```
-
-outputs.tf
-```bash
-output "login_server" {
-    description = "the acr login server"
-    value       = azurerm_container_registry.acr.login_server
+resource "azurerm_mariadb_database" "awesomeapp" {
+  name                = local.mariadb_name
+  resource_group_name = azurerm_resource_group.default.name
+  server_name         = azurerm_mariadb_server.mariadb.name
+  charset             = "utf8"
+  collation           = "utf8_general_ci"
 }
 
-output "username" {
-    description = "acr username"
-    value       = azurerm_container_registry.acr.login_server
-    sensitive   = true
+resource "azurerm_mariadb_firewall_rule" "aks-mariadb" {
+  name                = "acend-db-rule"
+  resource_group_name = azurerm_resource_group.default.name
+  server_name         = azurerm_mariadb_server.mariadb.name
+  start_ip_address    = azurerm_public_ip.aks_lb_ingress.ip_address
+  end_ip_address      = azurerm_public_ip.aks_lb_ingress.ip_address
 }
 
-output "password" {
-    description = "acr password"
-    value       = azurerm_container_registry.acr.admin_password
-    sensitive   = true
+output "mariadb_name" { value = local.mariadb_name }
+output "mariadb_user" { value = local.mariadb_user }
+output "mariadb_pass" { value = local.mariadb_pass }
+output "mariadb_uri" {
+    value = "mysql://${local.mariadb_user}:${local.mariadb_pass}@${azurerm_mariadb_server.mariadb.fqdn}/${local.mariadb_name}
 }
 ```
 
 
-## Input/Outputs
+## Task {{% param sectionnumber %}}.2: Attach the database to the application
 
-The important thing in modules is, you can abstract a lot of things which you normally would have to configure.
+By default, our `example-web-python` application uses an SQLite memory database. However, this can be changed by defining the following environment variable(`MYSQL_URI`) to use the newly created MariaDB database:
 
-The usage of the created module would look like:
-```bash
-module "acr" {
-    source   = "./modules/acr"
-    acr_name = <name>
-    rg_name  = <name>
-}
-
-output "acr_server" {
-    description = "acr server"
-    value       = module.acr.logon_server
-}
+```
+#MYSQL_URI=mysql://<user>:<password>@<host>/<database>
+MYSQL_URI=mysql://acend-user:mysqlpassword@fqdn/acendexampledb
 ```
 
+The connection string our `example-web-python` application uses to connect to our new MariaDB, is a concatenated string from the values of the `mariadb` Secret.
 
-## Change our base
+The following commands set the environment variables for the deployment configuration of the `example-web-python` application
 
-Now change our existing acr config to use the module instead of the direct usage.
+```bash
+kubectl create secret generic mariadb --from-literal=database-name=$(terraform output -raw mariadb_name) --from-literal=database-password=$(terraform output -raw mariadb_pass) --from-literal=database-user=$(terraform output -raw mariadb_user)
+kubectl set env --from=secret/mariadb --prefix=MYSQL_ deploy/example-web-python
+kubectl set env deploy/example-web-python MYSQL_URI=$(terraform output -raw mariadb_uri)
+```
 
+The first command inserts the values from the Secret, the second finally uses these values to put them in the environment variable `MYSQL_URI` which the application considers.
 
-## Final thougths
-
-Remember the huge AKS file we wrote? Imagine you would put that in module for your developers. They could easyly create an AKS cluster an maintain only those parts they really need, like vm size etc. ...
+{{% alert title="Info" color="secondary" %}}
+If we would have deployed our awesome app by Terraform we wouldn't need all the output parameters. Do you know why?
+{{% /alert %}}
 

@@ -1,7 +1,7 @@
 ---
-title: "6.1 Solution Design"
-weight: 61
-sectionnumber: 6.1
+title: "8.1 Solution Design"
+weight: 81
+sectionnumber: 8.1
 ---
 
 To understand what we are doing we will first have a look on the design we are creating.
@@ -48,7 +48,7 @@ az storage container create --resource-group rg-terraform-$NAME --account-name t
 
 Now we can configure Terraform to use this storage account to save the state file remotly. Let's create the config ...
 
-Create a folder called `config` and save the following content to a file named `lab_backend.tfvars` in the `config` directory
+Create a folder called `config` and save the following content to a file named `lab.tfvars` in the `config` directory
 
 ```bash
 subscription_id      = "<given-by-trainer>"
