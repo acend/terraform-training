@@ -14,7 +14,7 @@ We will create another file called `outputs.tf`. Here we will list all the conte
 ```bash
 output "random_result" {
     description = "random string created by terraform"
-    value       = random_string.random
+    value       = random_integer.acr.result
 }
 ```
 
@@ -36,7 +36,19 @@ terraform output -raw random_result
 Can you see the different between those outputs?
 
 
-## Task {{% param sectionnumber %}}.2: Taint
+## Task {{% param sectionnumber %}}.2: Write content
+
+If you need the created random number in a file, hang on:
+
+```bash
+resource "local_file" "random" {
+    content     = random_integer.acr.result
+    filename = "random.txt"
+}
+```
+
+
+## Task {{% param sectionnumber %}}.3: Taint
 
 This command can be used to mark an object as "damaged". Do so, causes Terraform to replace the project on the next apply:
 
@@ -53,7 +65,7 @@ terraform apply -replace="random_string.acr"
 The random number should now be recreated.
 
 
-## Task {{% param sectionnumber %}}.3: Untaint
+## Task {{% param sectionnumber %}}.4: Untaint
 
 You are also able to untaint your tained object by:
 
