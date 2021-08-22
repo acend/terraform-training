@@ -1,7 +1,7 @@
 ---
-title: "6.4 Addon Services"
-weight: 64
-sectionnumber: 6.4
+title: "8.4 Addon Services"
+weight: 84
+sectionnumber: 8.4
 ---
 
 To get a full working Kubernetes cluster we need some last steps to deploy some components:

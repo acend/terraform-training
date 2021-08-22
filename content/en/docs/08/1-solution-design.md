@@ -1,7 +1,7 @@
 ---
-title: "6.1 Solution Design"
-weight: 61
-sectionnumber: 6.1
+title: "8.1 Solution Design"
+weight: 81
+sectionnumber: 8.1
 ---
 
 To understand what we are doing we will first have a look on the design we are creating.

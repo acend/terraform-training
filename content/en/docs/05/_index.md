@@ -13,7 +13,7 @@ We will create another file called `outputs.tf`. Here we will list all the conte
 
 ```bash
 output "random_result" {
-    description = "random string created by terraform"
+    description = "random value created by terraform"
     value       = random_integer.acr.result
 }
 ```

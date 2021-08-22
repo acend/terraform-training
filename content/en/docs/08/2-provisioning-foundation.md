@@ -1,7 +1,7 @@
 ---
-title: "6.2 Provisioning Foundation"
-weight: 62
-sectionnumber: 6.2
+title: "8.2 Provisioning Foundation"
+weight: 82
+sectionnumber: 8.2
 ---
 
 Let's start with the things we need before we can create our cluster. After each step you can run `terraform apply` the check the outcome.

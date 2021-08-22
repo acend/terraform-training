@@ -1,111 +1,61 @@
 ---
-title: "9. Advanced Terraform Operations"
+title: "9. Application Setup"
 weight: 9
 sectionnumber: 9
 ---
 
-There are many more topics regarding Terraform. Here we will have look over some of them:
-
-* state inspection
-* state remove
-* import
-* debugging
-* tflint
+Now we have a running Kubernetes cluster let's deploy something!
 
 
-## Task {{% param sectionnumber %}}.1: State Inspection
+## Connection
 
-As you have learned, the Terraform state represents the applied objects which have been successfully applied. Here is the example from our first applied config:
+Check if we are able to connect and get some informations:
 
-```
-{
-  "version": 4,
-  "terraform_version": "1.0.0",
-  "serial": 1,
-  "lineage": "e16466b0-a1f7-f0d0-ac77-263f52a3a511",
-  "outputs": {},
-  "resources": [
-    {
-      "mode": "managed",
-      "type": "random_integer",
-      "name": "acr",
-      "provider": "provider[\"registry.terraform.io/hashicorp/random\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "id": "1073",
-            "keepers": null,
-            "max": 9999,
-            "min": 1000,
-            "result": 1073,
-            "seed": null
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA=="
-        }
-      ]
-    }
-  ]
-}
+```bash
+kubectl get nodes -o wide
 ```
 
-You see a normal JSON file which contains every needed information.
+Got an error? As expected. We need to get the credentials to your local system. You can do this by running:
 
-{{% alert title="Warning" color="secondary" %}}
-This file should be handled as sensible data, as it can contain passwords as well! Nobody should access it, expect Terraform itself!
-{{% /alert %}}
-
-
-## Task {{% param sectionnumber %}}.2: Remove States from file
-
-Now remove the line "result" from this file and apply again, what happend? Terraform won't update the result field again! Because everything is done from his perspective. Try to delete the complete field of the `acr` resource in the file.
-
-If you that is tricky, you are right. And that is why you should try to edit this state file. Instead use `terraform destroy` or delete the resource file in the folder.
-
-{{% alert title="Hint" color="secondary" %}}
-By delete the line with the `id`, Terraform will re-create the whole resource.
-{{% /alert %}}
-
-
-## Task {{% param sectionnumber %}}.3: Import
-
-Sometimes you have already created resources in your environment. By describing them afterwards in a Terraform config, Terraform will complain this resources exist already. If you are not able to delete for re-creation you can import it in the actual state file.
-
-For more informations check out this HashiCorp Learn example: https://learn.hashicorp.com/tutorials/terraform/state-import?in=terraform/state
-
-
-## Task {{% param sectionnumber %}}.4: Debugging
-
-
-## Task {{% param sectionnumber %}}.5: Linting
-
-The use of linting your Terraform config is always a good thing. You can define rules for naming conventions and force people to write readable code.
-
-One example is `tflint` (https://github.com/terraform-linters/tflint). It has a small binary which can be included everywhere and executes fast. Here an output of our simple example from above by running `tflint .`:
-
-```
-2 issue(s) found:
-
-Warning: terraform "required_version" attribute is required (terraform_required_version)
-
-  on  line 0:
-   (source code not available)
-
-Reference: https://github.com/terraform-linters/tflint/blob/v0.29.0/docs/rules/terraform_required_version.md
-
-Warning: Missing version constraint for provider "random" in "required_providers" (terraform_required_providers)
-
-  on main.tf line 1:
-   1: resource "random_integer" "acr" {
-
-Reference: https://github.com/terraform-linters/tflint/blob/v0.29.0/docs/rules/terraform_required_providers.md
+```bash
+az aks get-credentials --name xxx --resource-group xxx --subscription xxx
 ```
 
-You see 2 warnings:
+Now repeat the lines above. You will be asked to enter the login page with an digit code to verify your user. The output should be like:
 
-* terraform_required_version is missing
-* terraform_required_providers is missing
+```
+NAME                              STATUS   ROLES   AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
+aks-default-33164174-vmss00000a   Ready    agent   1h    v1.20.7   10.240.0.4     <none>        Ubuntu 18.04.5 LTS   5.4.0-1048-azure   containerd://1.4.4+azure
+aks-default-33164174-vmss00000b   Ready    agent   1h    v1.20.7   10.240.0.105   <none>        Ubuntu 18.04.5 LTS   5.4.0-1048-azure   containerd://1.4.4+azure
+```
 
-This is because of the default recommandation to declare and versionize everything correctly. Make the linter happy!
+
+## Task {{% param sectionnumber %}}.1: Deployments
+
+To deploy our awesome application your need to run the following:
+
+```bash
+kubectl create deployment example-web-python --image=quay.io/acend/example-web-python
+kubectl expose deployment example-web-python --type="LoadBalancer" --name="example-web-python" --port=5000 --target-port=5000
+```
+
+We won't go into details over here. Because you should learn Terrafrom instead.
+
+
+## Task {{% param sectionnumber %}}.2: Access the Application
+
+After the deplyoment has been placed we can now try to access it over the IP adress. We can get this information by get some details about the service:
+
+```bash
+kubectl get service example-web-python -o wide
+```
+
+```
+NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)             AGE
+example-web-python   LoadBalancer   10.243.223.12    20.50.241.69   5000:31662/TCP      14m
+```
+
+In the field `EXTERNAL-IP` you have your public IP to access the application. If the IP is missing, you may have to wait some more seconds. Repeat the command to see if it is there.
+
+Now open the browser, enter the IP and the correct port, and see the awesome application.
 
