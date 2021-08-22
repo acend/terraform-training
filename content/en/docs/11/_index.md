@@ -77,6 +77,18 @@ For more informations check out this HashiCorp Learn example: https://learn.hash
 
 ## Task {{% param sectionnumber %}}.4: Debugging
 
+{{% alert title="info" color="secondary" %}}
+As Terraform is really noisy, you should be able to resolve issues by the error message.
+{{% /alert %}}
+
+By setting the system env variable `TF_LOG`, Terraform will provide much more information about what's going on. Log Leves are:
+
+* TRACE, DEBUG, INFO, WARN or ERROR
+
+```bash
+export TF_LOG="DEBUG"
+```
+
 
 ## Task {{% param sectionnumber %}}.5: Linting
 
