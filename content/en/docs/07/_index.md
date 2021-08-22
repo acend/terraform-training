@@ -7,7 +7,6 @@ sectionnumber: 7
 Sometimes you need more than on resource of a specific type. Here are some examples how to archive this function.
 
 
-
 ## Task {{% param sectionnumber %}}.1: Multiple resources
 
 By adding the identifier `count` to any resource you will get back a tuple with all the results:
