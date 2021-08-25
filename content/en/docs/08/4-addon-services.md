@@ -49,6 +49,7 @@ resource "azurerm_dns_a_record" "aksdns" {
 }
 ```
 
+
 ## Task {{% param sectionnumber %}}.3: Ingress
 
 The ingress allow us to route traffic coming from url's like http://app.labz.ch to a service in Kubernetes. Create the config in the file `ingress.tf`
