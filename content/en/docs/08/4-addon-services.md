@@ -35,7 +35,22 @@ provider "helm" {
 ```
 
 
-## Task {{% param sectionnumber %}}.2: Ingress
+## Task {{% param sectionnumber %}}.2: DNS Entry
+
+To address our workload in the AKS, we are setting the Load Balancer IP from AKS in an own DNS Record:
+
+```bash
+resource "azurerm_dns_a_record" "aksdns" {
+  name                = "arec-${local.prefix}-dns"
+  zone_name           = "labz.ch"
+  resource_group_name = "rg-labz-dnszone"
+  ttl                 = 300 
+  records             = [azurerm_public_ip.aks_lb_ingress.ip_address]
+}
+```
+
+
+## Task {{% param sectionnumber %}}.3: Ingress
 
 The ingress allow us to route traffic coming from url's like http://app.labz.ch to a service in Kubernetes. Create the config in the file `ingress.tf`
 
@@ -75,7 +90,7 @@ resource "helm_release" "nginx_ingress" {
 ```
 
 
-## Task {{% param sectionnumber %}}.3: Certificate Manager
+## Task {{% param sectionnumber %}}.4: Certificate Manager
 
 This manager is able to interact with "Let's Encrypt" to sign valid certitifcates in a public envirnoment. To `certmanager.tf`:
 
@@ -90,7 +105,7 @@ resource "helm_release" "cert_manager" {
   name         = "cert-manager"
   repository   = "https://charts.jetstack.io"
   chart        = "cert-manager"
-  version      = "1.3.1"
+  version      = "1.5.1"
   namespace    = kubernetes_namespace.cert_manager.metadata.0.name
   atomic       = true
   reset_values = true
