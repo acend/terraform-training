@@ -41,7 +41,7 @@ To address our workload in the AKS, we are setting the Load Balancer IP from AKS
 
 ```bash
 resource "azurerm_dns_a_record" "aksdns" {
-  name                = "<your-name>" 
+  name                = "arec-${local.prefix}-dns"
   zone_name           = "labz.ch"
   resource_group_name = "rg-labz-dnszone"
   ttl                 = 300 
