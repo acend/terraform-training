@@ -15,21 +15,19 @@ cd multi_env
 
 ## Step 1: Define variable and output
 
-Create a new file named `variable.tf` and paste the following content:
-
+Create a new file named `variables.tf` and add the following content:
 ```terraform
 variable "environment" {}
 ```
 
-Create a new file named `variable.tf` and paste the following content:
-
+Create a new file named `variables.tf` and add the following content:
 ```terraform
 output "current_env" {
   value = var.environment
 }
 ```
 
-Create a new file named `main.tf` and paste the following content:
+Create a new file named `main.tf` and add the following content:
 
 ```terraform
 terraform {
@@ -39,24 +37,24 @@ terraform {
 
 ### Explanation
 
-The backend of type `local` is declared but missing the `path` argument; this is a partial configuration.
+The backend of type `local` is declared but missing the `path` argument; this is a so-called "partial configuration".
 The missing argument will be added via a config file.
 
 
 ## Step 2: Offload configuration to separate files
 
-It is best practice to separate configuration from the HCL code. For this purpose we create a dedicated directory:
+It is best practice separating configuration from HCL code. For this purpose we create a dedicated directory:
 ```bash
 mkdir config
 ```
 
-Create a new file named `config/dev.tfvars` and paste the following content:
+Create a new file named `config/dev.tfvars` and add the following content:
 ```terraform
 environment = "dev"
 ```
 
 
-Create a new file named `config/dev_backend.tfvars` and paste the following content:
+Create a new file named `config/dev_backend.tfvars` and add the following content:
 ```terraform
 path = "dev.tfstate"
 ```
@@ -94,12 +92,12 @@ used to provision different environments like dev, test, prod.
 
 To add another set of configuration for a "production" environment, lets just add two more files:
 
-Create a new file named `config/prod.tfvars` and paste the following content:
+Create a new file named `config/prod.tfvars` and add the following content:
 ```terraform
 environment = "prod"
 ```
 
-Create a new file named `config/prod_backend.tfvars` and paste the following content:
+Create a new file named `config/prod_backend.tfvars` and add the following content:
 ```terraform
 path = "prod.tfstate"
 ```

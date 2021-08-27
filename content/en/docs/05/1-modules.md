@@ -48,7 +48,7 @@ output "filename" {
 
 ### Explanation
 
-It is common practive to implement a module with these three files:
+It is common practice implementing a module with these three files:
 - `main.tf`
 - `variables.tf`
 - `outputs.tf`
@@ -88,4 +88,4 @@ terraform apply
 ### Explanation
 
 We instantiate the `random_file` module two times and specify different parameters. The output `filenames` prints
-the the randomly generated filenames.
+the randomly generated filenames.

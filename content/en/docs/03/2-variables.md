@@ -14,16 +14,16 @@ cd variables
 
 ## Step 1: Create variables.tf and main.tf
 
-Create a new file named `variables.tf` in your working directory and paste the following:
+Create a new file named `variables.tf` in your working directory and add the following content:
 ```terraform
 variable "random_min_value" {
   type        = number
   default     = 1000
-  description = "define the min value of the random number"
+  description = "min value of the random number"
 }
 ```
 
-Create a new file named `main.tf` in your working directory and paste the following:
+Create a new file named `main.tf` in your working directory and add the following content:
 ```terraform
 resource "random_integer" "number" {
   min = var.random_min_value
@@ -33,9 +33,10 @@ resource "random_integer" "number" {
 
 ### Explanation
 
-It is best practice to put all required input variables in the file `variables.tf`.
+It is best practice putting all required input variables in the file `variables.tf`.
 
-The `type` and `description` arguments are optional but good practice.
+The `type` and `description` arguments are optional but good practice; don't overdo the `description` tho,
+nobody really reads it...
 
 
 ## Step 2: Apply the configuration
@@ -48,13 +49,13 @@ terraform apply
 
 ## Step 3: Change the default value
 
-Now to see how Terraform applies changes to your configuration,
-change the default value of `random_min_value` to `2000`:
+To see how Terraform applies changes to your existing resources,
+change the `default` value of `random_min_value` to `2000`:
 ```terraform
 variable "random_min_value" {
   type        = number
   default     = 1000
-  description = "define the min value of the random number"
+  description = "min value of the random number"
 }
 ```
 
@@ -63,9 +64,9 @@ Then run the command
 terraform apply
 ```
 
-And terraform will display the required changes to create the configured state. 
+And terraform will display the required changes to create the state in your code. 
 You will see a similar plan like this:
-```bash
+```
 random_integer.number: Refreshing state... [id=8731]
 
 Terraform used the selected providers to generate the following

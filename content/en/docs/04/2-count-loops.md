@@ -105,6 +105,5 @@ resource "local_file" "cloud_godfathers" {
 
 ### Explanation
 
-
-The `for_each` loop sets the `key` and `value` attributes of the `each` iterator according to the map values.
+The `for_each` loop sets the `key` and `value` attributes of the iterator `each` according to the map items.
 This construct allows the dynamic creation of resources based on a variable.

@@ -60,7 +60,7 @@ This structure allows provisioning of the same infrastructure in different subsc
 files.
 
 The `location` argument defines in which Azure region the resources shall be deployed. We choose `westeurope` which is
-the Netherlands because it is amongst the cheapest in Europe.
+the Netherlands because it is amongst the cheapest regions in Europe.
 
 
 ## Step 2: Add a virtual network and subnet
@@ -88,7 +88,7 @@ resource "azurerm_subnet" "private" {
 }
 ```
 
-Add the following content to the end of `variables.tf`:
+Append the following content to the end of `variables.tf`:
 ```terraform
 variable "network_cidrs" {
   default = {
@@ -120,7 +120,7 @@ The optional `type` identifier or the variable enforces a specific structure, pr
 
 ## Step 3: Add an Analytics Workspace
 
-We an Analytics Workspace to capture the Kubernetes logs and metrics.
+We add an Analytics Workspace to capture the Kubernetes logs and metrics.
 
 Create a new file named `aks.tf` and add the following content:
 ```terraform

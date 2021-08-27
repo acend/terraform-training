@@ -14,7 +14,7 @@ cd backend_state
 
 ## Step 1: Define a backend
 
-Create a new file named `main.tf` and paste the following content:
+Create a new file named `main.tf` and add the following content:
 ```terraform
 terraform {
   backend "local" {
@@ -51,7 +51,7 @@ Run the following command to show a specific resource in the state:
 terraform state show random_password.super_secret
 ```
 
-**Advanced:** Runt he following command to fetch the raw JSON terraform state:
+**Advanced:** Run the following command to fetch the raw JSON terraform state:
 ```bash
 terraform state pull
 ```

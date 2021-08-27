@@ -13,7 +13,7 @@ cd variables
 
 ## Step 1: Create outputs.tf
 
-Create a new file named `outputs.tf` in your working directory and paste the following:
+Create a new file named `outputs.tf` in your working directory and add the following content:
 ```terraform
 output "number" {
   value = random_integer.number.result
@@ -57,7 +57,7 @@ terraform output number
 terraform output -raw number
 ```
 
-Can you spot the difference between the ouputs?
+Can you spot the difference between the outputs?
 
 ## Step 4: Handling sensitive output
 
@@ -83,4 +83,4 @@ You can also print the the output in json format and use tools like `jq` to proc
 terraform output -json | jq '.number.value'
 ```
 
-This is useful when handling large data structures.
+This is useful when handling large JSON data structures.

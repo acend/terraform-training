@@ -37,11 +37,11 @@ terraform {
 With multiple engineers working on the same infrastructure code base, it is inevitable to have different versions of
 the Terraform CLI installed.
 
-Furthermore are Terraform providers under heavy development and have new features added daily. This rapid development
+Furthermore, are Terraform providers under heavy development and have new features added daily. This rapid development
 can lead to incompatibilities and trigger regressions; neither are desirable in a production environment
 
-It is best practice to pin the Terraform CLI and provider versions to a specific release. This ensures a controlled
-version management and planned upgrade.
+It is best practice to lock the Terraform CLI and provider versions to a specific release. This ensures a controlled
+version management and planned upgrades.
 
 ## Step 2: Init Terraform
 

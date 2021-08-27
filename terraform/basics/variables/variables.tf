@@ -5,5 +5,5 @@ locals {
 variable "random_min_value" {
   type        = number
   default     = 1000
-  description = "define the min value of the random number"
+  description = "min value of the random number"
 }

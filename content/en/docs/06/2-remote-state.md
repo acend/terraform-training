@@ -6,9 +6,8 @@ sectionnumber: 6.2
 
 ## Step 1: Create a storage 
 
-The Azure storage account and storage container to store the Terraform state are not managed by Terraform; its a 
-chicken and egg problem we solve by using the `az` CLI as followed:
-
+The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a 
+chicken and egg problem we resolve by using the `az` CLI as followed:
 ```bash
 export NAME=YOUR_USERNAME
 export ACCOUNT=tfstate$RANDOM
@@ -23,7 +22,6 @@ echo $ACCOUNT
 ## Step 2: Configure the Terraform backend
 
 Add the following content to the **start** of `main.tf`:
-
 ```terraform
 terraform {
   backend "azurerm" {}
@@ -72,7 +70,6 @@ the name.
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
 to avoid uncontrolled version upgrades.
-
 ```terraform
 terraform {
 required_version = "= 1.0.5"

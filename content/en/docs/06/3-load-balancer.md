@@ -7,7 +7,6 @@ sectionnumber: 6.3
 ## Step 1: Create a kubernetes namespace
 
 Add the following content below the existing `provider` block of `main.tf`:
-
 ```terraform
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.aks.kube_admin_config.0.host
@@ -119,7 +118,6 @@ for this lab.
 ## Step 4: Configure DNS
 
 Create a new file named `dns.tf` and add the following content:
-
 ```terraform
 data "azurerm_dns_zone" "parent" {
   name                = "labz.ch"

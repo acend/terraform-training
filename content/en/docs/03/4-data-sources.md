@@ -35,10 +35,10 @@ terraform init
 terraform apply
 ```
 
-You will see on the console that the resource `random_integer.number` is created **before**
+You will see on the console the resource `random_integer.number` is created **before**
 the `local_file.random` because the `result` attribute of the random integer is passed as content.
 
-This shows the dependecy tracking of Terraform in action.
+This shows the dependency tracking and resolution of Terraform in action.
 
 ## Step 3: Taint a resource
 
@@ -51,7 +51,7 @@ other depending resources!
 terraform taint random_string.number
 ```
 
-Since Terraform 0.15.2 you also can do this with the option `-replace <terraform object name>` e.g:
+Since Terraform 0.15.2 you also can do this with the option `-replace <terraform object name>`:
 ```bash
 terraform apply -replace="random_string.number"
 ```
@@ -72,14 +72,14 @@ data "local_file" "propaganda" {
 }
 ```
 
-Create a new file `outputs.tf` and add the following code:
+Create a new file `outputs.tf` and add the following content:
 ```terraform
 output "propaganda" {
   value = data.local_file.propaganda.content_base64
 }
 ```
 
-Run the following command:
+Run the command:
 ```bash
 terraform apply
 ```
@@ -89,7 +89,7 @@ And you should see the base64 encoded version of our referenced file `propaganda
 ### Explanation
 
 The `data` keyword references objects not managed by this terraform stack (code base).
-This is common and very useful in cloud engineering to reference already existing infrastrucutre
+This is common and very useful in cloud engineering to reference already existing infrastructure
 components like manually added DNS zones or resources managed by another Terraform stack!
 
 ## Try it out!

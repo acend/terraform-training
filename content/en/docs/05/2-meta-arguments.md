@@ -15,7 +15,7 @@ cd meta_arguments
 ## Step 1: Missing dependency
 
 Sometimes Terraform can not imply the dependency between resources explicitly. For such cases, a dependency
-is defines to one or multiple resources or data sources. Consider the following snippets. 
+is added to one or multiple resources or data sources. Consider the following snippets. 
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
@@ -56,7 +56,7 @@ the file does not exist yet and Terraform fails.
 
 ## Step 2: Explicit dependency
 
-Change `local_file.reference` with the following content:
+Change the resource `local_file.reference` as followed:
 ```terraform
 data "local_file" "reference" {
   filename = "foobar.txt"
@@ -85,7 +85,7 @@ terraform apply
 
 Terraform will restore the file `foobar.txt` to the configuration defined in the code. All good!
 
-But sometimes we don't want that behaviour - we wan't to **ignore** the content.
+But sometimes we don't want that behaviour - we want to **ignore** the content.
 Luckily Terraform offers another meta-argument for this purpose.
 
 Change the resource `local_file.foobar_txt` as followed:
