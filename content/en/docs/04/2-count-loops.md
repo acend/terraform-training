@@ -8,18 +8,20 @@ sectionnumber: 4.2
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir count_loops
 cd count_loops
 ```
 
 
-## Step 1: Conditional resource
+## Step {{% param sectionnumber %}}.1: Conditional resource
 
 By adding the identifier `count` to a resource, you can either make the resource conditional or
 create multiple instances.
 
 Create a new file named `elvis.tf` in your working directory and paste the following:
+
 ```terraform
 locals {
   create_password = false
@@ -43,11 +45,12 @@ The `count` identifier is (ab)used to create 0 instances of `random_password`. I
 resource turns into an array and has to be referenced using the `.0` index.
 
 
-## Step 2: Multiple resources using count
+## Step {{% param sectionnumber %}}.2: Multiple resources using `count`
 
 Multiple resources can be instantiated by increasing the `count` value.
 
 Create a new file named `multiple.tf` in your working directory and paste the following:
+
 ```terraform
 resource "random_uuid" "ids" {
   count  = 8
@@ -84,12 +87,13 @@ Having `count = 8` creates 8 UUID instances. The wildcard selector `*` can be us
 of all instances and create a list; see the generated output.
 
 
-## Step 3: Multiple resources using for_each
+## Step {{% param sectionnumber %}}.3: Multiple resources using `for_each`
 
 Multiple resources can also be instantiated by using a `set` or a `map`. The identifier `for_each` is loops over
 the entries of the collection and exposes the entry of the iteration.
 
 Add the following content to the end of the file `multiple.tf`:
+
 ```terraform
 locals {
   files = {

@@ -8,15 +8,17 @@ sectionnumber: 4.1
 ## Preparation
 
 Finish the "Data Sources" exercise and copy the directory:
+
 ```bash
 cp -r ../basics/data_sources versions
 cd versions
 ```
 
 
-## Step 1: Create versions.tf
+## Step {{% param sectionnumber %}}.1: Create versions.tf
 
 Create a new file named `versions.tf` and add the following content:
+
 ```terraform
 terraform {
   required_version = "= 1.0.5"
@@ -47,9 +49,10 @@ It is best practice to lock the Terraform CLI and provider versions to a specifi
 version management and planned upgrades.
 
 
-## Step 2: Init Terraform
+## Step {{% param sectionnumber %}}.2: Init Terraform
 
 Now delete the existing terraform providers and lock files (optional), init the stack and apply it by running:
+
 ```bash
 rm -r .terraform/ .terraform.lock.hcl
 terraform init
@@ -57,12 +60,15 @@ terraform apply
 ```
 
 
-## Step 3: Terraform code formatting
+## Step {{% param sectionnumber %}}.3: Terraform code formatting
 
 Terraform offers a command to format all files according to HashiCorp guidelines by running the following command:
+
 ```bash
 terraform fmt -recursive
 ```
 
-**Note:** Most IDEs offer HCL formatting but it differs from the HashiCorp guidelines. It is recommended to use the
+{{% alert title="Note" color="primary" %}}
+Most IDEs offer HCL formatting but it differs from the HashiCorp guidelines. It is recommended to use the
 `terraform fmt` command for compliance.
+{{% /alert %}}
