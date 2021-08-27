@@ -12,6 +12,7 @@ We will learn how to configure the Azure provider and provision resources in a s
 **Goal:** Deploy a HTTPS application on Kubernetes which writes to a database
 
 Main components:
+
 * Kubernetes Cluster (AKS, Azure Kubernetes Service)
 * Log Analytics Workspace
 * Docker container registry (ACR)

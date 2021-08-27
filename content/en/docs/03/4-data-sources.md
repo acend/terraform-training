@@ -99,7 +99,7 @@ This is common and very useful in cloud engineering to reference already existin
 components like manually added DNS zones or resources managed by another Terraform stack!
 
 
-## Try it out!
+## Try it out
 
 You can run the following command to base64 decode the output:
 ```bash

@@ -82,7 +82,7 @@ terraform output number
 ```
 
 
-## Try it out!
+## Try it out
 
 You can also print the the output in json format and use tools like `jq` to process it further:
 ```bash

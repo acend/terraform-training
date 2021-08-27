@@ -13,6 +13,7 @@ mkdir multi_env
 cd multi_env
 ```
 
+
 ## Step 1: Define variable and output
 
 Create a new file named `variables.tf` and add the following content:
@@ -86,7 +87,7 @@ current_env = "dev"
 And a state file called `dev.tfstate` containing the Terraform state.
 
 
-# Explanation
+## Explanation
 
 The backend and variable configuration files abstract the code from different "instances". This pattern can be
 used to provision different environments like dev, test, prod.
@@ -114,5 +115,6 @@ terraform apply -var-file=config/prod.tfvars
 ```
 
 You should now see two Terraform state files for each set of configuration:
-- `dev.tfstate`
-- `prod.tfstate`
+
+* `dev.tfstate`
+* `prod.tfstate`
