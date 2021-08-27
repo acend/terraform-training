@@ -122,7 +122,7 @@ output "app" {
 }
 ```
 
-**Note:** The example above could also be shortened using output chaining to the following snippet
+The example above could also be shortened using output chaining to the following snippet
 but readability suffers:
 
 ```terraform
