@@ -14,7 +14,7 @@ cd meta_arguments
 ```
 
 
-## Step 1: Missing dependency
+## Step {{% param sectionnumber %}}.1: Missing dependency
 
 Sometimes Terraform can not imply the dependency between resources explicitly. For such cases, a dependency
 is added to one or multiple resources or data sources. Consider the following snippets.
@@ -57,7 +57,7 @@ The data source `local_file.reference` is refreshed at the execution of `terrafo
 the file does not exist yet and Terraform fails.
 
 
-## Step 2: Explicit dependency
+## Step {{% param sectionnumber %}}.2: Explicit dependency
 
 Change the resource `local_file.reference` as followed:
 ```terraform
@@ -78,7 +78,7 @@ Terraform will skip trying to refresh (access) `local_file.reference` because of
 dependency on the resource `local_file.foobar_txt` which does not yet exist.
 
 
-## Step 3: Ignoring external changes
+## Step {{% param sectionnumber %}}.3: Ignoring external changes
 
 We set the file content to be `4thelulz`. Now lets change it and run apply again:
 ```bash

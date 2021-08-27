@@ -14,7 +14,7 @@ cd modules
 ```
 
 
-## Step 1: Define the module
+## Step {{% param sectionnumber %}}.1: Define the module
 
 A local module resides in its own directory, lets create one be running:
 ```bash
@@ -60,7 +60,7 @@ It is common practice implementing a module with these three files:
 For modules with many resouces (10+), it is advised to split `main.tf` into groups of resources.
 
 
-## Step 2: Create two instances of the module
+## Step {{% param sectionnumber %}}.2: Create two instances of the module
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
