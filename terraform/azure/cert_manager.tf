@@ -8,7 +8,7 @@ resource "helm_release" "cert_manager" {
   name         = "cert-manager"
   repository   = "https://charts.jetstack.io"
   chart        = "cert-manager"
-  version      = "1.3.1"
+  version      = "v1.5.3"
   namespace    = kubernetes_namespace.cert_manager.id
   atomic       = true
   reset_values = true
