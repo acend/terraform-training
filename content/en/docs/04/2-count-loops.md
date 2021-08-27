@@ -8,6 +8,7 @@ sectionnumber: 4.2
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir count_loops
 cd count_loops
@@ -20,6 +21,7 @@ By adding the identifier `count` to a resource, you can either make the resource
 create multiple instances.
 
 Create a new file named `elvis.tf` in your working directory and paste the following:
+
 ```terraform
 locals {
   create_password = false
@@ -48,6 +50,7 @@ resource turns into an array and has to be referenced using the `.0` index.
 Multiple resources can be instantiated by increasing the `count` value.
 
 Create a new file named `multiple.tf` in your working directory and paste the following:
+
 ```terraform
 resource "random_uuid" "ids" {
   count  = 8
@@ -90,6 +93,7 @@ Multiple resources can also be instantiated by using a `set` or a `map`. The ide
 the entries of the collection and exposes the entry of the iteration.
 
 Add the following content to the end of the file `multiple.tf`:
+
 ```terraform
 locals {
   files = {
