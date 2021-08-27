@@ -1,0 +1,2 @@
+variable "extension" {}
+variable "size" {}
