@@ -57,7 +57,6 @@ The data source `local_file.reference` is refreshed at the execution of `terrafo
 the file does not exist yet and Terraform fails.
 
 
-
 ## Step 2: Explicit dependency
 
 Change the resource `local_file.reference` as followed:

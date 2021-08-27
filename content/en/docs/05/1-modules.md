@@ -52,9 +52,11 @@ output "filename" {
 ### Explanation
 
 It is common practice implementing a module with these three files:
-- `main.tf`
-- `variables.tf`
-- `outputs.tf`
+
+* `main.tf`
+* `variables.tf`
+* `outputs.tf`
+
 For modules with many resouces (10+), it is advised to split `main.tf` into groups of resources.
 
 

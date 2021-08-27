@@ -284,8 +284,9 @@ The `identity` (service principal) is managed by Azure and the monitoring agent 
 use the newly created analytics workspace.
 
 The `azurerm_role_assignment` resources grant roles to the AKS identity;
-- `Monitoring Metrics Publisher` allows AKS to publish to the analytics workspace
-- `Network Contributor` allows AKS to provision a layer 4 load balancer
+
+* `Monitoring Metrics Publisher` allows AKS to publish to the analytics workspace
+* `Network Contributor` allows AKS to provision a layer 4 load balancer
 
 
 ## Step 5: Add a Docker registry (ACR)

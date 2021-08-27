@@ -7,25 +7,25 @@ sectionnumber: 6
 We will learn how to configure the Azure provider and provision resources in a subscription.
 
 
-# Solution Architecture
+## Solution Architecture
 
 **Goal:** Deploy a HTTPS application on Kubernetes which writes to a database
 
 Main components:
-- Kubernetes Cluster (AKS, Azure Kubernetes Service)
-- Log Analytics Workspace
-- Docker container registry (ACR)
-- Virtual Network (Vnet) + Subnet
-- Static IP + DNS A record
-- Load balancer (Layer 4) + Kubernetes Ingress Controller (NGINX)
-- SSL Cert Manager
-- MariaDB
+* Kubernetes Cluster (AKS, Azure Kubernetes Service)
+* Log Analytics Workspace
+* Docker container registry (ACR)
+* Virtual Network (Vnet) + Subnet
+* Static IP + DNS A record
+* Load balancer (Layer 4) + Kubernetes Ingress Controller (NGINX)
+* SSL Cert Manager
+* MariaDB
 
 
 ![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
 
 
-# Preparation
+## Preparation
 
 Let's start with the creation of a subfolder for all **azure** exercises:
 
