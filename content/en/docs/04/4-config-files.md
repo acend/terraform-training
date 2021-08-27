@@ -22,7 +22,7 @@ Create a new file named `variables.tf` and add the following content:
 variable "environment" {}
 ```
 
-Create a new file named `variables.tf` and add the following content:
+Create a new file named `outputs.tf` and add the following content:
 
 ```terraform
 output "current_env" {

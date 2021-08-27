@@ -70,6 +70,6 @@ terraform state pull
 ```
 
 {{% alert title="Note" color="primary" %}}
-The password in the JSON field `"result"` is stored in clear test! Thats why the
+The password in the JSON field `"result"` is stored in clear text! That's why the
 Terraform state file should be considered sensitive and protected accordingly!
 {{% /alert %}}
