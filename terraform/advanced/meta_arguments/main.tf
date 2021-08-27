@@ -1,5 +1,5 @@
 resource "local_file" "foobar_txt" {
-  content  = "1337"
+  content  = "13374asdf"
   filename = "foobar.txt"
 
   lifecycle {

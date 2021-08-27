@@ -48,8 +48,8 @@ resource "azurerm_mariadb_firewall_rule" "lab" {
   name                = "lab-db-rule"
   resource_group_name = azurerm_resource_group.db.name
   server_name         = azurerm_mariadb_server.mariadb.name
-  start_ip_address    = azurerm_public_ip.aks_lb.ip_address
-  end_ip_address      = azurerm_public_ip.aks_lb.ip_address
+  start_ip_address    = azurerm_public_ip.aks_lb_ingress.ip_address
+  end_ip_address      = azurerm_public_ip.aks_lb_ingress.ip_address
 }
 ```
 
@@ -92,6 +92,18 @@ the GLIBC function `snprintf()` and allows better readable code.
 By default, AKS routes traffic to the internet via a (randomly assigned) Azure public IP. For some scenarios like
 our MariaDB instance, we want to whitelist the source IP to restrict access to the services.
 
+Add the following content below the resource `azurerm_public_ip.aks_lb_ingress` in `aks.tf`:
+```terraform
+// optional: only needed to control AKS egress IP(s)
+resource "azurerm_public_ip" "aks_lb_egress" {
+  name                = "pip-${local.infix}-aks-lb-egress"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.aks.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+```
+
 To configure AKS to use a static egress IP, modify the `azurerm_kubernetes_cluster.aks` resource in `aks.tf`
 and replace the `network_profile` block with the following content:
 
@@ -102,7 +114,7 @@ and replace the `network_profile` block with the following content:
 
     // optional: only needed to control AKS egress IP(s)
     load_balancer_profile {
-      outbound_ip_address_ids = [azurerm_public_ip.aks_lb.id]
+      outbound_ip_address_ids = [azurerm_public_ip.aks_lb_egress.id]
     }
   }
 ```
@@ -117,8 +129,8 @@ To verify the egress IP is correct, run the following command:
 kubectl exec -n tests hello -- curl -s ifconfig.me
 ```
 
-This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me<br>
+This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me  
 Now verify this IP is equal to the AKS load balancer ip by running:
 ```bash
-terraform state show azurerm_public_ip.aks_lb
+terraform state show azurerm_public_ip.aks_lb_egress
 ```
