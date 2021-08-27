@@ -54,7 +54,9 @@ terraform apply
 ## Step 3: Change the default value
 
 To see how Terraform applies changes to your existing resources,
-change the `default` value of `random_min_value` to `2000`:
+change the `default` value of `random_min_value` to `2000` in the
+`variables.tf` file:
+
 ```terraform
 variable "random_min_value" {
   type        = number

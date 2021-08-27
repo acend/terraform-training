@@ -66,7 +66,8 @@ Can you spot the difference between the outputs?
 
 ## Step 4: Handling sensitive output
 
-Add the `sensitive` keyword to the output as followed:
+Add the `sensitive` keyword to the `outputs.tf` file as followed:
+
 ```terraform
 output "number" {
   value       = random_integer.number.result
