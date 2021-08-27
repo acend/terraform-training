@@ -93,7 +93,8 @@ resource "helm_release" "nginx_ingress" {
         service = {
           loadBalancerIP = azurerm_public_ip.aks_lb_ingress.ip_address
           annotations = {
-            "service.beta.kubernetes.io/azure-load-balancer-internal" = "false"
+            "service.beta.kubernetes.io/azure-load-balancer-resource-group" = azurerm_public_ip.aks_lb_ingress.resource_group_name
+            "service.beta.kubernetes.io/azure-load-balancer-internal"       = "false"
           }
         }
       }

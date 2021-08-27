@@ -48,8 +48,8 @@ resource "azurerm_mariadb_firewall_rule" "lab" {
   name                = "lab-db-rule"
   resource_group_name = azurerm_resource_group.db.name
   server_name         = azurerm_mariadb_server.mariadb.name
-  start_ip_address    = azurerm_public_ip.aks_lb_ingress.ip_address
-  end_ip_address      = azurerm_public_ip.aks_lb_ingress.ip_address
+  start_ip_address    = azurerm_public_ip.aks_lb_egress.ip_address
+  end_ip_address      = azurerm_public_ip.aks_lb_egress.ip_address
 }
 ```
 
