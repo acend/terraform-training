@@ -14,7 +14,7 @@ cd backend_state
 ```
 
 
-## Step 1: Define a backend
+## Step {{% param sectionnumber %}}.1: Define a backend
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
@@ -43,7 +43,7 @@ ls -al
 Now you should see a local file named `foobar.tfstate` containing the Terraform state.
 
 
-## Step 2: List all managed resources
+## Step {{% param sectionnumber %}}.2: List all managed resources
 
 Terraform has builtin commands to interact with the state.
 

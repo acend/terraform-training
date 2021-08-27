@@ -14,7 +14,7 @@ cd versions
 ```
 
 
-## Step 1: Create versions.tf
+## Step {{% param sectionnumber %}}.1: Create versions.tf
 
 Create a new file named `versions.tf` and add the following content:
 ```terraform
@@ -47,7 +47,7 @@ It is best practice to lock the Terraform CLI and provider versions to a specifi
 version management and planned upgrades.
 
 
-## Step 2: Init Terraform
+## Step {{% param sectionnumber %}}.2: Init Terraform
 
 Now delete the existing terraform providers and lock files (optional), init the stack and apply it by running:
 ```bash
@@ -57,7 +57,7 @@ terraform apply
 ```
 
 
-## Step 3: Terraform code formatting
+## Step {{% param sectionnumber %}}.3: Terraform code formatting
 
 Terraform offers a command to format all files according to HashiCorp guidelines by running the following command:
 ```bash

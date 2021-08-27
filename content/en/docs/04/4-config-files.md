@@ -14,7 +14,7 @@ cd multi_env
 ```
 
 
-## Step 1: Define variable and output
+## Step {{% param sectionnumber %}}.1: Define variable and output
 
 Create a new file named `variables.tf` and add the following content:
 ```terraform
@@ -43,7 +43,7 @@ The backend of type `local` is declared but missing the `path` argument; this is
 The missing argument will be added via a config file.
 
 
-## Step 2: Offload configuration to separate files
+## Step {{% param sectionnumber %}}.2: Offload configuration to separate files
 
 It is best practice separating configuration from HCL code. For this purpose we create a dedicated directory:
 ```bash
@@ -62,7 +62,7 @@ path = "dev.tfstate"
 ```
 
 
-## Step 3: Init and apply using config files
+## Step {{% param sectionnumber %}}.3: Init and apply using config files
 
 Now we init Terraform by specifying a backend configuration with the option `-backend-config`:
 ```bash
@@ -93,7 +93,7 @@ The backend and variable configuration files abstract the code from different "i
 used to provision different environments like dev, test, prod.
 
 
-## Step 4: Create a production configuration
+## Step {{% param sectionnumber %}}.4: Create a production configuration
 
 To add another set of configuration for a "production" environment, lets just add two more files:
 
