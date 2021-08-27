@@ -8,6 +8,7 @@ sectionnumber: 5.2
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir meta_arguments
 cd meta_arguments
@@ -20,6 +21,7 @@ Sometimes Terraform can not imply the dependency between resources explicitly. F
 is added to one or multiple resources or data sources. Consider the following snippets.
 
 Create a new file named `main.tf` and add the following content:
+
 ```terraform
 resource "local_file" "foobar_txt" {
   content  = "4thelulz"
@@ -31,7 +33,8 @@ data "local_file" "reference" {
 }
 ```
 
-Now run
+Now run:
+
 ```bash
 terraform init
 terraform apply
@@ -60,6 +63,7 @@ the file does not exist yet and Terraform fails.
 ## Step {{% param sectionnumber %}}.2: Explicit dependency
 
 Change the resource `local_file.reference` as followed:
+
 ```terraform
 data "local_file" "reference" {
   filename = "foobar.txt"
@@ -68,7 +72,8 @@ data "local_file" "reference" {
 }
 ```
 
-Now run
+Now run:
+
 ```bash
 terraform init
 terraform apply
@@ -81,6 +86,7 @@ dependency on the resource `local_file.foobar_txt` which does not yet exist.
 ## Step {{% param sectionnumber %}}.3: Ignoring external changes
 
 We set the file content to be `4thelulz`. Now lets change it and run apply again:
+
 ```bash
 echo 4real > foobar.txt
 terraform apply
@@ -88,10 +94,11 @@ terraform apply
 
 Terraform will restore the file `foobar.txt` to the configuration defined in the code. All good!
 
-But sometimes we don't want that behaviour - we want to **ignore** the content.
+But sometimes we don't want that behaviour - we want to ignore the content.
 Luckily Terraform offers another meta-argument for this purpose.
 
 Change the resource `local_file.foobar_txt` as followed:
+
 ```terraform
 resource "local_file" "foobar_txt" {
   content  = "1337"
@@ -103,17 +110,20 @@ resource "local_file" "foobar_txt" {
 }
 ```
 
-**Note:** The `content` has changed!
+{{% alert title="Note" color="primary" %}}
+The `content` has changed!
+{{% /alert %}}
 
-Now run
+Now run:
+
 ```bash
 terraform apply
 ```
 
-And Terrform will happily ignore the new value `1337`.
+And Terraform will happily ignore the new value `1337`.
 
 
 ### Explanation
 
 This is particularly useful in cloud engineering to set initial values for tags or secrets and expect an external
-system or user to override resp. extend the value.
+system or user to override or extend the value.

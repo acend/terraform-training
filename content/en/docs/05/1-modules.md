@@ -8,6 +8,7 @@ sectionnumber: 5.1
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir modules
 cd modules
@@ -17,17 +18,20 @@ cd modules
 ## Step {{% param sectionnumber %}}.1: Define the module
 
 A local module resides in its own directory, lets create one be running:
+
 ```bash
 mkdir random_file
 ```
 
 Create a new file named `random_file/variables.tf` and add the following content:
+
 ```terraform
 variable "extension" {}
 variable "size" {}
 ```
 
 Create a new file named `random_file/main.tf` and add the following content:
+
 ```terraform
 resource "random_pet" "filename" { }
 
@@ -42,6 +46,7 @@ resource "local_file" "this" {
 ```
 
 Create a new file named `random_file/outputs.tf` and add the following content:
+
 ```terraform
 output "filename" {
   value = local_file.this.filename
@@ -63,6 +68,7 @@ For modules with many resouces (10+), it is advised to split `main.tf` into grou
 ## Step {{% param sectionnumber %}}.2: Create two instances of the module
 
 Create a new file named `main.tf` and add the following content:
+
 ```terraform
 module "first" {
   source    = "./random_file"
@@ -85,6 +91,7 @@ output "filenames" {
 ```
 
 Now run
+
 ```bash
 terraform init
 terraform apply
