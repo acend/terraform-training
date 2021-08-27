@@ -2,6 +2,7 @@
 title: "6.2. Remote State"
 weight: 62
 sectionnumber: 6.2
+onlyWhen: azure
 ---
 
 

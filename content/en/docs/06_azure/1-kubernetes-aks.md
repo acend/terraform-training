@@ -2,6 +2,7 @@
 title: "6.1. Kubernetes / AKS"
 weight: 61
 sectionnumber: 6.1
+onlyWhen: azure
 ---
 
 

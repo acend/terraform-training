@@ -2,6 +2,7 @@
 title: "6.4. SSL Certificates"
 weight: 64
 sectionnumber: 6.4
+onlyWhen: azure
 ---
 
 
