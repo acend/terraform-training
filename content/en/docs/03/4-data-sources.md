@@ -14,7 +14,7 @@ cd data_sources
 ```
 
 
-## Step 1: Create main.tf
+## Step {{% param sectionnumber %}}.1: Create main.tf
 
 Create a new file named `main.tf` in your working directory and paste the following:
 ```terraform
@@ -30,7 +30,7 @@ resource "local_file" "random" {
 ```
 
 
-## Step 2: Apply the configuration
+## Step {{% param sectionnumber %}}.2: Apply the configuration
 
 Run the commands
 ```bash
@@ -44,7 +44,7 @@ the `local_file.random` because the `result` attribute of the random integer is 
 This shows the dependency tracking and resolution of Terraform in action.
 
 
-## Step 3: Taint a resource
+## Step {{% param sectionnumber %}}.3: Taint a resource
 
 Sometimes you want to recreate a specific resource. Terraform offers the `taint` command to
 mark a resource for recreation and `untaint` to remove the mark.
@@ -63,7 +63,7 @@ terraform apply -replace="random_string.number"
 The random number should now be recreated.
 
 
-## Step 4: Reference an existing resource
+## Step {{% param sectionnumber %}}.4: Reference an existing resource
 
 Create a new file in your current working directory:
 ```bash

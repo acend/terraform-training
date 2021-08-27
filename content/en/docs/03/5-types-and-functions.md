@@ -17,7 +17,7 @@ Documentation for the built-in functions can be found at:
 https://www.terraform.io/docs/language/functions/index.html
 
 
-## Step 1: String interpolation
+## Step {{% param sectionnumber %}}.1: String interpolation
 
 Create a new file named `strings.tf` and add the following content:
 ```terraform
@@ -37,7 +37,7 @@ terraform apply
 ```
 
 
-## Step 2: Working with lists
+## Step {{% param sectionnumber %}}.2: Working with lists
 
 Create a new file named `lists.tf` and add the following content:
 ```terraform
@@ -60,7 +60,7 @@ terraform apply
 ```
 
 
-## Step 3: Working with maps
+## Step {{% param sectionnumber %}}.3: Working with maps
 
 Create a new file named `maps.tf` and add the following content:
 ```terraform
@@ -89,7 +89,7 @@ terraform apply
 ```
 
 
-## Step 4: Working with external YAML/JSON files
+## Step {{% param sectionnumber %}}.4: Working with external YAML/JSON files
 
 Terraform provides built-in functions to access external YAML and JSON files.
 

@@ -14,7 +14,7 @@ cd resources
 ```
 
 
-## Step 1: Create main.tf
+## Step {{% param sectionnumber %}}.1: Create `main.tf`
 
 We will start with a simple example by creating a resource of type `random_integer`. This resources generates
 a random number in the configured range.
@@ -36,7 +36,7 @@ For more information about Terraform resources, please see
 https://www.terraform.io/docs/language/resources/syntax.html
 
 
-## Step 2: Init Terraform
+## Step {{% param sectionnumber %}}.2: Init Terraform
 
 Download all required Terraform providers and initialize the local state:
 ```bash
@@ -62,7 +62,7 @@ Terraform has been successfully initialized!
 ```
 
 
-## Step 3: Plan execution
+## Step {{% param sectionnumber %}}.3: Plan execution
 
 The planing will help Terraform to understand your configuration and verify the syntax.
 To create a provisioning plan, run:
@@ -86,7 +86,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 
 
-## Step 4: Apply configuration
+## Step {{% param sectionnumber %}}.4: Apply configuration
 
 After planing the infrastructure provisioning, we instruct Terraform to apply the configuration:
 ```bash
@@ -104,7 +104,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
 
-## Step 5: Inspect the local state
+## Step {{% param sectionnumber %}}.5: Inspect the local state
 
 After creating the resources you might wonder, where Terraform stores the generated number?
 As we are not in the cloud yet, where is the state stored?
@@ -123,7 +123,7 @@ It is used to compare your desired state (in code) against the real world (fetch
 In a later chapter we will learn how store this file in the cloud and why it is best practice.
 
 
-## Step 6: Destruction
+## Step {{% param sectionnumber %}}.6: Destruction
 
 To remove or de-provision all resources, run the following command:
 ```bash

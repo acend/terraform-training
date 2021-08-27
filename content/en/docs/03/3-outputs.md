@@ -13,7 +13,7 @@ cd variables
 ```
 
 
-## Step 1: Create outputs.tf
+## Step {{% param sectionnumber %}}.1: Create outputs.tf
 
 Create a new file named `outputs.tf` in your working directory and add the following content:
 ```terraform
@@ -24,7 +24,7 @@ output "number" {
 ```
 
 
-## Step 2: Apply the configuration
+## Step {{% param sectionnumber %}}.2: Apply the configuration
 
 Run the command
 ```bash
@@ -53,7 +53,7 @@ number = 15670
 ```
 
 
-## Step 3: Access the output
+## Step {{% param sectionnumber %}}.3: Access the output
 
 If you just want to access the output value without running apply, you can just run:
 ```bash
@@ -64,7 +64,7 @@ terraform output -raw number
 Can you spot the difference between the outputs?
 
 
-## Step 4: Handling sensitive output
+## Step {{% param sectionnumber %}}.4: Handling sensitive output
 
 Add the `sensitive` keyword to the `outputs.tf` file as followed:
 
