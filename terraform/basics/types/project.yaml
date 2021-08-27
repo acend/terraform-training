@@ -1,0 +1,5 @@
+components:
+  - name: "project-name"
+    metadata:
+      annotations:
+        app: "example"

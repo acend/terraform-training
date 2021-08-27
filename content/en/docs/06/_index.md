@@ -1,72 +1,48 @@
 ---
-title: "6. Types"
+title: "6. Azure Workshop"
 weight: 6
 sectionnumber: 6
 ---
 
-As Terraform has a lot of types we will use some to get an idea how we can use them.
+We will learn how to configure the Azure provider and provision resources in a subscription.
 
 
-## Task {{% param sectionnumber %}}.1: Strings
+## Solution Architecture
 
-Strings has always to be in straight double-quotes ("). You can interpolate any type into a string by using the "${}" directive:
+**Goal:** Deploy a HTTPS application on Kubernetes which writes to a database
 
-```bash
-output "random_result_string" {
-    description = "random created by terraform"
-    value       = "Value: ${random_integer.acr.result}"
-}
-```
+Main components:
 
-Or even use functions to manipulate strings like "substr" => https://www.terraform.io/docs/language/functions/substr.html
-
-
-## Task {{% param sectionnumber %}}.2: Maps
-
-A map contains a typical JSON structure. It names a value and is following by the variable. We can use it e.g. to summarize informations and applying them at once:
-
-```bash
-variable "map_example" {
-  type = map(string)
-  default = {
-    "env" = "test"
-    "foo" = "bar"
-  }
-  description = "map example"
-}
-
-output "random_result_stage" {
-    description = "random created by terraform"
-    value       = "${var.map_example["stage"]}: ${random_integer.acr.result}"
-}
-```
+* Kubernetes Cluster (AKS, Azure Kubernetes Service)
+* Log Analytics Workspace
+* Docker container registry (ACR)
+* Virtual Network (Vnet) + Subnet
+* Static IP + DNS A record
+* Load balancer (Layer 4) + Kubernetes Ingress Controller (NGINX)
+* SSL Cert Manager
+* MariaDB
 
 
-## Task {{% param sectionnumber %}}.2: YAML
+![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
 
-Often projects have their config in YAML files. With Terraform you can read YAML/JSON easyliy by reading the file and navigate to your values:
 
-Simple YAML example (`project.yaml`):
+## Preparation
+
+Let's start with the creation of a subfolder for all **azure** exercises:
 
 ```bash
----
-version: "0.1"
-components:
-  - name: "project-name"
-    metadata:
-      annotations:
-        app: "example"
+mkdir azure
+cd azure
 ```
 
+If you don't have `az` CLI installed yet, navgiate to https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+and follow the instructions.
+
+After installation, run
 ```bash
-locals {
-  yaml_file  = yamldecode(file("project.yaml"))
-  app_name  = local.yaml_file.components[0].metadata.annotations.app
-}
-
-output "random_result_project" {
-    description = "random created by terraform"
-    value       = "${locals.app_name}: ${random_integer.acr.result}"
-}
+az login
 ```
+and follow the console and web browser instructions.
 
+The Azure naming convention and resource abbreviation can be found at
+https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
