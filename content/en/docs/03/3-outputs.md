@@ -8,6 +8,7 @@ sectionnumber: 3.3
 ## Preparation
 
 Finish the "Variables" exercise and navigate to the directory:
+
 ```bash
 cd variables
 ```
@@ -16,6 +17,7 @@ cd variables
 ## Step {{% param sectionnumber %}}.1: Create outputs.tf
 
 Create a new file named `outputs.tf` in your working directory and add the following content:
+
 ```terraform
 output "number" {
   value = random_integer.number.result
@@ -27,11 +29,13 @@ output "number" {
 ## Step {{% param sectionnumber %}}.2: Apply the configuration
 
 Run the command
+
 ```bash
 terraform apply
 ```
 
 and you should see output similar to this:
+
 ```bash
 Plan: 0 to add, 0 to change, 0 to destroy.
 
@@ -56,6 +60,7 @@ number = 15670
 ## Step {{% param sectionnumber %}}.3: Access the output
 
 If you just want to access the output value without running apply, you can just run:
+
 ```bash
 terraform output number
 terraform output -raw number
@@ -78,6 +83,7 @@ output "number" {
 
 This will mask the console output of the value. The output is still available by
 explicitly specifying the name as followed:
+
 ```bash
 terraform output number
 ```
@@ -86,6 +92,7 @@ terraform output number
 ## Try it out
 
 You can also print the the output in json format and use tools like `jq` to process it further:
+
 ```bash
 terraform output -json | jq '.number.value'
 ```

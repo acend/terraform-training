@@ -8,6 +8,7 @@ sectionnumber: 3.5
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir types
 cd types
@@ -20,6 +21,7 @@ https://www.terraform.io/docs/language/functions/index.html
 ## Step {{% param sectionnumber %}}.1: String interpolation
 
 Create a new file named `strings.tf` and add the following content:
+
 ```terraform
 locals {
   counter = 5
@@ -31,6 +33,7 @@ output "counter" {
 ```
 
 Run init and apply:
+
 ```bash
 terraform init
 terraform apply
@@ -40,6 +43,7 @@ terraform apply
 ## Step {{% param sectionnumber %}}.2: Working with lists
 
 Create a new file named `lists.tf` and add the following content:
+
 ```terraform
 locals {
   fibonacci = [0,1,1,2,3,5,8,13]
@@ -55,6 +59,7 @@ output "fibonacci" {
 ```
 
 Run apply:
+
 ```bash
 terraform apply
 ```
@@ -63,6 +68,7 @@ terraform apply
 ## Step {{% param sectionnumber %}}.3: Working with maps
 
 Create a new file named `maps.tf` and add the following content:
+
 ```terraform
 locals {
   tags = {
@@ -84,6 +90,7 @@ output "full_tags" {
 ```
 
 Run apply:
+
 ```bash
 terraform apply
 ```
@@ -94,6 +101,7 @@ terraform apply
 Terraform provides built-in functions to access external YAML and JSON files.
 
 Create a new file named `project.yaml` and add the following content:
+
 ```yaml
 components:
   - name: "project-name"
@@ -103,6 +111,7 @@ components:
 ```
 
 Create a new file named `yaml.tf` and add the following content:
+
 ```terraform
 locals {
   yaml_file  = yamldecode(file("project.yaml"))

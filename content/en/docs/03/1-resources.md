@@ -8,6 +8,7 @@ sectionnumber: 3.1
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir resources
 cd resources
@@ -20,6 +21,7 @@ We will start with a simple example by creating a resource of type `random_integ
 a random number in the configured range.
 
 Create a new file named `main.tf` in your working directory and paste the following:
+
 ```terraform
 resource "random_integer" "number" {
   min = 1000
@@ -39,6 +41,7 @@ https://www.terraform.io/docs/language/resources/syntax.html
 ## Step {{% param sectionnumber %}}.2: Init Terraform
 
 Download all required Terraform providers and initialize the local state:
+
 ```bash
 terraform init
 ```
@@ -66,11 +69,13 @@ Terraform has been successfully initialized!
 
 The planing will help Terraform to understand your configuration and verify the syntax.
 To create a provisioning plan, run:
+
 ```bash
 terraform plan
 ```
 
 This will show output similar to:
+
 ```
 Terraform will perform the following actions:
 
@@ -89,6 +94,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 ## Step {{% param sectionnumber %}}.4: Apply configuration
 
 After planing the infrastructure provisioning, we instruct Terraform to apply the configuration:
+
 ```bash
 terraform apply
 ```
@@ -110,6 +116,7 @@ After creating the resources you might wonder, where Terraform stores the genera
 As we are not in the cloud yet, where is the state stored?
 
 Run the following command:
+
 ```bash
 ls -l
 ```
@@ -126,9 +133,10 @@ In a later chapter we will learn how store this file in the cloud and why it is 
 ## Step {{% param sectionnumber %}}.6: Destruction
 
 To remove or de-provision all resources, run the following command:
+
 ```bash
 terraform destroy
 ```
 
-Terraform will again ask for confirmation, if you want destroy the content.
+Terraform will again ask for confirmation if you want destroy the content.
 Type `yes` to destroy all resources managed by this Terraform code base (aka. stack).
