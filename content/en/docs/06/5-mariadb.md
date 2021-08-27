@@ -117,7 +117,8 @@ To verify the egress IP is correct, run the following command:
 kubectl exec -n tests hello -- curl -s ifconfig.me
 ```
 
-This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me<br>
+This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me
+
 Now verify this IP is equal to the AKS load balancer ip by running:
 ```bash
 terraform state show azurerm_public_ip.aks_lb
