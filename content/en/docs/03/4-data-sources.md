@@ -52,12 +52,12 @@ mark a resource for recreation and `untaint` to remove the mark.
 **Important:** The next apply will destroy and create the resource which might lead to a recreation of
 other depending resources!
 ```bash
-terraform taint random_string.number
+terraform taint random_integer.number
 ```
 
 Since Terraform 0.15.2 you also can do this with the option `-replace <terraform object name>`:
 ```bash
-terraform apply -replace="random_string.number"
+terraform apply -replace="random_integer.number"
 ```
 
 The random number should now be recreated.

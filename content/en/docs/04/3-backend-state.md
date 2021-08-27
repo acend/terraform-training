@@ -33,6 +33,10 @@ Run the commands
 ```bash
 terraform init
 terraform apply
+```
+
+After the apply run:
+```bash
 ls -al
 ```
 

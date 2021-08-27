@@ -70,7 +70,7 @@ locals {
     app = "nginx"
   }
   extra_tags = {
-    plattform = "azure"
+    platform = "azure"
   }
 }
 
@@ -119,4 +119,9 @@ but readability suffers:
 output "app2" {
   value = yamldecode(file("project.yaml")).components.0.metadata.annotations.app
 }
+```
+
+Run apply:
+```bash
+terraform apply
 ```
