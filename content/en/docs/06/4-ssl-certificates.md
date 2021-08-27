@@ -138,6 +138,11 @@ spec:
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
 
+Now apply the config by running:
+```bash
+kubectl apply -f tests/https.yaml
+```
+
 Now use `curl` to access your service:
 ```bash
 curl https://secure.YOUR_USERNAME.labz.ch
