@@ -4,8 +4,57 @@ weight: 65
 sectionnumber: 6.5
 ---
 
+## Step 1: Configure AKS egress IP
 
-## Step 1: Add a MariaDB instance
+By default, AKS routes traffic to the internet via a (randomly assigned) Azure public IP. For some scenarios like
+our MariaDB instance, we want to whitelist the source IP to restrict access to the services.
+
+Add the following content below the resource `azurerm_public_ip.aks_lb_ingress` in `aks.tf`:
+```terraform
+// optional: only needed to control AKS egress IP(s)
+resource "azurerm_public_ip" "aks_lb_egress" {
+  name                = "pip-${local.infix}-aks-lb-egress"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.aks.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+```
+
+To configure AKS to use a static egress IP, modify the `azurerm_kubernetes_cluster.aks` resource in `aks.tf`
+and replace the `network_profile` block with the following content:
+
+```terraform
+  network_profile {
+    network_plugin    = "kubenet"
+    load_balancer_sku = "Standard"
+
+    // optional: only needed to control AKS egress IP(s)
+    load_balancer_profile {
+      outbound_ip_address_ids = [azurerm_public_ip.aks_lb_egress.id]
+    }
+  }
+```
+
+Now run
+```bash
+terraform apply -var-file=config/dev.tfvars
+```
+
+To verify the egress IP is correct, run the following command:
+```bash
+kubectl exec -n tests hello -- curl -s ifconfig.me
+```
+
+This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me
+
+Now verify this IP is equal to the AKS load balancer ip by running:
+```bash
+terraform state show azurerm_public_ip.aks_lb_egress
+```
+
+
+## Step 2: Add a MariaDB instance
 
 Create a new file named `mariadb.tf` and add the following content:
 ```terraform
@@ -85,53 +134,3 @@ of the Kubernetes AKS cluster, which allows apps deployed on the cluster to acce
 
 To configure our demo app, we need to generate a MariaDB URI. The Terraform function `format` has familiar syntax to
 the GLIBC function `snprintf()` and allows better readable code.
-
-
-## Step 2: Configure AKS egress IP
-
-By default, AKS routes traffic to the internet via a (randomly assigned) Azure public IP. For some scenarios like
-our MariaDB instance, we want to whitelist the source IP to restrict access to the services.
-
-Add the following content below the resource `azurerm_public_ip.aks_lb_ingress` in `aks.tf`:
-```terraform
-// optional: only needed to control AKS egress IP(s)
-resource "azurerm_public_ip" "aks_lb_egress" {
-  name                = "pip-${local.infix}-aks-lb-egress"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.aks.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
-```
-
-To configure AKS to use a static egress IP, modify the `azurerm_kubernetes_cluster.aks` resource in `aks.tf`
-and replace the `network_profile` block with the following content:
-
-```terraform
-  network_profile {
-    network_plugin    = "kubenet"
-    load_balancer_sku = "Standard"
-
-    // optional: only needed to control AKS egress IP(s)
-    load_balancer_profile {
-      outbound_ip_address_ids = [azurerm_public_ip.aks_lb_egress.id]
-    }
-  }
-```
-
-Now run
-```bash
-terraform apply -var-file=config/dev.tfvars
-```
-
-To verify the egress IP is correct, run the following command:
-```bash
-kubectl exec -n tests hello -- curl -s ifconfig.me
-```
-
-This lists the egress IP of the AKS cluster as reported by the website https://ifconfig.me
-
-Now verify this IP is equal to the AKS load balancer ip by running:
-```bash
-terraform state show azurerm_public_ip.aks_lb_egress
-```

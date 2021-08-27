@@ -121,7 +121,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - secure.lab.labz.ch
+    - secure.YOUR_USERNAME.labz.ch
     secretName: tls-secure
   rules:
   - host: secure.YOUR_USERNAME.labz.ch
@@ -137,6 +137,11 @@ spec:
 ```
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
+
+Now apply the config by running:
+```bash
+kubectl apply -f tests/https.yaml
+```
 
 Now use `curl` to access your service:
 ```bash
