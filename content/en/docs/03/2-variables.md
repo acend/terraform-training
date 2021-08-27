@@ -14,7 +14,7 @@ cd variables
 ```
 
 
-## Step 1: Create variables.tf and main.tf
+## Step {{% param sectionnumber %}}.1: Create variables.tf and main.tf
 
 Create a new file named `variables.tf` in your working directory and add the following content:
 ```terraform
@@ -42,19 +42,22 @@ The `type` and `description` arguments are optional but good practice; don't ove
 nobody really reads it...
 
 
-## Step 2: Apply the configuration
+## Step {{% param sectionnumber %}}.2: Apply the configuration
 
 Run the commands
+
 ```bash
 terraform init
 terraform apply
 ```
 
 
-## Step 3: Change the default value
+## Step {{% param sectionnumber %}}.3: Change the default value
 
 To see how Terraform applies changes to your existing resources,
-change the `default` value of `random_min_value` to `2000`:
+change the `default` value of `random_min_value` to `2000` in the
+`variables.tf` file:
+
 ```terraform
 variable "random_min_value" {
   type        = number
@@ -64,6 +67,7 @@ variable "random_min_value" {
 ```
 
 Then run the command
+
 ```bash
 terraform apply
 ```
@@ -98,10 +102,11 @@ Do you want to perform these actions?
   ```
 
 
-## Step 4: Add a local variable
+## Step {{% param sectionnumber %}}.4: Add a local variable
 
 Sometimes you want to modify or derive a value from a variable. This can be achieved by declaring a "local" variable in
-a `locals` block. Add the following **on the first line** of `variables.tf`:
+a `locals` block. Add the following on the first line of `variables.tf`:
+
 ```terraform
 locals {
   random_max_value = var.random_min_value + 31337
@@ -109,6 +114,7 @@ locals {
 ```
 
 Then modify the `resource` block in `main.tf` as followed:
+
 ```terraform
 resource "random_integer" "number" {
   min = var.random_min_value
@@ -119,4 +125,4 @@ resource "random_integer" "number" {
 
 ### Try it out
 
-Remove the `default = 1000` statement from the block and run `terraform apply`
+Remove the `default = 1000` statement from the block and run `terraform apply`.

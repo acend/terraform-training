@@ -8,15 +8,17 @@ sectionnumber: 3.4
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir data_sources
 cd data_sources
 ```
 
 
-## Step 1: Create main.tf
+## Step {{% param sectionnumber %}}.1: Create main.tf
 
 Create a new file named `main.tf` in your working directory and paste the following:
+
 ```terraform
 resource "random_integer" "number" {
   min = 1000
@@ -30,9 +32,10 @@ resource "local_file" "random" {
 ```
 
 
-## Step 2: Apply the configuration
+## Step {{% param sectionnumber %}}.2: Apply the configuration
 
 Run the commands
+
 ```bash
 terraform init
 terraform apply
@@ -44,18 +47,20 @@ the `local_file.random` because the `result` attribute of the random integer is 
 This shows the dependency tracking and resolution of Terraform in action.
 
 
-## Step 3: Taint a resource
+## Step {{% param sectionnumber %}}.3: Taint a resource
 
 Sometimes you want to recreate a specific resource. Terraform offers the `taint` command to
 mark a resource for recreation and `untaint` to remove the mark.
 
 **Important:** The next apply will destroy and create the resource which might lead to a recreation of
 other depending resources!
+
 ```bash
 terraform taint random_integer.number
 ```
 
 Since Terraform 0.15.2 you also can do this with the option `-replace <terraform object name>`:
+
 ```bash
 terraform apply -replace="random_integer.number"
 ```
@@ -63,14 +68,16 @@ terraform apply -replace="random_integer.number"
 The random number should now be recreated.
 
 
-## Step 4: Reference an existing resource
+## Step {{% param sectionnumber %}}.4: Reference an existing resource
 
 Create a new file in your current working directory:
+
 ```bash
 echo terraform4ever > propaganda.txt
 ```
 
 Now add the following code to `main.tf`:
+
 ```terraform
 data "local_file" "propaganda" {
   filename = "propaganda.txt"
@@ -78,6 +85,7 @@ data "local_file" "propaganda" {
 ```
 
 Create a new file `outputs.tf` and add the following content:
+
 ```terraform
 output "propaganda" {
   value = data.local_file.propaganda.content_base64
@@ -85,6 +93,7 @@ output "propaganda" {
 ```
 
 Run the command:
+
 ```bash
 terraform apply
 ```
@@ -102,6 +111,7 @@ components like manually added DNS zones or resources managed by another Terrafo
 ## Try it out
 
 You can run the following command to base64 decode the output:
+
 ```bash
 terraform output -raw propaganda | base64 -d
 ```
