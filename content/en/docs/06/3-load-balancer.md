@@ -43,8 +43,8 @@ of the AKS cluster; this a good example demonstrating the power of Terraform to 
 
 Add the following content below the `azurerm_resource_group` block in `aks.tf`:
 ```terraform
-resource "azurerm_public_ip" "aks_lb_ingress" {
-  name                = "pip-${local.infix}-aks-lb-ingress"
+resource "azurerm_public_ip" "aks_lb" {
+  name                = "pip-${local.infix}-aks-lb"
   location            = var.location
   resource_group_name = azurerm_resource_group.aks.name
   allocation_method   = "Static"
@@ -91,7 +91,7 @@ resource "helm_release" "nginx_ingress" {
       controller = {
         replicaCount = 1
         service = {
-          loadBalancerIP = azurerm_public_ip.aks_lb_ingress.ip_address
+          loadBalancerIP = azurerm_public_ip.aks_lb.ip_address
           annotations = {
             "service.beta.kubernetes.io/azure-load-balancer-internal" = "false"
           }
@@ -144,7 +144,7 @@ resource "azurerm_dns_a_record" "ingress" {
   resource_group_name = azurerm_resource_group.default.name
   ttl                 = 300
   zone_name           = azurerm_dns_zone.child.name
-  records             = [azurerm_public_ip.aks_lb_ingress.ip_address]
+  records             = [azurerm_public_ip.aks_lb.ip_address]
 }
 ```
 

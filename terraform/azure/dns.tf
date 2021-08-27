@@ -20,5 +20,5 @@ resource "azurerm_dns_a_record" "ingress" {
   resource_group_name = azurerm_resource_group.default.name
   ttl                 = 300
   zone_name           = azurerm_dns_zone.child.name
-  records             = [azurerm_public_ip.aks_lb_ingress.ip_address]
+  records             = [azurerm_public_ip.aks_lb.ip_address]
 }

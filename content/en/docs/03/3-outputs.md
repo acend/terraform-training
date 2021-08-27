@@ -75,7 +75,7 @@ Add the `sensitive` keyword to the `outputs.tf` file as followed:
 
 ```terraform
 output "number" {
-  value       = random_integer.number.result
+  value       = "The number is ${random_integer.number.result}"
   description = "random value created by terraform"
   sensitive   = true
 }

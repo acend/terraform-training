@@ -3,8 +3,8 @@ resource "azurerm_resource_group" "aks" {
   name     = "rg-${local.infix}-aks"
 }
 
-resource "azurerm_public_ip" "aks_lb_ingress" {
-  name                = "pip-${local.infix}-aks-lb-ingress"
+resource "azurerm_public_ip" "aks_lb" {
+  name                = "pip-${local.infix}-aks-lb"
   location            = var.location
   resource_group_name = azurerm_resource_group.aks.name
   allocation_method   = "Static"
@@ -31,6 +31,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   network_profile {
     network_plugin    = "kubenet"
     load_balancer_sku = "Standard"
+
+    // optional: only needed to control AKS egress IP(s)
+    load_balancer_profile {
+      outbound_ip_address_ids = [azurerm_public_ip.aks_lb.id]
+    }
   }
 
   identity {

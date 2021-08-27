@@ -84,12 +84,12 @@ Having `count = 8` creates 8 UUID instances. The wildcard selector `*` can be us
 of all instances and create a list; see the generated output.
 
 
-## Step 2: Multiple resources using for_each
+## Step 3: Multiple resources using for_each
 
 Multiple resources can also be instantiated by using a `set` or a `map`. The identifier `for_each` is loops over
 the entries of the collection and exposes the entry of the iteration.
 
-Create a new file named `multiple.tf` in your working directory and paste the following:
+Add the following content to the end of the file `multiple.tf`:
 ```terraform
 locals {
   files = {

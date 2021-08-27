@@ -1,3 +1,3 @@
 output "number" {
-  value = random_integer.number.result
+  value = "The number is ${random_integer.number.result}"
 }

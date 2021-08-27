@@ -4,7 +4,7 @@ locals {
     app = "nginx"
   }
   extra_tags = {
-    plattform = "azure"
+    platform = "azure"
   }
 }
 
