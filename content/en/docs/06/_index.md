@@ -19,7 +19,7 @@ Main components:
 - Static IP + DNS A record
 - Load balancer (Layer 4) + Kubernetes Ingress Controller (NGINX)
 - SSL Cert Manager
-- MariaDB 
+- MariaDB
 
 
 ![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
@@ -43,5 +43,5 @@ az login
 ```
 and follow the console and web browser instructions.
 
-The Azure naming convention and resource abbreviation can be found at 
+The Azure naming convention and resource abbreviation can be found at
 https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations

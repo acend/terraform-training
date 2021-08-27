@@ -10,7 +10,7 @@ sectionnumber: 5.1
 Create a new directory for this exercise:
 ```bash
 mkdir modules
-cd modules 
+cd modules
 ```
 
 
@@ -56,7 +56,7 @@ It is common practice implementing a module with these three files:
 - `variables.tf`
 - `outputs.tf`
 For modules with many resouces (10+), it is advised to split `main.tf` into groups of resources.
-  
+
 
 ## Step 2: Create two instances of the module
 

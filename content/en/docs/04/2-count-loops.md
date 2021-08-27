@@ -10,7 +10,7 @@ sectionnumber: 4.2
 Create a new directory for this exercise:
 ```bash
 mkdir count_loops
-cd count_loops 
+cd count_loops
 ```
 
 
@@ -31,7 +31,7 @@ resource "random_password" "optional_password" {
 }
 
 output "optional_password" {
-  sensitive = true 
+  sensitive = true
   value     = local.create_password ? random_password.optional_password.0.result : null
 }
 ```
@@ -101,7 +101,7 @@ locals {
 
 resource "local_file" "cloud_godfathers" {
   for_each = local.files
-  
+
   filename = each.key
   content  = each.value
 }

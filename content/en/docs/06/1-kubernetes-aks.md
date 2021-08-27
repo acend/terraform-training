@@ -5,7 +5,7 @@ sectionnumber: 6.1
 ---
 
 
-## Step 1: Provision the first resource 
+## Step 1: Provision the first resource
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
@@ -214,7 +214,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   addon_profile {
     kube_dashboard {
       enabled = false
-    }    
+    }
     oms_agent {
       enabled                    = true
       log_analytics_workspace_id = azurerm_log_analytics_workspace.aks.id

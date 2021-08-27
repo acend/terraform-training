@@ -10,7 +10,7 @@ sectionnumber: 3.4
 Create a new directory for this exercise:
 ```bash
 mkdir data_sources
-cd data_sources 
+cd data_sources
 ```
 
 

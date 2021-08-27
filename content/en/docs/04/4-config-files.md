@@ -10,7 +10,7 @@ Create a new directory for this exercise:
 
 ```bash
 mkdir multi_env
-cd multi_env 
+cd multi_env
 ```
 
 ## Step 1: Define variable and output

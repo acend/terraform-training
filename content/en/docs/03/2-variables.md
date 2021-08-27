@@ -68,7 +68,7 @@ Then run the command
 terraform apply
 ```
 
-And terraform will display the required changes to create the state in your code. 
+And terraform will display the required changes to create the state in your code.
 You will see a similar plan like this:
 ```
 random_integer.number: Refreshing state... [id=8731]
@@ -100,7 +100,7 @@ Do you want to perform these actions?
 
 ## Step 4: Add a local variable
 
-Sometimes you want to modify or derive a value from a variable. This can be achieved by declaring a "local" variable in 
+Sometimes you want to modify or derive a value from a variable. This can be achieved by declaring a "local" variable in
 a `locals` block. Add the following **on the first line** of `variables.tf`:
 ```terraform
 locals {

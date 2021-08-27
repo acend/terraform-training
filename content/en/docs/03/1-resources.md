@@ -10,7 +10,7 @@ sectionnumber: 3.1
 Create a new directory for this exercise:
 ```bash
 mkdir resources
-cd resources 
+cd resources
 ```
 
 
@@ -32,11 +32,11 @@ resource "random_integer" "number" {
 
 The `resource` block defines one (or multiple) infrastructure objects which are managed by Terraform.
 
-For more information about Terraform resources, please see<br>
+For more information about Terraform resources, please see
 https://www.terraform.io/docs/language/resources/syntax.html
 
 
-## Step 2: Init Terraform 
+## Step 2: Init Terraform
 
 Download all required Terraform providers and initialize the local state:
 ```bash
@@ -93,7 +93,7 @@ After planing the infrastructure provisioning, we instruct Terraform to apply th
 terraform apply
 ```
 
-Terraform will print the execution plan again and ask for confirmation.<br>
+Terraform will print the execution plan again and ask for confirmation.
 Type `yes` to continue.
 
 ```

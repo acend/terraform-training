@@ -10,14 +10,14 @@ sectionnumber: 5.2
 Create a new directory for this exercise:
 ```bash
 mkdir meta_arguments
-cd meta_arguments 
+cd meta_arguments
 ```
 
 
 ## Step 1: Missing dependency
 
 Sometimes Terraform can not imply the dependency between resources explicitly. For such cases, a dependency
-is added to one or multiple resources or data sources. Consider the following snippets. 
+is added to one or multiple resources or data sources. Consider the following snippets.
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
@@ -42,11 +42,11 @@ This will print the following error:
 ```
 ╷
 │ Error: open foobar.txt: no such file or directory
-│ 
+│
 │   with data.local_file.reference,
 │   on main.tf line 5, in data "local_file" "foobar_txt":
 │    5: data "local_file" "reference" {
-│ 
+│
 ╵
 ```
 

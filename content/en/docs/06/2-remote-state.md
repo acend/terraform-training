@@ -5,9 +5,9 @@ sectionnumber: 6.2
 ---
 
 
-## Step 1: Create a storage 
+## Step 1: Create a storage
 
-The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a 
+The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a
 chicken and egg problem we resolve by using the `az` CLI as followed:
 ```bash
 export NAME=YOUR_USERNAME

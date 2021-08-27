@@ -10,7 +10,7 @@ sectionnumber: 3.5
 Create a new directory for this exercise:
 ```bash
 mkdir types
-cd types 
+cd types
 ```
 
 Documentation for the built-in functions can be found at:

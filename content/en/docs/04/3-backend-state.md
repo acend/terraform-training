@@ -33,7 +33,7 @@ Run the commands
 ```bash
 terraform init
 terraform apply
-ls -al 
+ls -al
 ```
 
 Now you should see a local file named `foobar.tfstate` containing the Terraform state.
