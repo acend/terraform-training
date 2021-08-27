@@ -121,7 +121,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - secure.lab.labz.ch
+    - secure.YOUR_USERNAME.labz.ch
     secretName: tls-secure
   rules:
   - host: secure.YOUR_USERNAME.labz.ch

@@ -178,7 +178,7 @@ the load balancer and forwarded to the NGINX ingress controller.
 
 Before we can deploy workload on Kubernetes, we need to fetch the cluster credentials by running the following command:
 ```bash
-az aks get-credentials --name aks-YOUR_USERNAME-dev --resource-group rg-lab-dev-aks -a
+az aks get-credentials --name aks-YOUR_USERNAME-dev --resource-group rg-YOUR_USERNAME-dev-aks -a
 ```
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
@@ -255,7 +255,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: insecure.lab.labz.ch
+  - host: insecure.YOUR_USERNAME.labz.ch
     http:
       paths:
       - path: /
@@ -271,7 +271,7 @@ spec:
 
 Now apply the config by running:
 ```bash
-kubectl -f tests/http.yaml
+kubectl apply -f tests/http.yaml
 ```
 
 Verify the pod is running:
