@@ -4,12 +4,14 @@ weight: 33
 sectionnumber: 3.3
 ---
 
+
 ## Preparation
 
 Finish the "Variables" exercise and navigate to the directory:
 ```bash
 cd variables
 ```
+
 
 ## Step 1: Create outputs.tf
 
@@ -20,6 +22,7 @@ output "number" {
   description = "random value created by terraform"
 }
 ```
+
 
 ## Step 2: Apply the configuration
 
@@ -49,6 +52,7 @@ Outputs:
 number = 15670
 ```
 
+
 ## Step 3: Access the output
 
 If you just want to access the output value without running apply, you can just run:
@@ -58,6 +62,7 @@ terraform output -raw number
 ```
 
 Can you spot the difference between the outputs?
+
 
 ## Step 4: Handling sensitive output
 
@@ -75,6 +80,7 @@ explicitly specifying the name as followed:
 ```bash
 terraform output number
 ```
+
 
 ## Try it out!
 

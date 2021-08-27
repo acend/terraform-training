@@ -4,6 +4,7 @@ weight: 64
 sectionnumber: 6.4
 ---
 
+
 ## Step 1: Cert Manager installation
 
 Create a new file named `cert_manager.tf` and add the following content:
@@ -39,6 +40,7 @@ Now run
 ```bash
 terraform apply -var-file=config/dev.tfvars
 ```
+
 
 ## Step 2: Cluster Issuer
 
@@ -92,6 +94,7 @@ Now run
 ```bash
 terraform apply -var-file=config/dev.tfvars
 ```
+
 
 ### Explanation
 

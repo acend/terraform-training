@@ -4,6 +4,7 @@ weight: 62
 sectionnumber: 6.2
 ---
 
+
 ## Step 1: Create a storage 
 
 The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a 
@@ -18,6 +19,7 @@ echo $ACCOUNT
 ```
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
+
 
 ## Step 2: Configure the Terraform backend
 
@@ -59,6 +61,7 @@ Do you want to copy existing state to the new backend?
   Enter a value: yes
 ...
 ```
+
 
 ### Explanation
 

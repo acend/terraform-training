@@ -4,6 +4,7 @@ weight: 54
 sectionnumber: 5.4
 ---
 
+
 # TODO: Review & align wording 
 
 There are many more topics regarding Terraform. Here we will have look over some of them:
@@ -122,5 +123,3 @@ You see 2 warnings:
 * terraform_required_providers is missing
 
 This is because of the default recommandation to declare and versionize everything correctly. Make the linter happy!
-
-

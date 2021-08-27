@@ -4,6 +4,7 @@ weight: 63
 sectionnumber: 6.3
 ---
 
+
 ## Step 1: Create a kubernetes namespace
 
 Add the following content below the existing `provider` block of `main.tf`:
@@ -30,6 +31,7 @@ Since we added a new provider, Terraform needs to be initialized again:
 terraform init -backend-config=config/dev_backend.tfvars
 terraform apply -var-file=config/dev.tfvars
 ```
+
 
 ### Explanation
 
@@ -105,6 +107,7 @@ Since we added a new provider, Terraform needs to be initialized again:
 terraform init -backend-config=config/dev_backend.tfvars
 terraform apply -var-file=config/dev.tfvars
 ```
+
 
 ### Explanation
 

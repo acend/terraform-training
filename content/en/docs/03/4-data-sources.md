@@ -4,6 +4,7 @@ weight: 34
 sectionnumber: 3.4
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir data_sources
 cd data_sources 
 ```
+
 
 ## Step 1: Create main.tf
 
@@ -27,6 +29,7 @@ resource "local_file" "random" {
 }
 ```
 
+
 ## Step 2: Apply the configuration
 
 Run the commands
@@ -39,6 +42,7 @@ You will see on the console the resource `random_integer.number` is created **be
 the `local_file.random` because the `result` attribute of the random integer is passed as content.
 
 This shows the dependency tracking and resolution of Terraform in action.
+
 
 ## Step 3: Taint a resource
 
@@ -57,6 +61,7 @@ terraform apply -replace="random_string.number"
 ```
 
 The random number should now be recreated.
+
 
 ## Step 4: Reference an existing resource
 
@@ -86,11 +91,13 @@ terraform apply
 
 And you should see the base64 encoded version of our referenced file `propaganda.txt`
 
+
 ### Explanation
 
 The `data` keyword references objects not managed by this terraform stack (code base).
 This is common and very useful in cloud engineering to reference already existing infrastructure
 components like manually added DNS zones or resources managed by another Terraform stack!
+
 
 ## Try it out!
 

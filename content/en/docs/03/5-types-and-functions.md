@@ -4,6 +4,7 @@ weight: 35
 sectionnumber: 3.5
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -14,6 +15,7 @@ cd types
 
 Documentation for the built-in functions can be found at:
 https://www.terraform.io/docs/language/functions/index.html
+
 
 ## Step 1: String interpolation
 
@@ -33,6 +35,7 @@ Run init and apply:
 terraform init
 terraform apply
 ```
+
 
 ## Step 2: Working with lists
 
@@ -55,6 +58,7 @@ Run apply:
 ```bash
 terraform apply
 ```
+
 
 ## Step 3: Working with maps
 
@@ -83,6 +87,7 @@ Run apply:
 ```bash
 terraform apply
 ```
+
 
 ## Step 4: Working with external YAML/JSON files
 

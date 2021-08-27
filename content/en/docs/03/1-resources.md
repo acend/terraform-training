@@ -4,6 +4,7 @@ weight: 31
 sectionnumber: 3.1
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir resources
 cd resources 
 ```
+
 
 ## Step 1: Create main.tf
 
@@ -25,12 +27,14 @@ resource "random_integer" "number" {
 }
 ```
 
+
 ### Explanation
 
 The `resource` block defines one (or multiple) infrastructure objects which are managed by Terraform.
 
 For more information about Terraform resources, please see<br>
 https://www.terraform.io/docs/language/resources/syntax.html
+
 
 ## Step 2: Init Terraform 
 

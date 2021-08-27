@@ -4,6 +4,7 @@ weight: 41
 sectionnumber: 4.1
 ---
 
+
 ## Preparation
 
 Finish the "Data Sources" exercise and copy the directory:
@@ -11,6 +12,7 @@ Finish the "Data Sources" exercise and copy the directory:
 cp -r ../basics/data_sources versions
 cd versions
 ```
+
 
 ## Step 1: Create versions.tf
 
@@ -32,6 +34,7 @@ terraform {
 }
 ```
 
+
 ### Explanation
 
 With multiple engineers working on the same infrastructure code base, it is inevitable to have different versions of
@@ -43,6 +46,7 @@ can lead to incompatibilities and trigger regressions; neither are desirable in 
 It is best practice to lock the Terraform CLI and provider versions to a specific release. This ensures a controlled
 version management and planned upgrades.
 
+
 ## Step 2: Init Terraform
 
 Now delete the existing terraform providers and lock files (optional), init the stack and apply it by running:
@@ -51,6 +55,7 @@ rm -r .terraform/ .terraform.lock.hcl
 terraform init
 terraform apply
 ```
+
 
 ## Step 3: Terraform code formatting
 

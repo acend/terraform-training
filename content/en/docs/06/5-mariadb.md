@@ -4,6 +4,7 @@ weight: 65
 sectionnumber: 6.5
 ---
 
+
 ## Step 1: Add a MariaDB instance
 
 Create a new file named `mariadb.tf` and add the following content:
@@ -74,6 +75,7 @@ The MariaDB URI can be displayed by running:
 ```bash
 terraform output mariadb_uri
 ```
+
 
 ### Explanation
 

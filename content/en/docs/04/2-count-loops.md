@@ -4,6 +4,7 @@ weight: 42
 sectionnumber: 4.2
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir count_loops
 cd count_loops 
 ```
+
 
 ## Step 1: Conditional resource
 
@@ -33,6 +35,7 @@ output "optional_password" {
   value     = local.create_password ? random_password.optional_password.0.result : null
 }
 ```
+
 
 ### Explanation
 
@@ -74,6 +77,7 @@ ids = [
 ]
 ```
 
+
 ### Explanation
 
 Having `count = 8` creates 8 UUID instances. The wildcard selector `*` can be used to access the `result` attribute
@@ -102,6 +106,7 @@ resource "local_file" "cloud_godfathers" {
   content  = each.value
 }
 ```
+
 
 ### Explanation
 

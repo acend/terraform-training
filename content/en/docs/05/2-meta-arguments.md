@@ -4,6 +4,7 @@ weight: 52
 sectionnumber: 5.2
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir meta_arguments
 cd meta_arguments 
 ```
+
 
 ## Step 1: Missing dependency
 
@@ -48,10 +50,12 @@ This will print the following error:
 ╵
 ```
 
+
 ### Explanation
 
 The data source `local_file.reference` is refreshed at the execution of `terraform apply`. However at this stage,
 the file does not exist yet and Terraform fails.
+
 
 
 ## Step 2: Explicit dependency

@@ -4,6 +4,7 @@ weight: 61
 sectionnumber: 6.1
 ---
 
+
 ## Step 1: Provision the first resource 
 
 Create a new file named `main.tf` and add the following content:
@@ -52,6 +53,7 @@ terraform apply -var-file=config/dev.tfvars
 You can now navigate to the Azure Portal in your browser and see the newly created resource group with
 the name `rg-YOUR_USERNAME-dev` at
 https://portal.azure.com/#@acend.onmicrosoft.com/resource/subscriptions/c1b34118-6a8f-4348-88c2-b0b1f7350f04/resourceGroups
+
 
 ### Explanation
 
@@ -107,6 +109,7 @@ Now run
 terraform apply -var-file=config/dev.tfvars
 ```
 
+
 ### Explanation
 
 A resource of type `azurerm_network_watcher` is automatically created by Azure for each VNet if not explicitly created.
@@ -151,6 +154,7 @@ We added a resource requiring the random provider, run init again:
 terraform init
 terraform apply -var-file=config/dev.tfvars
 ```
+
 
 ### Explanation
 
@@ -267,6 +271,7 @@ Now run
 terraform apply -var-file=config/dev.tfvars
 ```
 
+
 ### Explanation
 
 We provision an AKS cluster with two nodes of type `Standard_B2ms` in different availability zones.
@@ -281,6 +286,7 @@ use the newly created analytics workspace.
 The `azurerm_role_assignment` resources grant roles to the AKS identity;
 - `Monitoring Metrics Publisher` allows AKS to publish to the analytics workspace
 - `Network Contributor` allows AKS to provision a layer 4 load balancer
+
 
 ## Step 5: Add a Docker registry (ACR)
 

@@ -4,6 +4,7 @@ weight: 51
 sectionnumber: 5.1
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir modules
 cd modules 
 ```
+
 
 ## Step 1: Define the module
 
@@ -45,6 +47,7 @@ output "filename" {
   value = local_file.this.filename
 }
 ```
+
 
 ### Explanation
 
@@ -84,6 +87,7 @@ Now run
 terraform init
 terraform apply
 ```
+
 
 ### Explanation
 

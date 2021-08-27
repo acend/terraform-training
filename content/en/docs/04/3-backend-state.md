@@ -4,6 +4,7 @@ weight: 43
 sectionnumber: 4.3
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir backend_state
 cd backend_state
 ```
+
 
 ## Step 1: Define a backend
 

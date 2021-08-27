@@ -4,6 +4,7 @@ weight: 32
 sectionnumber: 3.2
 ---
 
+
 ## Preparation
 
 Create a new directory for this exercise:
@@ -11,6 +12,7 @@ Create a new directory for this exercise:
 mkdir variables
 cd variables
 ```
+
 
 ## Step 1: Create variables.tf and main.tf
 
@@ -31,6 +33,7 @@ resource "random_integer" "number" {
 }
 ```
 
+
 ### Explanation
 
 It is best practice putting all required input variables in the file `variables.tf`.
@@ -46,6 +49,7 @@ Run the commands
 terraform init
 terraform apply
 ```
+
 
 ## Step 3: Change the default value
 
@@ -92,6 +96,7 @@ Do you want to perform these actions?
 
   Enter a value:
   ```
+
 
 ## Step 4: Add a local variable
 

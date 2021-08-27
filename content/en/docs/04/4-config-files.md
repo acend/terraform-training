@@ -35,6 +35,7 @@ terraform {
 }
 ```
 
+
 ### Explanation
 
 The backend of type `local` is declared but missing the `path` argument; this is a so-called "partial configuration".
@@ -58,6 +59,7 @@ Create a new file named `config/dev_backend.tfvars` and add the following conten
 ```terraform
 path = "dev.tfstate"
 ```
+
 
 ## Step 3: Init and apply using config files
 
@@ -83,10 +85,12 @@ current_env = "dev"
 
 And a state file called `dev.tfstate` containing the Terraform state.
 
+
 # Explanation
 
 The backend and variable configuration files abstract the code from different "instances". This pattern can be
 used to provision different environments like dev, test, prod.
+
 
 ## Step 4: Create a production configuration
 

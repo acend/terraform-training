@@ -6,6 +6,7 @@ sectionnumber: 6
 
 We will learn how to configure the Azure provider and provision resources in a subscription.
 
+
 # Solution Architecture
 
 **Goal:** Deploy a HTTPS application on Kubernetes which writes to a database
@@ -20,9 +21,9 @@ Main components:
 - SSL Cert Manager
 - MariaDB 
 
-<br><br>
+
 ![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
-<br><br>
+
 
 # Preparation
 
