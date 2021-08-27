@@ -115,8 +115,15 @@ output "app" {
 
 **Note:** The example above could also be shortened using output chaining to the following snippet
 but readability suffers:
+
 ```terraform
 output "app2" {
   value = yamldecode(file("project.yaml")).components.0.metadata.annotations.app
 }
+```
+
+Run apply:
+
+```bash
+terraform apply
 ```
