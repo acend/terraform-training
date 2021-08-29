@@ -22,6 +22,7 @@ echo $ACCOUNT
 
 {{% alert title="Important" color="secondary" %}}
 `YOUR_USERNAME` for this and all upcoming exercises must be
+
 * all lowercase
 * only contain alpha-numeric characters `^[a-z0-9]$`
 {{% /alert %}}

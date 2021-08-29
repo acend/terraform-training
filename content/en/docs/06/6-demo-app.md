@@ -8,7 +8,7 @@ sectionnumber: 6.6
 ## Step {{% param sectionnumber %}}.1: Deploy a workload container
 
 To test the setup end-to-end, we deploy an example application on Kubernetes. The app exposes a web service on port
-5000 and writes sample records to the MariaDB. 
+5000 and writes sample records to the MariaDB.
 
 Create a Kubernetes secret containing the MariaDB URI to be exposed as the POD environment variable `MYSQL_URI`:
 
@@ -100,4 +100,3 @@ To verify the application is connected to the MariaDB, run the following command
 ```bash
 kubectl logs -n workload example | head
 ```
-

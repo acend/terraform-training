@@ -8,6 +8,7 @@ sectionnumber: 2
 Please make sure you completed [the setup](../../setup/) before you continue with this lab.
 {{% /alert %}}
 
+
 ## First Steps
 
 Start your IDE in an empty project directory and launch a UNIX shell.  

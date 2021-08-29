@@ -10,15 +10,18 @@ menu:
 The Terraform lab exercises require the installation and configuration of a few applications. This page will
 help you getting started.
 
+
 ## Web shell
 
 Your Terraform lab trainer will provide you personal credentials to your web shell.  
 All required CLI tools and an IDE are installed and ready to use.
 
+
 ## Local installation
 
 The exercises assume a UNIX environment. In case you are working under Windows, be advised to install the
 **Windows Subsystem for Linux** as documented here: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
 
 ### CLI Tools
 
@@ -62,14 +65,18 @@ echo "complete -C `which terraform` terraform" >> ~/.bashrc
 Install a text editor of your choice. PyCharm Community Edition IDE with the HCL plugin is recommended for its
 powerful features like resource and attribute auto-complete, refactoring etc.
 
+
 #### PyCharm
 
 To install PyCharm, follow the instructions:
+
 * Goto https://www.jetbrains.com/pycharm/download
 * add plugin **HashiCorp Terraform / HCL language support**
+
 
 #### Visual Studio Code
 
 Visual Studio Code offers Terraform support via extension, follow the instructions:
+
 * Goto https://code.visualstudio.com/download 
 * add the extension **HashiCorp Terraform**
