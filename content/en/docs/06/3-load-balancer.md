@@ -5,7 +5,7 @@ sectionnumber: 6.3
 ---
 
 
-## Step 1: Create a kubernetes namespace
+## Step {{% param sectionnumber %}}.1: Create a kubernetes namespace
 
 Add the following content below the existing `provider` block of `main.tf`:
 ```terraform
@@ -39,7 +39,7 @@ We use the Kubernetes provider to create a namespace named `nginx-ingress`. The 
 of the AKS cluster; this a good example demonstrating the power of Terraform to use multiple providers.
 
 
-## Step 2: Add a public static IP
+## Step {{% param sectionnumber %}}.2: Add a public static IP
 
 Add the following content below the `azurerm_resource_group` block in `aks.tf`:
 ```terraform
@@ -58,7 +58,7 @@ terraform apply -var-file=config/dev.tfvars
 ```
 
 
-## Step 3: Install NGINX ingress controller
+## Step {{% param sectionnumber %}}.3: Install NGINX ingress controller
 
 Add the following content below the existing Kubernetes `provider` block of `main.tf`:
 ```terraform
@@ -119,7 +119,7 @@ We set the load balancer IP to the allocated public static IP and deploy a singl
 for this lab.
 
 
-## Step 4: Configure DNS
+## Step {{% param sectionnumber %}}.4: Configure DNS
 
 Create a new file named `dns.tf` and add the following content:
 ```terraform
@@ -174,7 +174,7 @@ for each workshop participant. The wildcard A record points to the layer 4 load 
 the load balancer and forwarded to the NGINX ingress controller.
 
 
-## Step 4: Test HTTP ingress
+## Step {{% param sectionnumber %}}.4: Test HTTP ingress
 
 Before we can deploy workload on Kubernetes, we need to fetch the cluster credentials by running the following command:
 ```bash
@@ -276,13 +276,13 @@ kubectl apply -f tests/http.yaml
 
 Verify the pod is running:
 ```bash
-kubectl get pod -n test-http
+kubectl get pod -n tests
 ```
 
 This should show the following output:
 ```
 NAME       READY   STATUS    RESTARTS   AGE
-insecure   1/1     Running   0          97s
+hello      1/1     Running   0          97s
 ```
 
 Now use `curl` to access your service:

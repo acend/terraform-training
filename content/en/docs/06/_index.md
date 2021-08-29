@@ -31,8 +31,8 @@ Main components:
 Let's start with the creation of a subfolder for all **azure** exercises:
 
 ```bash
-mkdir azure
-cd azure
+mkdir $LAB_ROOT/azure
+cd $LAB_ROOT/azure
 ```
 
 If you don't have `az` CLI installed yet, navgiate to https://docs.microsoft.com/en-us/cli/azure/install-azure-cli

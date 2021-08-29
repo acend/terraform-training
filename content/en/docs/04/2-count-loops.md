@@ -10,8 +10,8 @@ sectionnumber: 4.2
 Create a new directory for this exercise:
 
 ```bash
-mkdir count_loops
-cd count_loops
+mkdir -p $LAB_ROOT/intermediate/count_loops
+cd $LAB_ROOT/intermediate/count_loops
 ```
 
 
