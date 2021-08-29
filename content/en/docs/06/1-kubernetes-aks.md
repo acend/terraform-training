@@ -5,7 +5,7 @@ sectionnumber: 6.1
 ---
 
 
-## Step 1: Provision the first resource
+## Step {{% param sectionnumber %}}.1: Provision the first resource
 
 Create a new file named `main.tf` and add the following content:
 ```terraform
@@ -65,7 +65,7 @@ The `location` argument defines in which Azure region the resources shall be dep
 the Netherlands because it is amongst the cheapest regions in Europe.
 
 
-## Step 2: Add a virtual network and subnet
+## Step {{% param sectionnumber %}}.2: Add a virtual network and subnet
 
 Create a new file named `network.tf` and add the following content:
 ```terraform
@@ -121,7 +121,7 @@ change, we set a default.
 The optional `type` identifier or the variable enforces a specific structure, preventing incomplete configuration.
 
 
-## Step 3: Add an Analytics Workspace
+## Step {{% param sectionnumber %}}.3: Add an Analytics Workspace
 
 We add an Analytics Workspace to capture the Kubernetes logs and metrics.
 
@@ -162,7 +162,7 @@ The workspace requires a global unique name. To achieve this, we add a random ge
 workspace name.
 
 
-## Step 4: Add the Kubernetes cluster (AKS)
+## Step {{% param sectionnumber %}}.4: Add the Kubernetes cluster (AKS)
 
 
 Create a new file named `iam.tf` and add the following content:
@@ -289,7 +289,7 @@ The `azurerm_role_assignment` resources grant roles to the AKS identity;
 * `Network Contributor` allows AKS to provision a layer 4 load balancer
 
 
-## Step 5: Add a Docker registry (ACR)
+## Step {{% param sectionnumber %}}.5: Add a Docker registry (ACR)
 
 Create a new file named `acr.tf` and add the following content:
 ```terraform

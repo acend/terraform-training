@@ -7,10 +7,10 @@ sectionnumber: 3.3
 
 ## Preparation
 
-Finish the "Variables" exercise and navigate to the directory:
+Finish the [Variables exercise](2-variables.md) and navigate to the directory:
 
 ```bash
-cd variables
+cd $LAB_ROOT/basics/variables
 ```
 
 

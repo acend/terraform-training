@@ -5,7 +5,7 @@ sectionnumber: 6.4
 ---
 
 
-## Step 1: Cert Manager installation
+## Step {{% param sectionnumber %}}.1: Cert Manager installation
 
 Create a new file named `cert_manager.tf` and add the following content:
 ```terraform
@@ -42,7 +42,7 @@ terraform apply -var-file=config/dev.tfvars
 ```
 
 
-## Step 2: Cluster Issuer
+## Step {{% param sectionnumber %}}.2: Cluster Issuer
 
 Create a new directory structure:
 ```bash
@@ -105,7 +105,7 @@ The resource `helm_release.cluster_issuer` depends on `helm_release.cert_manager
 is registered by the Cert Manager, triggering a Kubernetes verification error (API unknown).
 
 
-## Step 3: Test HTTPS ingress
+## Step {{% param sectionnumber %}}.3: Test HTTPS ingress
 
 Create a new file named `tests/https.yaml` and add the following content:
 ```yaml

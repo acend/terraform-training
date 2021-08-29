@@ -10,12 +10,12 @@ sectionnumber: 3.4
 Create a new directory for this exercise:
 
 ```bash
-mkdir data_sources
-cd data_sources
+mkdir -p $LAB_ROOT/basics/data_sources
+cd $LAB_ROOT/basics/data_sources
 ```
 
 
-## Step {{% param sectionnumber %}}.1: Create main.tf
+## Step {{% param sectionnumber %}}.1: Create resources
 
 Create a new file named `main.tf` in your working directory and paste the following:
 

@@ -4,7 +4,7 @@ weight: 65
 sectionnumber: 6.5
 ---
 
-## Step 1: Configure AKS egress IP
+## Step {{% param sectionnumber %}}.1: Configure AKS egress IP
 
 By default, AKS routes traffic to the internet via a (randomly assigned) Azure public IP. For some scenarios like
 our MariaDB instance, we want to whitelist the source IP to restrict access to the services.
@@ -54,7 +54,7 @@ terraform state show azurerm_public_ip.aks_lb_egress
 ```
 
 
-## Step 2: Add a MariaDB instance
+## Step {{% param sectionnumber %}}.2: Add a MariaDB instance
 
 Create a new file named `mariadb.tf` and add the following content:
 ```terraform

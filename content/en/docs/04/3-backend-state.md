@@ -10,8 +10,8 @@ sectionnumber: 4.3
 Create a new directory for this exercise:
 
 ```bash
-mkdir backend_state
-cd backend_state
+mkdir -p $LAB_ROOT/intermediate/backend_state
+cd $LAB_ROOT/intermediate/backend_state
 ```
 
 
