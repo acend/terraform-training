@@ -60,6 +60,7 @@ terraform version
 echo "complete -C `which terraform` terraform" >> ~/.bashrc
 ```
 
+
 ### IDE
 
 Install a text editor of your choice. PyCharm Community Edition IDE with the HCL plugin is recommended for its
@@ -78,5 +79,5 @@ To install PyCharm, follow the instructions:
 
 Visual Studio Code offers Terraform support via extension, follow the instructions:
 
-* Goto https://code.visualstudio.com/download 
+* Goto https://code.visualstudio.com/download
 * add the extension **HashiCorp Terraform**
