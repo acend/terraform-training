@@ -7,8 +7,8 @@ acendTraining:
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
-        tag: "azure"
-        tagsuffix: "-acend"
+        tag: ""
+        tagsuffix: "azure-acend"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
@@ -21,8 +21,8 @@ acendTraining:
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
-        tag: "azure"
-        tagsuffix: "-puzzle"
+        tag: ""
+        tagsuffix: "azure-puzzle"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
