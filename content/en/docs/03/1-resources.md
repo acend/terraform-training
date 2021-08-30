@@ -10,8 +10,8 @@ sectionnumber: 3.1
 Create a new directory for this exercise:
 
 ```bash
-mkdir resources
-cd resources
+mkdir -p $LAB_ROOT/basics/resources
+cd $LAB_ROOT/basics/resources
 ```
 
 

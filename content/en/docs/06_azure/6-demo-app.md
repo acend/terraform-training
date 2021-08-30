@@ -6,23 +6,22 @@ onlyWhen: azure
 ---
 
 
-## Coming soon
+## Step {{% param sectionnumber %}}.1: Deploy a workload container
+
+To test the setup end-to-end, we deploy an example application on Kubernetes. The app exposes a web service on port
+5000 and writes sample records to the MariaDB.
 
 Create a Kubernetes secret containing the MariaDB URI to be exposed as the POD environment variable `MYSQL_URI`:
+
 ```bash
+kubectl create namespace workload
 kubectl create secret generic mariadb-uri --namespace workload --from-literal=mariadb_uri=$(terraform output -raw mariadb_uri)
 ```
 
 Create a new file named `tests/workload.yaml` and add the following content:
-```terraform
+
+```yaml
 # kubectl apply -f workload.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: workload
-
----
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -73,10 +72,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - workload.lab.labz.ch
+    - workload.YOUR_USERNAME.labz.ch
     secretName: tls-workload
   rules:
-  - host: workload.lab.labz.ch
+  - host: workload.YOUR_USERNAME.labz.ch
     http:
       paths:
       - path: /
@@ -88,7 +87,17 @@ spec:
               number: 5000
 ```
 
+**Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
+
 Deploy the Kubernetes resources by running:
+
 ```bash
 kubectl apply -f tests/workload.yaml
+```
+
+The application is now accessible via web browser at https://workload.YOUR_USERNAME.labz.ch
+
+To verify the application is connected to the MariaDB, run the following command to inspec the log files:
+```bash
+kubectl logs -n workload example | head
 ```

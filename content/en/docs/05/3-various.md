@@ -9,9 +9,9 @@ sectionnumber: 5.3
 
 Create a new directory for this exercise:
 ```bash
-mkdir various
-cd various
+mkdir $LAB_ROOT/advanced/various
+cd $LAB_ROOT/advanced/various
 ```
 
 
-## Step 1: Todo
+## Step {{% param sectionnumber %}}.1: Todo

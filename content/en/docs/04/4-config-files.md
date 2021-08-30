@@ -9,8 +9,8 @@ sectionnumber: 4.4
 Create a new directory for this exercise:
 
 ```bash
-mkdir multi_env
-cd multi_env
+mkdir -p $LAB_ROOT/intermediate/multi_env
+cd $LAB_ROOT/intermediate/multi_env
 ```
 
 

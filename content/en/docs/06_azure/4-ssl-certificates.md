@@ -6,7 +6,7 @@ onlyWhen: azure
 ---
 
 
-## Step 1: Cert Manager installation
+## Step {{% param sectionnumber %}}.1: Cert Manager installation
 
 Create a new file named `cert_manager.tf` and add the following content:
 ```terraform
@@ -43,7 +43,7 @@ terraform apply -var-file=config/dev.tfvars
 ```
 
 
-## Step 2: Cluster Issuer
+## Step {{% param sectionnumber %}}.2: Cluster Issuer
 
 Create a new directory structure:
 ```bash
@@ -106,7 +106,7 @@ The resource `helm_release.cluster_issuer` depends on `helm_release.cert_manager
 is registered by the Cert Manager, triggering a Kubernetes verification error (API unknown).
 
 
-## Step 3: Test HTTPS ingress
+## Step {{% param sectionnumber %}}.3: Test HTTPS ingress
 
 Create a new file named `tests/https.yaml` and add the following content:
 ```yaml
@@ -122,7 +122,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - secure.lab.labz.ch
+    - secure.YOUR_USERNAME.labz.ch
     secretName: tls-secure
   rules:
   - host: secure.YOUR_USERNAME.labz.ch
@@ -138,6 +138,11 @@ spec:
 ```
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
+
+Now apply the config by running:
+```bash
+kubectl apply -f tests/https.yaml
+```
 
 Now use `curl` to access your service:
 ```bash
