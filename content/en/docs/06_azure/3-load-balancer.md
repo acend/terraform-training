@@ -2,6 +2,7 @@
 title: "6.3. Load Balancer"
 weight: 63
 sectionnumber: 6.3
+onlyWhen: azure
 ---
 
 

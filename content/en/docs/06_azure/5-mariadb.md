@@ -2,6 +2,7 @@
 title: "6.5. MariaDB"
 weight: 65
 sectionnumber: 6.5
+onlyWhen: azure
 ---
 
 ## Step {{% param sectionnumber %}}.1: Configure AKS egress IP

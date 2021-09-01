@@ -2,6 +2,7 @@
 title: "6. Azure Workshop"
 weight: 6
 sectionnumber: 6
+onlyWhen: azure
 ---
 
 We will learn how to configure the Azure provider and provision resources in a subscription.
