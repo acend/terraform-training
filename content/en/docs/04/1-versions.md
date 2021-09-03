@@ -7,11 +7,11 @@ sectionnumber: 4.1
 
 ## Preparation
 
-Finish the "Data Sources" exercise and copy the directory:
+Finish the [Data Sources exercise](../03/4-data-sources.md) and copy the directory:
 
 ```bash
-cp -r ../basics/data_sources versions
-cd versions
+cp -r $LAB_ROOT/basics/data_sources $LAB_ROOT/intermediate/versions
+cd $LAB_ROOT/intermediate/versions
 ```
 
 
@@ -71,4 +71,13 @@ terraform fmt -recursive
 {{% alert title="Note" color="primary" %}}
 Most IDEs offer HCL formatting but it differs from the HashiCorp guidelines. It is recommended to use the
 `terraform fmt` command for compliance.
+{{% /alert %}}
+
+{{% alert title="Note" color="primary" %}}
+You can use the `fmt` command of Terraform in CI/CD pipelines to check if the code has been formatted correctly.
+Use the following command in the root folder of your Terraform code base:
+
+```bash
+terraform fmt -recursive -check
+```
 {{% /alert %}}

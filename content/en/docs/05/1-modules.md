@@ -10,8 +10,8 @@ sectionnumber: 5.1
 Create a new directory for this exercise:
 
 ```bash
-mkdir modules
-cd modules
+mkdir -p $LAB_ROOT/advanced/modules
+cd $LAB_ROOT/advanced/modules
 ```
 
 

@@ -2,6 +2,7 @@
 title: "6. Azure Workshop"
 weight: 6
 sectionnumber: 6
+onlyWhen: azure
 ---
 
 We will learn how to configure the Azure provider and provision resources in a subscription.
@@ -31,8 +32,8 @@ Main components:
 Let's start with the creation of a subfolder for all **azure** exercises:
 
 ```bash
-mkdir azure
-cd azure
+mkdir $LAB_ROOT/azure
+cd $LAB_ROOT/azure
 ```
 
 If you don't have `az` CLI installed yet, navgiate to https://docs.microsoft.com/en-us/cli/azure/install-azure-cli

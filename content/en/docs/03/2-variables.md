@@ -9,8 +9,8 @@ sectionnumber: 3.2
 
 Create a new directory for this exercise:
 ```bash
-mkdir variables
-cd variables
+mkdir -p $LAB_ROOT/basics/variables
+cd $LAB_ROOT/basics/variables
 ```
 
 

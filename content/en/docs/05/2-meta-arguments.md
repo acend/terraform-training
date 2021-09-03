@@ -10,8 +10,8 @@ sectionnumber: 5.2
 Create a new directory for this exercise:
 
 ```bash
-mkdir meta_arguments
-cd meta_arguments
+mkdir -p $LAB_ROOT/advanced/meta_arguments
+cd $LAB_ROOT/advanced/meta_arguments
 ```
 
 

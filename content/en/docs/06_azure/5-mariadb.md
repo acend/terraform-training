@@ -2,9 +2,10 @@
 title: "6.5. MariaDB"
 weight: 65
 sectionnumber: 6.5
+onlyWhen: azure
 ---
 
-## Step 1: Configure AKS egress IP
+## Step {{% param sectionnumber %}}.1: Configure AKS egress IP
 
 By default, AKS routes traffic to the internet via a (randomly assigned) Azure public IP. For some scenarios like
 our MariaDB instance, we want to whitelist the source IP to restrict access to the services.
@@ -54,7 +55,7 @@ terraform state show azurerm_public_ip.aks_lb_egress
 ```
 
 
-## Step 2: Add a MariaDB instance
+## Step {{% param sectionnumber %}}.2: Add a MariaDB instance
 
 Create a new file named `mariadb.tf` and add the following content:
 ```terraform
@@ -68,7 +69,7 @@ resource "random_password" "mariadb" {
   special = false
 }
 
-resource "azurerm_mariadb_server" "mariadb" {
+resource "azurerm_mariadb_server" "example" {
   name                = "mdb-${local.infix}"
   location            = azurerm_resource_group.db.location
   resource_group_name = azurerm_resource_group.db.name
@@ -88,7 +89,7 @@ resource "azurerm_mariadb_server" "mariadb" {
 resource "azurerm_mariadb_database" "demo_app" {
   name                = "demo_app"
   resource_group_name = azurerm_resource_group.db.name
-  server_name         = azurerm_mariadb_server.mariadb.name
+  server_name         = azurerm_mariadb_server.example.name
   charset             = "utf8"
   collation           = "utf8_general_ci"
 }
@@ -96,7 +97,7 @@ resource "azurerm_mariadb_database" "demo_app" {
 resource "azurerm_mariadb_firewall_rule" "lab" {
   name                = "lab-db-rule"
   resource_group_name = azurerm_resource_group.db.name
-  server_name         = azurerm_mariadb_server.mariadb.name
+  server_name         = azurerm_mariadb_server.example.name
   start_ip_address    = azurerm_public_ip.aks_lb_egress.ip_address
   end_ip_address      = azurerm_public_ip.aks_lb_egress.ip_address
 }

@@ -2,10 +2,11 @@
 title: "6.2. Remote State"
 weight: 62
 sectionnumber: 6.2
+onlyWhen: azure
 ---
 
 
-## Step 1: Create a storage
+## Step {{% param sectionnumber %}}.1: Create a storage
 
 The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a
 chicken and egg problem we resolve by using the `az` CLI as followed:
@@ -20,8 +21,15 @@ echo $ACCOUNT
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
 
+{{% alert title="Important" color="secondary" %}}
+`YOUR_USERNAME` for this and all upcoming exercises must be
 
-## Step 2: Configure the Terraform backend
+* all lowercase
+* only contain alpha-numeric characters `^[a-z0-9]$`
+{{% /alert %}}
+
+
+## Step {{% param sectionnumber %}}.2: Configure the Terraform backend
 
 Add the following content to the **start** of `main.tf`:
 ```terraform
@@ -69,7 +77,7 @@ The Azure storage account is another resource which requires a global unique nam
 the name.
 
 
-## Step 3: Lock the Terraform versions
+## Step {{% param sectionnumber %}}.3: Lock the Terraform versions
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
 to avoid uncontrolled version upgrades.

@@ -2,13 +2,13 @@ acendTraining:
   servicePort: 8080
   deployments:
     - 
-      name: acend
+      name: azure-acend
       replicaCount: 1
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
         tag: ""
-        tagsuffix: ""
+        tagsuffix: "-azure-acend"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
@@ -16,23 +16,23 @@ acendTraining:
         appname: terraform-training
         domain: training.acend.ch
     - 
-      name: puzzle
+      name: azure-puzzle
       replicaCount: 1
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
         tag: ""
-        tagsuffix: "-puzzle"
+        tagsuffix: "-azure-puzzle"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
         useDefaultSecret: true
-        appname: terraform-training
+        appname: terraform-azure
         domain: k8s.puzzle.ch
 
 
 
-nameOverride: "acend-terraform-training"
+nameOverride: "acend-terraform"
 fullnameOverride: ""
 
 serviceAccount:

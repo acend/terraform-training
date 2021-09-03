@@ -43,12 +43,12 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            quay.io/acend/terraform-training:latest
+            quay.io/acend/terraform-training:latest-azure-acend
       -
         name: Run vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'quay.io/acend/terraform-training:latest'
+          image-ref: 'quay.io/acend/terraform-training:latest-azure-acend'
           format: 'table'
           output: 'trivy-results.txt'
           exit-code: '0'
@@ -71,12 +71,12 @@ jobs:
             TRAINING_HUGO_ENV=puzzle
           push: true
           tags: |
-            quay.io/acend/terraform-training:latest-puzzle
+            quay.io/acend/terraform-training:latest-azure-puzzle
       -
         name: Run vulnerability scanner Puzzle
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'quay.io/acend/terraform-training:latest-puzzle'
+          image-ref: 'quay.io/acend/terraform-training:latest-azure-puzzle'
           format: 'table'
           output: 'trivy-results.txt'
           exit-code: '0'
@@ -120,6 +120,6 @@ jobs:
           TRAINING_HELM_RELEASE: 'latest'
           TRAINING_NAMESPACE: 'acend-terraform-training-prod'
         run: |
-          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-terraform-training-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
-          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-terraform-training-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-terraform-azure-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-terraform-azure-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
 
