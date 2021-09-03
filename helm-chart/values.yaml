@@ -13,7 +13,7 @@ acendTraining:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
-        appname: terraform-training
+        appname: terraform-azure
         domain: training.acend.ch
     - 
       name: azure-puzzle
