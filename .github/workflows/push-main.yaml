@@ -43,12 +43,12 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            quay.io/acend/terraform-training:azure-acend
+            quay.io/acend/terraform-training:latest-azure-acend
       -
         name: Run vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'quay.io/acend/terraform-training:azure-acend'
+          image-ref: 'quay.io/acend/terraform-training:latest-azure-acend'
           format: 'table'
           output: 'trivy-results.txt'
           exit-code: '0'
@@ -71,12 +71,12 @@ jobs:
             TRAINING_HUGO_ENV=puzzle
           push: true
           tags: |
-            quay.io/acend/terraform-training:azure-puzzle
+            quay.io/acend/terraform-training:latest-azure-puzzle
       -
         name: Run vulnerability scanner Puzzle
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'quay.io/acend/terraform-training:azure-puzzle'
+          image-ref: 'quay.io/acend/terraform-training:latest-azure-puzzle'
           format: 'table'
           output: 'trivy-results.txt'
           exit-code: '0'
