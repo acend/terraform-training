@@ -2,6 +2,7 @@
 title: "4.4. Config Files"
 weight: 44
 sectionnumber: 4.4
+onlyWhen: azure
 ---
 
 ## Preparation

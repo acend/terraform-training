@@ -16,6 +16,20 @@ acendTraining:
         appname: terraform-azure
         domain: training.acend.ch
     - 
+      name: cnd-acend
+      replicaCount: 1
+      image:
+        repository: quay.io/acend/terraform-training
+        pullPolicy: Always
+        tag: ""
+        tagsuffix: "-cnd-acend"
+      ingress:
+        annotations: 
+          kubernetes.io/ingress.class: nginx-public
+        secretOverride: acend-wildcard
+        appname: terraform-workshop
+        domain: training.acend.ch
+    - 
       name: azure-puzzle
       replicaCount: 1
       image:

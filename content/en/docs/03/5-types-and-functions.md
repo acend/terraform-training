@@ -2,6 +2,7 @@
 title: "3.5. Types / Functions"
 weight: 35
 sectionnumber: 3.5
+onlyWhen: azure
 ---
 
 
