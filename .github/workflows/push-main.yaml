@@ -67,6 +67,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          build-args: |
+            TRAINING_HUGO_ENV=cnd
           push: true
           tags: |
             quay.io/acend/terraform-training:latest-cnd-acend
