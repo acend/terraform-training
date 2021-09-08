@@ -2,6 +2,7 @@
 title: "5.4. Terraform CLI"
 weight: 54
 sectionnumber: 5.4
+onlyWhen: azure
 ---
 
 

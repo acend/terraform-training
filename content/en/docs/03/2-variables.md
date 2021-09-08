@@ -2,6 +2,7 @@
 title: "3.2. Variables"
 weight: 32
 sectionnumber: 3.2
+onlyWhen: azure
 ---
 
 

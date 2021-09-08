@@ -2,6 +2,7 @@
 title: "3.3. Outputs"
 weight: 33
 sectionnumber: 3.3
+onlyWhen: azure
 ---
 
 
