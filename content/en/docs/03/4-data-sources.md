@@ -53,6 +53,10 @@ This shows the dependency tracking and resolution of Terraform in action.
 Sometimes you want to recreate a specific resource. Terraform offers the `taint` command to
 mark a resource for recreation and `untaint` to remove the mark.
 
+{{% alert title="Note" color="primary" %}}
+The `taint` command is rarely used in practice.
+{{% /alert %}}
+
 **Important:** The next apply will destroy and create the resource which might lead to a recreation of
 other depending resources!
 
