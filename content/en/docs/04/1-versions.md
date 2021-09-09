@@ -11,6 +11,7 @@ onlyWhen: azure
 Finish the [Data Sources exercise](../03/4-data-sources.md) and copy the directory:
 
 ```bash
+mkdir -p $LAB_ROOT/intermediate/
 cp -r $LAB_ROOT/basics/data_sources $LAB_ROOT/intermediate/versions
 cd $LAB_ROOT/intermediate/versions
 ```
