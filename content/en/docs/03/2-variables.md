@@ -128,4 +128,4 @@ resource "random_integer" "number" {
 
 ### Try it out
 
-Remove the `default = 1000` statement from the block and run `terraform apply`.
+Remove the `default = 2000` statement from the block and run `terraform apply`.
