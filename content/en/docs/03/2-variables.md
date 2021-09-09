@@ -59,12 +59,14 @@ To see how Terraform applies changes to your existing resources,
 change the `default` value of `random_min_value` to `2000` in the
 `variables.tf` file:
 
-```terraform
+```
+{{< highlight terraform "hl_lines=3" >}}
 variable "random_min_value" {
   type        = number
-  default     = 1000
+  default     = 2000
   description = "min value of the random number"
 }
+{{< / highlight >}}
 ```
 
 Then run the command
