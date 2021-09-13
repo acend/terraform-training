@@ -2,6 +2,7 @@
 title: "5.2. Meta-Arguments"
 weight: 52
 sectionnumber: 5.2
+onlyWhen: azure
 ---
 
 
@@ -64,12 +65,14 @@ the file does not exist yet and Terraform fails.
 
 Change the resource `local_file.reference` as followed:
 
-```terraform
+```
+{{< highlight terraform "hl_lines=4" >}}
 data "local_file" "reference" {
   filename = "foobar.txt"
 
   depends_on = [local_file.foobar_txt]
 }
+{{< / highlight >}}
 ```
 
 Now run:

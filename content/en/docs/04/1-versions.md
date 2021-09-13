@@ -2,14 +2,16 @@
 title: "4.1. Versions"
 weight: 41
 sectionnumber: 4.1
+onlyWhen: azure
 ---
 
 
 ## Preparation
 
-Finish the [Data Sources exercise](../03/4-data-sources.md) and copy the directory:
+Finish the [Data Sources exercise]({{< relref "4-data-sources.md" >}}) and copy the directory:
 
 ```bash
+mkdir -p $LAB_ROOT/intermediate/
 cp -r $LAB_ROOT/basics/data_sources $LAB_ROOT/intermediate/versions
 cd $LAB_ROOT/intermediate/versions
 ```

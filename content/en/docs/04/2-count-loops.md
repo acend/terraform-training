@@ -2,6 +2,7 @@
 title: "4.2. Count / Loops"
 weight: 42
 sectionnumber: 4.2
+onlyWhen: azure
 ---
 
 
