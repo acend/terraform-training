@@ -8,7 +8,7 @@ onlyWhen: azure
 
 ## Preparation
 
-Finish the [Data Sources exercise](../03/4-data-sources.md) and copy the directory:
+Finish the [Data Sources exercise]({{< relref "4-data-sources.md" >}}) and copy the directory:
 
 ```bash
 mkdir -p $LAB_ROOT/intermediate/
