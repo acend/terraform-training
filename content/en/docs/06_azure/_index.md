@@ -23,6 +23,7 @@ Main components:
 * SSL Cert Manager
 * MariaDB
 
+
 ### Diagram
 
 ![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
