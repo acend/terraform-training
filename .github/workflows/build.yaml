@@ -135,7 +135,7 @@ jobs:
       - 
         name: Deploy Helm Release
         env:
-          TRAINING_HELM_RELEASE: 'pr-${{ github.event.pull_request.number }}'
+          TRAINING_HELM_RELEASE: 'cloud-native-day'
           TRAINING_NAMESPACE: 'acend-terraform-training-test'
           TRAINING_VERSION: '${{ github.sha }}'
         run: |
@@ -143,7 +143,7 @@ jobs:
       - 
         name: Redeploy Deployments
         env:
-          TRAINING_HELM_RELEASE: 'pr-${{ github.event.pull_request.number }}'
+          TRAINING_HELM_RELEASE: 'cloud-native-day'
           TRAINING_NAMESPACE: 'acend-terraform-training-test'
         run: |
           kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-acend-terraform-azure-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
