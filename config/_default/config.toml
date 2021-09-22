@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Terraform Training"
+title = "Swiss Cloud Native Day - Terraform Azure Workshop"
 
 enableGitInfo = true
 
@@ -50,7 +50,7 @@ theme = "neutral"
 
 [Languages]
 [Languages.en]
-title = "Terraform Training"
+title = "Swiss Cloud Native Day - Terraform Azure Workshop"
 languageName = "English"
 weight = 1
 
