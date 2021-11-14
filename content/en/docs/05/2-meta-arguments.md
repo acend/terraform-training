@@ -65,7 +65,6 @@ the file does not exist yet and Terraform fails.
 
 Change the resource `local_file.reference` as followed:
 
-```
 {{< highlight terraform "hl_lines=4" >}}
 data "local_file" "reference" {
   filename = "foobar.txt"
@@ -73,7 +72,6 @@ data "local_file" "reference" {
   depends_on = [local_file.foobar_txt]
 }
 {{< / highlight >}}
-```
 
 Now run:
 
