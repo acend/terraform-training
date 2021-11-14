@@ -51,9 +51,10 @@ variable "clouds" {
 ```
 
 The code snippet above defines a map for the top three cloud platforms with three attributes:
+
 * company
-*founder
-*cloud_rank
+* founder
+* cloud_rank
 
 
 ## Step {{% param sectionnumber %}}.2: Dynamic blocks
