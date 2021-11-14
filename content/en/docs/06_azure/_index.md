@@ -24,6 +24,8 @@ Main components:
 * MariaDB
 
 
+### Diagram
+
 ![Azure_solution_architecture.png.png](Azure_solution_architecture.png)
 
 

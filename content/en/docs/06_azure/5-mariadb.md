@@ -69,7 +69,7 @@ resource "random_password" "mariadb" {
   special = false
 }
 
-resource "azurerm_mariadb_server" "example" {
+resource "azurerm_mariadb_server" "demo" {
   name                = "mdb-${local.infix}"
   location            = azurerm_resource_group.db.location
   resource_group_name = azurerm_resource_group.db.name
@@ -89,7 +89,7 @@ resource "azurerm_mariadb_server" "example" {
 resource "azurerm_mariadb_database" "demo_app" {
   name                = "demo_app"
   resource_group_name = azurerm_resource_group.db.name
-  server_name         = azurerm_mariadb_server.example.name
+  server_name         = azurerm_mariadb_server.demo.name
   charset             = "utf8"
   collation           = "utf8_general_ci"
 }
@@ -97,20 +97,21 @@ resource "azurerm_mariadb_database" "demo_app" {
 resource "azurerm_mariadb_firewall_rule" "lab" {
   name                = "lab-db-rule"
   resource_group_name = azurerm_resource_group.db.name
-  server_name         = azurerm_mariadb_server.example.name
+  server_name         = azurerm_mariadb_server.demo.name
   start_ip_address    = azurerm_public_ip.aks_lb_egress.ip_address
   end_ip_address      = azurerm_public_ip.aks_lb_egress.ip_address
 }
 ```
 
 Create a new file named `outputs.tf` and add the following content:
+
 ```terraform
 output "mariadb_uri" {
   sensitive = true
   value     = format("mysql://%s:%s@%s/%s",
-    azurerm_mariadb_server.example.administrator_login,
-    azurerm_mariadb_server.example.administrator_login_password,
-    azurerm_mariadb_server.example.fqdn,
+    azurerm_mariadb_server.demo.administrator_login,
+    azurerm_mariadb_server.demo.administrator_login_password,
+    azurerm_mariadb_server.demo.fqdn,
     azurerm_mariadb_database.demo_app.name
   )
 }

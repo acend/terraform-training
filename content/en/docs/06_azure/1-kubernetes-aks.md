@@ -77,11 +77,13 @@ resource "azurerm_virtual_network" "default" {
   address_space       = [var.network_cidrs.vnet]
 }
 
-resource "azurerm_network_watcher" "default" {
-  name                = "nw-${local.infix}"
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
-}
+// There can only be one Network Watcher per subscription; uncomment the following block
+// for your own Azure subscriptions outside the lab
+//resource "azurerm_network_watcher" "default" {
+//  name                = "nw-${local.infix}"
+//  location            = azurerm_resource_group.default.location
+//  resource_group_name = azurerm_resource_group.default.name
+//}
 
 resource "azurerm_subnet" "private" {
   name                 = "snet-${local.infix}-private"
