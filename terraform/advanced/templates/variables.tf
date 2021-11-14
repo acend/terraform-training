@@ -1,0 +1,3 @@
+variable "action" {
+  default = "fun"
+}
