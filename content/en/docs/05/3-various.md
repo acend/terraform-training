@@ -51,9 +51,9 @@ variable "clouds" {
 ```
 
 The code snippet above defines a map for the top three cloud platforms with three attributes:
-- company
-- founder
-- cloud_rank
+* company
+*founder
+*cloud_rank
 
 
 ## Step {{% param sectionnumber %}}.2: Dynamic blocks
@@ -61,7 +61,7 @@ The code snippet above defines a map for the top three cloud platforms with thre
 Some Terraform resources (and data sources) have repetitive blocks, for example `archive_file`. See documentation
 at https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/archive_file
 
-Example: 
+Example:
 
 {{< highlight terraform "hl_lines=5-13" >}}
 data "archive_file" "dotfiles" {
@@ -80,7 +80,7 @@ data "archive_file" "dotfiles" {
 }
 {{< / highlight >}}
 
-To add such blocks repetitively, we can use the `dyanmic` keyword as documented here: 
+To add such blocks repetitively, we can use the `dyanmic` keyword as documented here:
 https://www.terraform.io/docs/language/expressions/dynamic-blocks.html
 
 Create a new file named `main.tf` and add the following content:

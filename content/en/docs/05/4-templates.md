@@ -109,7 +109,7 @@ runcmd:
 ```
 
 As you can see, the template contains several variables and supports conditional expressions (if / endif) and
-for-loops. 
+for-loops.
 
 In `outputs.tf` add the following output:
 
@@ -136,7 +136,7 @@ terraform output -raw cloud_init
 
 Cloud-init scripts passed as user-data on cloud platforms while provisioning a new VM, have a max size of 16kb. This is
 almost always enough, but it is good practice to zip and base64 encode the content.  
-Terraform offers a data source to simplify this process, `template_cloudinit_config` documented at 
+Terraform offers a data source to simplify this process, `template_cloudinit_config` documented at
 https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config
 
 Create a new file named `main.tf` and add the following content:
