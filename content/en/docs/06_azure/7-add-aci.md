@@ -123,7 +123,7 @@ graph LR
     C(App-Container)
 ```
 
-Your mission, should you decide to accept it: 
+Your mission, should you decide to accept it:
 
 **Add an addtional container acting as a "reverse proxy" to the above example and secure your workload!**
 
