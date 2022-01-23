@@ -9,7 +9,7 @@ onlyWhen: azure
 There are situations, where you have a containerized app which should not run in the context of your AKS cluster.
 E.g. a monitoring dashbord or health checker, etc.
 Or you just simply want to run one container without all of the AKS overhead.
-Azrue offers a container runtime for such cases. The ACI - Azure Container Instances.
+Azure offers a container runtime for such cases. The ACI - Azure Container Instances.
 This engine allows you to run a simple container in a spearated environment.
 
 
@@ -89,10 +89,6 @@ resource "azurerm_container_group" "aci" {
       protocol = "TCP"
     }
   }
-  exposed_port {
-      port     = 80
-      protocol = "TCP"
-  }
 }
 
 output "fqdn" {
@@ -110,7 +106,7 @@ terraform apply
 The application is now accessible via web browser at => `terraform output -raw fqdn`
 
 
-## Step {{% param sectionnumber %}}.2: Whats about security?
+## Step {{% param sectionnumber %}}.2: What's about security?
 
 As you can see, the ACI just offers a simple Container Runtime with direct accessability over the container port.
 If you want to have a secured endpoint, you have to find a own solution if container does not provide anything.
@@ -123,24 +119,22 @@ One case would be, do use a proxy in front of your application to handle the con
 ```mermaid
 graph LR
     A(Internet) --> |port: 443|B
-    B(Proxy-Container) --> [port: 5000]C(App-Container)
+    B(Proxy-Container) --> |port: 5000|C
+    C(App-Container)
 ```
 
-**Your mission, should you decide to accept it, ...**
+Your mission, should you decide to accept it: 
 
-Add an addtional container acting as a "reverse proxy" to the above example and secure your workload!
+**Add an addtional container acting as a "reverse proxy" to the above example and secure your workload!**
 
-**As always, should any of your ressources be crashing or disappearing, the Secretary will disavow any knowledge of your actions.**
+As always, should any of your ressources be crashing or disappearing, the Secretary will disavow any knowledge of your actions.
 
 
-Don't where start? Click here:
-{{% details title="Hint" %}}
+Here are som usefull links to consider:
 
 * check the terraform [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) how to use addtional containers
-* [here](https://github.com/caddyserver/caddy) is an excellent solution to protect endpoints
+* [here](https://caddyserver.com/docs/) is an excellent solution to protect endpoints
 * how to glue that together? Get an impression in this [blog](https://itnext.io/automatic-https-with-azure-container-instances-aci-4c4c8b03e8c9)
-
-{{% /details %}}
 
 
 In case of any problems, you can open this section below:
@@ -192,3 +186,5 @@ Use the command `az container logs -g YOUR_RESSOURCE_GROUP --name YOUR_CONTAINER
 
 If you would use this solution in a production environment you have consider a storage to the certificate as well. You can see how in the full solution blog link above.
 {{% /details %}}
+
+Do you like this lab? Tell us what you think.
