@@ -9,8 +9,8 @@ onlyWhen: azure
 There are situations, where you have a containerized app which should not run in the context of your AKS cluster.
 E.g. a monitoring dashbord or health checker, etc.
 Or you just simply want to run one container without all of the AKS overhead.
-Azrue offers a container runtime for such cases. The ACI - Azure Container Instances. 
-This engine allows you to run a simple container in a spearated environment. 
+Azrue offers a container runtime for such cases. The ACI - Azure Container Instances.
+This engine allows you to run a simple container in a spearated environment.
 
 
 This lab will show you, with a small example, how to archive this.
@@ -116,7 +116,7 @@ As you can see, the ACI just offers a simple Container Runtime with direct acces
 If you want to have a secured endpoint, you have to find a own solution if container does not provide anything.
 
 
-You may saw, that the terraform ressource is called `azurerm_container_group`. 
+You may saw, that the terraform ressource is called `azurerm_container_group`.
 The meaning of that is, you can put several containers in this object.
 One case would be, do use a proxy in front of your application to handle the connection endpoint.
 
