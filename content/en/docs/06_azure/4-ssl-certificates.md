@@ -10,18 +10,13 @@ onlyWhen: azure
 
 ```mermaid
 flowchart LR
-    classDef red fill:#f96;
-    aad(AD Group) --> |permission|aAks
-    aNode --> |use|dSub
+    classDef red fill:#f96
     subgraph rg: aks
-    aAks(aks) --> |logs|aLaw(law)
-    aAks --> aNode(nodes)
-    aAcr(acr) --> |images|aNode
+    aAks(aks)
     aIp(public ip)
     end
     dDns --> aIp
     subgraph rg: default
-    dNet(vnet) --> dSub(subnet)
     dDns(dns)
     end
     aAks --> aks
@@ -79,18 +74,13 @@ terraform apply -var-file=config/dev.tfvars
 
 ```mermaid
 flowchart LR
-    classDef red fill:#f96;
-    aad(AD Group) --> |permission|aAks
-    aNode --> |use|dSub
+    classDef red fill:#f96
     subgraph rg: aks
-    aAks(aks) --> |logs|aLaw(law)
-    aAks --> aNode(nodes)
-    aAcr(acr) --> |images|aNode
+    aAks(aks)
     aIp(public ip)
     end
     dDns --> aIp
     subgraph rg: default
-    dNet(vnet) --> dSub(subnet)
     dDns(dns)
     end
     aAks --> aks
