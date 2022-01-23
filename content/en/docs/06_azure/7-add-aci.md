@@ -8,11 +8,10 @@ onlyWhen: azure
 
 There are situations, where you have a containerized app which should not run in the context of your AKS cluster.
 E.g. a monitoring dashbord or health checker, etc.
-
 Or you just simply want to run one container without all of the AKS overhead.
-
 Azrue offers a container runtime for such cases. The ACI - Azure Container Instances. 
 This engine allows you to run a simple container in a spearated environment. 
+
 
 This lab will show you, with a small example, how to archive this.
 
@@ -20,6 +19,7 @@ This lab will show you, with a small example, how to archive this.
 ## Step {{% param sectionnumber %}}.1: Azure Container Instances
 
 We will create the following:
+
 * Ressource group
 * Azure container instance
 
@@ -115,6 +115,7 @@ The application is now accessible via web browser at => `terraform output -raw f
 As you can see, the ACI just offers a simple Container Runtime with direct accessability over the container port.
 If you want to have a secured endpoint, you have to find a own solution if container does not provide anything.
 
+
 You may saw, that the terraform ressource is called `azurerm_container_group`. 
 The meaning of that is, you can put several containers in this object.
 One case would be, do use a proxy in front of your application to handle the connection endpoint.
@@ -134,6 +135,7 @@ Add an addtional container acting as a "reverse proxy" to the above example and 
 
 Don't where start? Click here:
 {{% details title="Hint" %}}
+
 * check the terraform [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) how to use addtional containers
 * [here](https://github.com/caddyserver/caddy) is an excellent solution to protect endpoints
 * how to glue that together? Get an impression in this [blog](https://itnext.io/automatic-https-with-azure-container-instances-aci-4c4c8b03e8c9)
@@ -189,7 +191,4 @@ In this solutions it takes some time to get the certificate from the provider up
 Use the command `az container logs -g YOUR_RESSOURCE_GROUP --name YOUR_CONTAINER_GROUP_NAME --container-name caddy` to observe the logfiles from the container.
 
 If you would use this solution in a production environment you have consider a storage to the certificate as well. You can see how in the full solution blog link above.
-
 {{% /details %}}
-
-
