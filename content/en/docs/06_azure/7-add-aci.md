@@ -130,7 +130,7 @@ Your mission, should you decide to accept it:
 As always, should any of your ressources be crashing or disappearing, the Secretary will disavow any knowledge of your actions.
 
 
-Here are som usefull links to consider:
+Here are some usefull links to consider:
 
 * check the terraform [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) how to use addtional containers
 * [here](https://caddyserver.com/docs/) is an excellent solution to protect endpoints
