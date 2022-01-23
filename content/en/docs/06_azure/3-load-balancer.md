@@ -188,16 +188,13 @@ for this lab.
 flowchart LR
     classDef red fill:#f96;
     aad(AD Group) --> |permission|aAks
-    aNode --> |use|dSub
     subgraph rg: aks
-    aAks(aks) --> |logs|aLaw(law)
     aAks --> aNode(nodes)
     aAcr(acr) --> |images|aNode
     aIp(public ip)
     end
     dDns --> aIp
     subgraph rg: default
-    dNet(vnet) --> dSub(subnet)
     dDns(dns):::red
     end
     aAks --> aks
@@ -268,17 +265,14 @@ the load balancer and forwarded to the NGINX ingress controller.
 flowchart LR
     classDef red fill:#f96;
     aad(AD Group) --> |permission|aAks
-    aNode --> |use|dSub
     subgraph rg: aks
-    aAks(aks) --> |logs|aLaw(law)
     aAks --> aNode(nodes)
     aAcr(acr) --> |images|aNode
     aIp(public ip)
     end
     dDns --> aIp
     subgraph rg: default
-    dNet(vnet) --> dSub(subnet)
-    dDns(dns)
+    dDns(dns):::red
     end
     aAks --> aks
     subgraph aks

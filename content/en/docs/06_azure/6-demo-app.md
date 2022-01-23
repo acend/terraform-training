@@ -8,6 +8,35 @@ onlyWhen: azure
 
 ## Step {{% param sectionnumber %}}.1: Deploy a workload container
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96
+    subgraph rg: aks
+    aAks(aks)
+    aIp(public ip)
+    end
+    dDns --> aIp
+    subgraph rg: default
+    dDns(dns)
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service) --> pNg(pod)
+        end
+        subgraph ns: workload
+        iAc --> sAc(service):::red --> pAc(pod):::red
+        pNg --> iAc(ingress):::red
+        end
+    end
+    pAc --> mFire
+    subgraph rg: db
+        mServer(mariadb) --> mDb(database)
+        mFire(firewall) --> mDb
+    end
+```
+
 To test the setup end-to-end, we deploy an example application on Kubernetes. The app exposes a web service on port
 5000 and writes sample records to the MariaDB.
 
