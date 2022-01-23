@@ -1,5 +1,5 @@
 ---
-title: "6.7. Addtional Content - ACI"
+title: "6.7. Pure Container"
 weight: 67
 sectionnumber: 6.7
 onlyWhen: azure
