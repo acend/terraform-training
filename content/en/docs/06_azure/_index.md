@@ -43,7 +43,7 @@ and follow the instructions.
 
 After installation, run
 ```bash
-az login
+az login --use-device-code
 ```
 and follow the console and web browser instructions.
 
