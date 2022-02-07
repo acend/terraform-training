@@ -68,6 +68,14 @@ the Netherlands because it is amongst the cheapest regions in Europe.
 
 ## Step {{% param sectionnumber %}}.2: Add a virtual network and subnet
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    subgraph rg: default
+    dNet(vnet):::red --> dSub(subnet):::red
+    end
+```
+
 Create a new file named `network.tf` and add the following content:
 ```terraform
 resource "azurerm_virtual_network" "default" {
@@ -126,6 +134,17 @@ The optional `type` identifier or the variable enforces a specific structure, pr
 
 ## Step {{% param sectionnumber %}}.3: Add an Analytics Workspace
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    subgraph rg: aks
+    aLaw(law):::red
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+```
+
 We add an Analytics Workspace to capture the Kubernetes logs and metrics.
 
 Create a new file named `aks.tf` and add the following content:
@@ -167,6 +186,19 @@ workspace name.
 
 ## Step {{% param sectionnumber %}}.4: Add the Kubernetes cluster (AKS)
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    aNode --> |use|dSub
+    subgraph rg: aks
+    aAks(aks):::red --> |logs|aLaw(law)
+    aAks --> aNode(nodes):::red
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+```
 
 Create a new file named `iam.tf` and add the following content:
 ```terraform
@@ -293,6 +325,21 @@ The `azurerm_role_assignment` resources grant roles to the AKS identity;
 
 
 ## Step {{% param sectionnumber %}}.5: Add a Docker registry (ACR)
+
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    aNode --> |use|dSub
+    subgraph rg: aks
+    aAks(aks) --> |logs|aLaw(law)
+    aAks --> aNode(nodes)
+    aAcr(acr):::red --> |images|aNode
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+```
 
 Create a new file named `acr.tf` and add the following content:
 ```terraform

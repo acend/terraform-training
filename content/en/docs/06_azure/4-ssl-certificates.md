@@ -8,6 +8,33 @@ onlyWhen: azure
 
 ## Step {{% param sectionnumber %}}.1: Cert Manager installation
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96
+    subgraph rg: aks
+    aAks(aks)
+    aIp(public ip)
+    end
+    dDns --> aIp
+    subgraph rg: default
+    dDns(dns)
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service) --> pNg(pod)
+        end
+        subgraph ns: tests
+        sTst(service) --> pTst(pod)
+        pNg --> iTst(ingress) --> sTst
+        end
+        subgraph ns: cert-manager
+        sCm(service):::red --> pCm(pod):::red
+        end
+    end
+```
+
 Create a new file named `cert_manager.tf` and add the following content:
 ```terraform
 resource "kubernetes_namespace" "cert_manager" {
@@ -44,6 +71,34 @@ terraform apply -var-file=config/dev.tfvars
 
 
 ## Step {{% param sectionnumber %}}.2: Cluster Issuer
+
+```mermaid
+flowchart LR
+    classDef red fill:#f96
+    subgraph rg: aks
+    aAks(aks)
+    aIp(public ip)
+    end
+    dDns --> aIp
+    subgraph rg: default
+    dDns(dns)
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service) --> pNg(pod)
+        end
+        subgraph ns: tests
+        sTst(service) --> pTst(pod)
+        pNg --> iTst(ingress) --> sTst
+        end
+        subgraph ns: cert-manager
+        sCm(service) --> pCm(pod)
+        pCm --> cCl(issuer):::red
+        end
+    end
+```
 
 Create a new directory structure:
 ```bash

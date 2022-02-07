@@ -57,6 +57,15 @@ terraform state show azurerm_public_ip.aks_lb_egress
 
 ## Step {{% param sectionnumber %}}.2: Add a MariaDB instance
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96
+    subgraph rg: db
+        mServer(mariadb):::red --> mDb(database):::red 
+        mFire(firewall):::red --> mDb
+    end
+```
+
 Create a new file named `mariadb.tf` and add the following content:
 ```terraform
 resource "azurerm_resource_group" "db" {

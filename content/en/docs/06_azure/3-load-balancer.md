@@ -8,6 +8,25 @@ onlyWhen: azure
 
 ## Step {{% param sectionnumber %}}.1: Create a kubernetes namespace
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    aNode --> |use|dSub
+    subgraph rg: aks
+    aAks(aks) --> |logs|aLaw(law)
+    aAks --> aNode(nodes)
+    aAcr(acr) --> |images|aNode
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+    aAks --> aks
+    subgraph aks
+    cIngress(ns: nginx-ingress):::red
+    end
+```
+
 Add the following content below the existing `provider` block of `main.tf`:
 ```terraform
 provider "kubernetes" {
@@ -42,6 +61,26 @@ of the AKS cluster; this a good example demonstrating the power of Terraform to 
 
 ## Step {{% param sectionnumber %}}.2: Add a public static IP
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    aNode --> |use|dSub
+    subgraph rg: aks
+    aAks(aks) --> |logs|aLaw(law)
+    aAks --> aNode(nodes)
+    aAcr(acr) --> |images|aNode
+    aIp(public ip):::red
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+    aAks --> aks
+    subgraph aks
+    cIngress(nginx-ingress)
+    end
+```
+
 Add the following content below the `azurerm_resource_group` block in `aks.tf`:
 ```terraform
 resource "azurerm_public_ip" "aks_lb_ingress" {
@@ -60,6 +99,29 @@ terraform apply -var-file=config/dev.tfvars
 
 
 ## Step {{% param sectionnumber %}}.3: Install NGINX ingress controller
+
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    aNode --> |use|dSub
+    subgraph rg: aks
+    aAks(aks) --> |logs|aLaw(law)
+    aAks --> aNode(nodes)
+    aAcr(acr) --> |images|aNode
+    aIp(public ip)
+    end
+    subgraph rg: default
+    dNet(vnet) --> dSub(subnet)
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service):::red --> pNg(pod):::red
+        end
+    end
+```
 
 Add the following content below the existing Kubernetes `provider` block of `main.tf`:
 ```terraform
@@ -122,6 +184,28 @@ for this lab.
 
 ## Step {{% param sectionnumber %}}.4: Configure DNS
 
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    subgraph rg: aks
+    aAks --> aNode(nodes)
+    aAcr(acr) --> |images|aNode
+    aIp(public ip)
+    end
+    dDns --> aIp
+    subgraph rg: default
+    dDns(dns):::red
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service) --> pNg(pod)
+        end
+    end
+```
+
 Create a new file named `dns.tf` and add the following content:
 ```terraform
 data "azurerm_dns_zone" "parent" {
@@ -176,6 +260,32 @@ the load balancer and forwarded to the NGINX ingress controller.
 
 
 ## Step {{% param sectionnumber %}}.4: Test HTTP ingress
+
+```mermaid
+flowchart LR
+    classDef red fill:#f96;
+    aad(AD Group) --> |permission|aAks
+    subgraph rg: aks
+    aAks --> aNode(nodes)
+    aAcr(acr) --> |images|aNode
+    aIp(public ip)
+    end
+    dDns --> aIp
+    subgraph rg: default
+    dDns(dns):::red
+    end
+    aAks --> aks
+    subgraph aks
+        aIp --> sNg
+        subgraph ns: nginx-ingress
+        sNg(service) --> pNg(pod)
+        end
+        subgraph ns: tests
+        sTst(service):::red --> pTst(pod):::red
+        pNg --> iTst(ingress):::red --> sTst
+        end
+    end
+```
 
 Before we can deploy workload on Kubernetes, we need to fetch the cluster credentials by running the following command:
 ```bash
