@@ -29,7 +29,7 @@ acendTraining:
         secretOverride: acend-wildcard
         appname: terraform-workshop
         domain: training.acend.ch
-    - 
+    -
       name: azure-puzzle
       replicaCount: 1
       image:
