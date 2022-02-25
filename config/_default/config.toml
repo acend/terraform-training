@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Terraform on Azure Basics Training"
+title = "Terraform Basics on Azure Training"
 
 enableGitInfo = true
 
@@ -50,7 +50,7 @@ theme = "neutral"
 
 [Languages]
 [Languages.en]
-title = "Terraform on Azure Basics Training"
+title = "Terraform Basics on Azure Training"
 languageName = "English"
 weight = 1
 
@@ -82,6 +82,9 @@ trainingFlavor = "Azure"
 
 # Enable Lunr.js offline search
 offlineSearch = true
+
+[params.pdf]
+title="Terraform Basics on Azure Training"
 
 [params.ui]
 # Enable to show the side bar menu in its compact state.
