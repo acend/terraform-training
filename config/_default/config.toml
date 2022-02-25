@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Terraform Training"
+title = "Terraform Basics on Azure Training"
 
 enableGitInfo = true
 
@@ -50,7 +50,7 @@ theme = "neutral"
 
 [Languages]
 [Languages.en]
-title = "Terraform Training"
+title = "Terraform Basics on Azure Training"
 languageName = "English"
 weight = 1
 
@@ -78,9 +78,13 @@ github_repo = "https://github.com/acend/terraform-training"
 github_branch = "main"
 
 enabledModule = "base azure"
+trainingFlavor = "Azure"
 
 # Enable Lunr.js offline search
 offlineSearch = true
+
+[params.pdf]
+title="Terraform Basics on Azure Training"
 
 [params.ui]
 # Enable to show the side bar menu in its compact state.

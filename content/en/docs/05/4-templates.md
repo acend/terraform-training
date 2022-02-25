@@ -2,7 +2,6 @@
 title: "5.4. Templates"
 weight: 54
 sectionnumber: 5.4
-onlyWhen: azure
 ---
 
 

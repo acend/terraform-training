@@ -1,0 +1,13 @@
+title = "Terraform Basics on AWS Training"
+languageCode = "en-us"
+
+[Languages]
+[Languages.en]
+title = "Terraform Basics on AWS Training"
+
+[params]
+enabledModule = "base aws"
+trainingFlavor = "AWS"
+
+[params.pdf]
+title="Terraform Basics on AWS Training"

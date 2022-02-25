@@ -16,33 +16,34 @@ acendTraining:
         appname: terraform-azure
         domain: training.acend.ch
     - 
-      name: cnd-acend
+      name: aws-acend
       replicaCount: 1
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
         tag: ""
-        tagsuffix: "-cnd-acend"
+        tagsuffix: "-aws-acend"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
-        appname: terraform-workshop
+        appname: terraform-aws
         domain: training.acend.ch
-    -
-      name: azure-puzzle
+    - 
+      name: gcp-acend
       replicaCount: 1
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
         tag: ""
-        tagsuffix: "-azure-puzzle"
+        tagsuffix: "-gcp-acend"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
-        useDefaultSecret: true
-        appname: terraform-azure
-        domain: k8s.puzzle.ch
+        secretOverride: acend-wildcard
+        appname: terraform-gcp
+        domain: training.acend.ch
+
 
 
 

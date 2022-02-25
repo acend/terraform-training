@@ -2,7 +2,6 @@
 title: "3.1. Resources"
 weight: 31
 sectionnumber: 3.1
-onlyWhen: azure
 ---
 
 

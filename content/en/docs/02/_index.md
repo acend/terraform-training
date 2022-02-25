@@ -2,7 +2,6 @@
 title: "2. First steps"
 weight: 2
 sectionnumber: 2
-onlyWhen: azure
 ---
 
 {{% alert title="Important" color="secondary" %}}

@@ -2,7 +2,6 @@
 title: "4.3. Backend State"
 weight: 43
 sectionnumber: 4.3
-onlyWhen: azure
 ---
 
 
