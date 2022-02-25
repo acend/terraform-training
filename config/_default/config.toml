@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Terraform Training"
+title = "Terraform on Azure Basics Training"
 
 enableGitInfo = true
 
@@ -50,7 +50,7 @@ theme = "neutral"
 
 [Languages]
 [Languages.en]
-title = "Terraform Training"
+title = "Terraform on Azure Basics Training"
 languageName = "English"
 weight = 1
 
@@ -78,6 +78,7 @@ github_repo = "https://github.com/acend/terraform-training"
 github_branch = "main"
 
 enabledModule = "base azure"
+trainingFlavor = "Azure"
 
 # Enable Lunr.js offline search
 offlineSearch = true

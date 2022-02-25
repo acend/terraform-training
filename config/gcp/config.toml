@@ -1,0 +1,13 @@
+title = "Terraform on GCP Basics Training"
+languageCode = "en-us"
+
+[Languages]
+[Languages.en]
+title = "Terraform on GCP Basics Training"
+
+[params]
+enabledModule = "base gcp"
+trainingFlavor = "GCP"
+
+[params.pdf]
+title="Terraform on GCP Basics Training"

@@ -60,61 +60,27 @@ jobs:
           name: trivy-results-build
           path: trivy-results.txt
       -
-        name: Build cnd acend Version
+        name: Build aws acend Version
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           build-args: |
-            TRAINING_HUGO_ENV=cnd
+            TRAINING_HUGO_ENV=aws
           push: true
           tags: |
-            quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-cnd-acend
+            quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-aws-acend
       -
-        name: Run vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-cnd-acend'
-          format: 'table'
-          output: 'trivy-results.txt'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os'
-          severity: 'CRITICAL,HIGH'
-      -
-        name: Archive vulnerability scan results
-        uses: actions/upload-artifact@v2
-        with:
-          name: trivy-results-build
-          path: trivy-results.txt
-      -
-        name: Build azure Puzzle Version
+        name: Build gcp acend Version
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
           build-args: |
-            TRAINING_HUGO_ENV=puzzle
+            TRAINING_HUGO_ENV=gcp
           push: true
           tags: |
-            quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-azure-puzzle
-      -
-        name: Run vulnerability scanner Puzzle
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-azure-puzzle'
-          format: 'table'
-          output: 'trivy-results.txt'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os'
-          severity: 'CRITICAL,HIGH'
-      -
-        name: Archive vulnerability scan results
-        uses: actions/upload-artifact@v2
-        with:
-          name: trivy-results-build
-          path: trivy-results.txt
+            quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-gcp-acend
       -
         name: 'Install Helm'
         uses: azure/setup-helm@v1
@@ -148,8 +114,8 @@ jobs:
           TRAINING_NAMESPACE: 'acend-terraform-training-test'
         run: |
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-azure-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
-          kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-cnd-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
-          kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-azure-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-aws-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-gcp-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
       -
         name: Comment PR Environments in PR
         uses: marocchino/sticky-pull-request-comment@v2
@@ -157,6 +123,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           message: |
            PR Environments: 
-           * acend version <https://terraform-azure-pr-${{ github.event.pull_request.number }}.training.acend.ch>
-           * CND version <https://terraform-workshop-pr-${{ github.event.pull_request.number }}.training.acend.ch>
-           * puzzle version <https://terraform-azure-pr-${{ github.event.pull_request.number }}.k8s.puzzle.ch>
+           * azure version <https://terraform-azure-pr-${{ github.event.pull_request.number }}.training.acend.ch>
+           * aws version <https://terraform-aws-pr-${{ github.event.pull_request.number }}.training.acend.ch>
+           * gcp version <https://terraform-gcp-pr-${{ github.event.pull_request.number }}.training.acend.ch>
