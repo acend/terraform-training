@@ -6,7 +6,7 @@ languageCode = "en-us"
 title = "Terraform on AWS Basics Training"
 
 [params]
-enabledModule = "base AWS"
+enabledModule = "base aws"
 trainingFlavor = "AWS"
 
 [params.pdf]

@@ -2,7 +2,6 @@
 title: "4.1. Versions"
 weight: 41
 sectionnumber: 4.1
-onlyWhen: azure
 ---
 
 
