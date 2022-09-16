@@ -1,10 +1,10 @@
 terraform {
-  required_version = "=1.2.8"
+  required_version = "=1.2.9"
 
   required_providers {
     random = {
       source  = "hashicorp/random"
-      version = "=3.4.1"
+      version = "=3.4.3"
     }
     local = {
       source  = "hashicorp/local"
