@@ -8,6 +8,3 @@ title = "Terraform Basics on GCP Training"
 [params]
 enabledModule = "base gcp"
 trainingFlavor = "GCP"
-
-[params.pdf]
-title="Terraform Basics on GCP Training"
