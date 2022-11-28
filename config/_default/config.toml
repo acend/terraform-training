@@ -81,9 +81,6 @@ trainingFlavor = "Azure"
 # Enable Lunr.js offline search
 offlineSearch = true
 
-[params.pdf]
-title="Terraform Basics on Azure Training"
-
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
