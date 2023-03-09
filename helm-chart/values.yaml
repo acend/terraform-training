@@ -10,8 +10,6 @@ acendTraining:
         tag: ""
         tagsuffix: "-azure-acend"
       ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
         appname: terraform-azure
         domain: training.acend.ch
@@ -24,8 +22,6 @@ acendTraining:
         tag: ""
         tagsuffix: "-aws-acend"
       ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
         appname: terraform-aws
         domain: training.acend.ch
@@ -38,8 +34,6 @@ acendTraining:
         tag: ""
         tagsuffix: "-gcp-acend"
       ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
         secretOverride: acend-wildcard
         appname: terraform-gcp
         domain: training.acend.ch
