@@ -3,7 +3,7 @@ acendTraining:
   deployments:
     - 
       name: azure-acend
-      replicaCount: 1
+      replicaCount: 2
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
@@ -15,7 +15,7 @@ acendTraining:
         domain: training.acend.ch
     - 
       name: aws-acend
-      replicaCount: 1
+      replicaCount: 2
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
@@ -27,7 +27,7 @@ acendTraining:
         domain: training.acend.ch
     - 
       name: gcp-acend
-      replicaCount: 1
+      replicaCount: 2
       image:
         repository: quay.io/acend/terraform-training
         pullPolicy: Always
