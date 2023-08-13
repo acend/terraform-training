@@ -81,23 +81,29 @@ the name.
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
 to avoid uncontrolled version upgrades.
+
 ```terraform
 terraform {
-required_version = "= 1.0.5"
+required_version = "= 1.5.5"
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.77.0"
+      version = "=3.69.0"
     }
   }
 }
 ```
 
-**Note:** As of this writing, the current version is `2.73.0`. Set the version to the latest fetched in the previous
-run of `terraform init ...`
+{{% alert title="Versions" color="primary" %}}
+As of this writing, the current version is `3.69.0`. Set the versions to the latest on by using `terraform version`
+{{% /alert %}}
 
 Now run Terraform init again:
 ```bash
 terraform init -backend-config=config/dev_backend.tfvars
 ```
+
+{{% alert title="Bonus" color="primary" %}}
+Try to lock the other provides versions as well.
+{{% /alert %}}
