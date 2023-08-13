@@ -60,13 +60,22 @@ terraform init
 terraform apply
 ```
 
+{{% alert title="Error" color="secondary" %}}
+If you see any error because on "Unsupported Terraform Core version", please update the version.tf with the installed verion.
+
+
+```bash
+terraform version
+```
+{{% /alert %}}
+
 
 ## Step {{% param sectionnumber %}}.3: Terraform code formatting
 
 Terraform offers a command to format all files according to HashiCorp guidelines by running the following command:
 
 ```bash
-terraform fmt -recursive
+terraform fmt -recursive -diff
 ```
 
 {{% alert title="Note" color="primary" %}}
