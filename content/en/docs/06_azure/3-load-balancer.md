@@ -174,6 +174,7 @@ terraform apply -var-file=config/dev.tfvars
 
 Check the latest version of the helm release here: https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
 
+
 ### Explanation
 
 There is some magic here; Azure AKS will automatically provision a load balancer if the Azure specific service
