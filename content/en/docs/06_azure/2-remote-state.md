@@ -105,5 +105,5 @@ terraform init -backend-config=config/dev_backend.tfvars
 ```
 
 {{% alert title="Bonus" color="primary" %}}
-Try to lock the other provides versions as well.
+Try to lock the other provider versions as well.
 {{% /alert %}}
