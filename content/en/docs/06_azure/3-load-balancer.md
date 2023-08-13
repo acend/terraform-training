@@ -143,7 +143,7 @@ resource "helm_release" "nginx_ingress" {
   namespace    = kubernetes_namespace.nginx_ingress.id
   repository   = "https://kubernetes.github.io/ingress-nginx"
   chart        = "ingress-nginx"
-  version      = "3.35.0"
+  version      = "4.7.1"
   atomic       = true
   reset_values = true
   timeout      = 900
@@ -172,6 +172,7 @@ terraform init -backend-config=config/dev_backend.tfvars
 terraform apply -var-file=config/dev.tfvars
 ```
 
+Check the latest version of the helm release here: https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx
 
 ### Explanation
 
