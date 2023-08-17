@@ -205,6 +205,12 @@ Create a new file named `iam.tf` and add the following content:
 data "azuread_group" "aks_admins" {
   display_name = var.aks.ad_admin_group
 }
+
+resource "azurerm_role_assignment" "students" {
+  scope                = data.azurerm_kubernetes_cluster.aks.id
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  principal_id         = data.azuread_group.aks_admins.id
+}
 ```
 
 Add the following content to the end of `aks.tf`:
