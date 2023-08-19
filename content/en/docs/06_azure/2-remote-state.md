@@ -10,9 +10,11 @@ onlyWhen: azure
 
 The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a
 chicken and egg problem we resolve by using the `az` CLI as followed:
-```bash
+```
 export NAME=YOUR_USERNAME
 export ACCOUNT=tfstate$RANDOM
+```
+```bash
 az group create --location westeurope --name rg-terraform-$NAME
 az storage account create --name $ACCOUNT --resource-group rg-terraform-$NAME
 az storage container create --resource-group rg-terraform-$NAME --account-name $ACCOUNT --name terraform-state --public-access off

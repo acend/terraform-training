@@ -156,8 +156,9 @@ resource "helm_release" "nginx_ingress" {
         service = {
           loadBalancerIP = azurerm_public_ip.aks_lb_ingress.ip_address
           annotations = {
-            "service.beta.kubernetes.io/azure-load-balancer-resource-group" = azurerm_public_ip.aks_lb_ingress.resource_group_name
-            "service.beta.kubernetes.io/azure-load-balancer-internal"       = "false"
+            "service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path" = "/healthz"
+            "service.beta.kubernetes.io/azure-load-balancer-resource-group"            = azurerm_public_ip.aks_lb_ingress.resource_group_name
+            "service.beta.kubernetes.io/azure-load-balancer-internal"                  = "false"
           }
         }
       }
@@ -366,9 +367,9 @@ metadata:
   name: insecure
   namespace: tests
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
+  ingressClassName: nginx
   rules:
   - host: insecure.YOUR_USERNAME.labz.ch
     http:
@@ -391,7 +392,7 @@ kubectl apply -f tests/http.yaml
 
 Verify the pod is running:
 ```bash
-kubectl get pod -n tests
+kubectl get pod,ing -n tests
 ```
 
 This should show the following output:
@@ -408,7 +409,7 @@ curl insecure.YOUR_USERNAME.labz.ch
 This should show the following output:
 ```
 Server address: 10.244.0.9:80
-Server name: insecure
+Server name: hello
 Date: 26/Aug/2021:13:49:10 +0000
 URI: /
 Request ID: 62c2b4fea5112b355ffe470c3c358817

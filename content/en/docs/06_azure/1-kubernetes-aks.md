@@ -12,7 +12,11 @@ Create a new file named `main.tf` and add the following content:
 ```terraform
 provider "azurerm" {
   subscription_id = var.subscription_id
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 resource "azurerm_resource_group" "default" {
@@ -207,7 +211,7 @@ data "azuread_group" "aks_admins" {
 }
 
 resource "azurerm_role_assignment" "students" {
-  scope                = data.azurerm_kubernetes_cluster.aks.id
+  scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   principal_id         = data.azuread_group.aks_admins.id
 }
@@ -268,7 +272,6 @@ Add the following content to the end of `variables.tf`:
 ```terraform
 variable "aks" {
   type = object({
-    // az aks get-versions --location westeurope -o table
     kubernetes_version    = string
     log_retention_in_days = number
     ad_admin_group        = string
@@ -280,9 +283,10 @@ variable "aks" {
 }
 ```
 
-Add the following content to the end of `config/dev.tfvars`:
+Add the following content to the end of `config/dev.tfvars` (check the latest kubernetes version and use it as input):
 ```terraform
 aks = {
+  // az aks get-versions --location westeurope -o table
   kubernetes_version    = "1.21.2"
   log_retention_in_days = 30
   ad_admin_group        = "students"
@@ -345,7 +349,7 @@ resource "azurerm_container_registry" "aks" {
   location            = var.location
   resource_group_name = azurerm_resource_group.aks.name
   admin_enabled       = true
-  sku                 = "Standard"
+  sku                 = "Basic"
 }
 ```
 
@@ -360,6 +364,7 @@ resource "azurerm_role_assignment" "aks_identity_acr" {
 
 Now run
 ```bash
+terraform init
 terraform apply -var-file=config/dev.tfvars
 ```
 
