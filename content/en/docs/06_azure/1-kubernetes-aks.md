@@ -12,7 +12,11 @@ Create a new file named `main.tf` and add the following content:
 ```terraform
 provider "azurerm" {
   subscription_id = var.subscription_id
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 resource "azurerm_resource_group" "default" {
@@ -205,6 +209,12 @@ Create a new file named `iam.tf` and add the following content:
 data "azuread_group" "aks_admins" {
   display_name = var.aks.ad_admin_group
 }
+
+resource "azurerm_role_assignment" "students" {
+  scope                = azurerm_kubernetes_cluster.aks.id
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  principal_id         = data.azuread_group.aks_admins.id
+}
 ```
 
 Add the following content to the end of `aks.tf`:
@@ -223,44 +233,32 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vnet_subnet_id     = azurerm_subnet.private.id
     vm_size            = var.aks.node_pool.vm_size
     node_count         = var.aks.node_pool.node_count
-    availability_zones = var.aks.availability_zones
   }
 
   network_profile {
     network_plugin    = "kubenet"
-    load_balancer_sku = "Standard"
+    load_balancer_sku = "standard"
   }
 
   identity {
     type = "SystemAssigned"
   }
 
-  role_based_access_control {
-    enabled = true
-
-    azure_active_directory {
-      managed                = true
-      tenant_id              = data.azurerm_subscription.current.tenant_id
-      admin_group_object_ids = [data.azuread_group.aks_admins.object_id]
-      azure_rbac_enabled     = true
-    }
+  role_based_access_control_enabled = true
+  azure_active_directory_role_based_access_control {
+    managed            = true
+    azure_rbac_enabled = true
   }
 
-  addon_profile {
-    kube_dashboard {
-      enabled = false
-    }
-    oms_agent {
-      enabled                    = true
-      log_analytics_workspace_id = azurerm_log_analytics_workspace.aks.id
-    }
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.aks.id
   }
 }
 
 resource "azurerm_role_assignment" "aks_identity_monitoring" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_kubernetes_cluster.aks.addon_profile[0].oms_agent[0].oms_agent_identity[0].object_id
+  principal_id         = azurerm_kubernetes_cluster.aks.oms_agent[0].oms_agent_identity[0].object_id
 }
 
 resource "azurerm_role_assignment" "aks_identity_networking" {
@@ -274,9 +272,7 @@ Add the following content to the end of `variables.tf`:
 ```terraform
 variable "aks" {
   type = object({
-    // az aks get-versions --location westeurope -o table
     kubernetes_version    = string
-    availability_zones    = list(number)
     log_retention_in_days = number
     ad_admin_group        = string
     node_pool = object({
@@ -287,11 +283,11 @@ variable "aks" {
 }
 ```
 
-Add the following content to the end of `config/dev.tfvars`:
+Add the following content to the end of `config/dev.tfvars` (check the latest kubernetes version and use it as input):
 ```terraform
 aks = {
+  // az aks get-versions --location westeurope -o table
   kubernetes_version    = "1.21.2"
-  availability_zones    = [1, 2, 3]
   log_retention_in_days = 30
   ad_admin_group        = "students"
   node_pool = {
@@ -353,7 +349,7 @@ resource "azurerm_container_registry" "aks" {
   location            = var.location
   resource_group_name = azurerm_resource_group.aks.name
   admin_enabled       = true
-  sku                 = "Standard"
+  sku                 = "Basic"
 }
 ```
 
@@ -368,6 +364,7 @@ resource "azurerm_role_assignment" "aks_identity_acr" {
 
 Now run
 ```bash
+terraform init
 terraform apply -var-file=config/dev.tfvars
 ```
 

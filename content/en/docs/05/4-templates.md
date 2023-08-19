@@ -168,6 +168,7 @@ output "user_data" {
 Now run:
 
 ```bash
+terraform init
 terraform apply
 terraform output -raw user_data | base64 -d | gunzip -
 ```

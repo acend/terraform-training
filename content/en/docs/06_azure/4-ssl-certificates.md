@@ -171,10 +171,10 @@ metadata:
   name: secure
   namespace: tests
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - secure.YOUR_USERNAME.labz.ch

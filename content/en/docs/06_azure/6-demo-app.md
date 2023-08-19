@@ -95,10 +95,10 @@ metadata:
   name: example
   namespace: workload
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - workload.YOUR_USERNAME.labz.ch
@@ -130,3 +130,14 @@ To verify the application is connected to the MariaDB, run the following command
 ```bash
 kubectl logs -n workload example | head
 ```
+
+
+## Step {{% param sectionnumber %}}.2: Optional => rewrite yaml to terraform
+
+There are several solutions for how to deploy workload in Kubernetes. You can either use direct yaml files or Helm, but also Terraform itself by using the kubernetes provider.
+
+Check the following documentation to rewrite the yaml content above and deploy it with terraform as well.
+
+* https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/pod_v1
+* https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_v1
+* https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1

@@ -43,7 +43,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "rg-aci-${var.purpose}"
+  name     = "rg-${var.purpose}-aci"
   location = var.location
 }
 
@@ -74,7 +74,7 @@ resource "azurerm_container_group" "aci" {
   name                = "go-aci-${var.purpose}"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
-  ip_address_type     = "public"
+  ip_address_type     = "Public"
   dns_name_label      = "go-aci-${var.purpose}"
   os_type             = "Linux"
 
@@ -144,7 +144,7 @@ resource "azurerm_container_group" "aci" {
   name                = "go-aci-${var.purpose}"
   location            = azurerm_resource_group.default.location
   resource_group_name = azurerm_resource_group.default.name
-  ip_address_type     = "public"
+  ip_address_type     = "Public"
   dns_name_label      = "go-aci-${var.purpose}"
   os_type             = "Linux"
 
