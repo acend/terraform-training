@@ -18,7 +18,7 @@ cd $LAB_ROOT/advanced/various
 
 Terraform variables support nested complex types like nested maps and sets. The `type` keyword of the `variable`
 block allows the definition of type constraints to enforce the correctness of the input (or default) value.
-See https://www.terraform.io/docs/language/expressions/type-constraints.html for the specification.
+See https://developer.hashicorp.com/terraform/language/expressions/type-constraints for the specification.
 
 Create a new file named `variables.tf` and add the following content:
 
