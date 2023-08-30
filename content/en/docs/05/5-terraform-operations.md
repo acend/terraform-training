@@ -5,8 +5,6 @@ sectionnumber: 5.5
 ---
 
 
-## TODO: Review & align wording
-
 There are many more topics regarding Terraform. Here we will have look over some of them:
 
 * state inspection
