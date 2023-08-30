@@ -59,7 +59,7 @@ The code snippet above defines a map for the top three cloud platforms with thre
 ## Step {{% param sectionnumber %}}.2: Dynamic blocks
 
 Some Terraform resources (and data sources) have repetitive blocks, for example `archive_file`. See documentation
-at https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/archive_file
+at https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
 
 Example:
 
