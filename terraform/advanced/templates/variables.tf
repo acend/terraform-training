@@ -1,3 +1,0 @@
-variable "action" {
-  default = "fun"
-}

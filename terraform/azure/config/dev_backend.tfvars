@@ -1,5 +1,0 @@
-subscription_id      = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
-resource_group_name  = "rg-terraform-lab"
-storage_account_name = "tfstate4587"
-container_name       = "terraform-state"
-key                  = "dev.tfstate"

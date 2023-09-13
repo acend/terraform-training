@@ -1,2 +1,0 @@
-variable "extension" {}
-variable "size" {}
