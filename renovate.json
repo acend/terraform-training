@@ -1,5 +1,6 @@
 {
   "extends": [
-    "github>acend/hugo-training-template"
+    "github>acend/hugo-training-template",
+    "group:all"
   ]
 }
