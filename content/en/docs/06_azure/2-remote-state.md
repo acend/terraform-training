@@ -82,11 +82,11 @@ the name.
 ## Step {{% param sectionnumber %}}.3: Lock the Terraform versions
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
-to avoid uncontrolled version upgrades.
+to avoid uncontrolled version upgrades. Try to merge this snippet into your actual config.
 
 ```terraform
 terraform {
-required_version = "= 1.5.5"
+  required_version = "= 1.5.5"
 
   required_providers {
     azurerm = {
