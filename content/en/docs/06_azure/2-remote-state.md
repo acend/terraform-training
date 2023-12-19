@@ -17,7 +17,7 @@ export ACCOUNT=tfstate$RANDOM
 ```bash
 az group create --location westeurope --name rg-terraform-$NAME
 az storage account create --name $ACCOUNT --resource-group rg-terraform-$NAME
-az storage container create --resource-group rg-terraform-$NAME --account-name $ACCOUNT --name terraform-state --public-access off
+az storage container create --resource-group rg-terraform-$NAME --account-name $ACCOUNT --name terraform-state --public-access off --auth-mode login
 echo $ACCOUNT
 ```
 
