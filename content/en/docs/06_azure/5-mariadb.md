@@ -28,7 +28,7 @@ and replace the `network_profile` block with the following content:
 ```terraform
   network_profile {
     network_plugin    = "kubenet"
-    load_balancer_sku = "Standard"
+    load_balancer_sku = "standard"
 
     // optional: only needed to control AKS egress IP(s)
     load_balancer_profile {
