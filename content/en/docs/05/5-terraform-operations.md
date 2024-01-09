@@ -5,7 +5,7 @@ sectionnumber: 5.5
 ---
 
 
-There are many more topics regarding Terraform. Here we will have look over some of them:
+There are many more topics regarding Terraform. Here we will a have look over some of them:
 
 * state inspection
 * state remove
@@ -16,7 +16,7 @@ There are many more topics regarding Terraform. Here we will have look over some
 
 ## Task {{% param sectionnumber %}}.1: State Inspection
 
-As you have learned, the Terraform state represents the applied objects which have been successfully applied. Here is the example from our first applied config:
+As you have learned, the Terraform state represents the applied objects that have been successfully applied. Here is the example from our first applied config:
 
 ```
 {
@@ -51,29 +51,25 @@ As you have learned, the Terraform state represents the applied objects which ha
 }
 ```
 
-You see a normal JSON file which contains every needed information.
+You see a normal JSON file that contains every needed information.
 
 {{% alert title="Warning" color="secondary" %}}
-This file should be handled as sensible data, as it can contain passwords as well! Nobody should access it, expect Terraform itself!
+This file should be handled as sensible data, as it can contain passwords as well! Nobody should access it, except Terraform itself!
 {{% /alert %}}
 
 
 ## Task {{% param sectionnumber %}}.2: Remove States from file
 
-Now remove the line "result" from this file and apply again, what happend? Terraform won't update the result field again! Because everything is done from his perspective. Try to delete the complete field of the `acr` resource in the file.
+Now remove the line "result" from this file and apply again, what happened? Terraform won't update the result field again! Because everything is done from his perspective. Try to delete the complete field of the `acr` resource in the file.
 
-If you that is tricky, you are right. And that is why you should try to edit this state file. Instead use `terraform destroy` or delete the resource file in the folder.
-
-{{% alert title="Hint" color="secondary" %}}
-By delete the line with the `id`, Terraform will re-create the whole resource.
-{{% /alert %}}
+If you think that this is tricky, you are right. And that is why you shouldn't try to edit this state file. Instead, use `terraform destroy` or delete the resource file in the folder.
 
 
 ## Task {{% param sectionnumber %}}.3: Import
 
-Sometimes you have already created resources in your environment. By describing them afterwards in a Terraform config, Terraform will complain this resources exist already. If you are not able to delete for re-creation you can import it in the actual state file.
+Sometimes you have already created resources in your environment. By describing them afterward in a Terraform config, Terraform will complain these resources exist already. If you are not able to delete for re-creation you can import it in the actual state file.
 
-For more informations check out this HashiCorp Learn example: https://learn.hashicorp.com/tutorials/terraform/state-import?in=terraform/state
+For more information check out this HashiCorp Learn example: https://learn.hashicorp.com/tutorials/terraform/state-import?in=terraform/state
 
 
 ## Task {{% param sectionnumber %}}.4: Debugging
@@ -82,7 +78,7 @@ For more informations check out this HashiCorp Learn example: https://learn.hash
 As Terraform is really noisy, you should be able to resolve issues by the error message.
 {{% /alert %}}
 
-By setting the system env variable `TF_LOG`, Terraform will provide much more information about what's going on. Log Leves are:
+By setting the system env variable `TF_LOG`, Terraform will provide much more information about what's going on. Log Levels are:
 
 * TRACE, DEBUG, INFO, WARN or ERROR
 
@@ -95,7 +91,7 @@ export TF_LOG="DEBUG"
 
 The use of linting your Terraform config is always a good thing. You can define rules for naming conventions and force people to write readable code.
 
-One example is `tflint` (https://github.com/terraform-linters/tflint). It has a small binary which can be included everywhere and executes fast. Here an output of our simple example from above by running `tflint .`:
+One example is `tflint` (https://github.com/terraform-linters/tflint). It has a small binary that can be included everywhere and executes fast. Here an output of our simple example from above by running `tflint .`:
 
 ```
 2 issue(s) found:
@@ -120,4 +116,4 @@ You see 2 warnings:
 * terraform_required_version is missing
 * terraform_required_providers is missing
 
-This is because of the default recommandation to declare and versionize everything correctly. Make the linter happy!
+This is because of the default recommendation to declare and versionize everything correctly. Make the linter happy!
