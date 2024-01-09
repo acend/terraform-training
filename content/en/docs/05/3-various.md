@@ -80,7 +80,7 @@ data "archive_file" "dotfiles" {
 }
 {{< / highlight >}}
 
-To add such blocks repetitively, we can use the `dyanmic` keyword as documented here:
+To add such blocks repetitively, we can use the `dynamic` keyword as documented here:
 https://www.terraform.io/docs/language/expressions/dynamic-blocks.html
 
 Create a new file named `main.tf` and add the following content:
