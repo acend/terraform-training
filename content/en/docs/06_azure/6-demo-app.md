@@ -16,7 +16,7 @@ flowchart LR
     aIp(public ip)
     end
     dDns --> aIp
-    subgraph rg: default
+    subgraph rg: dns
     dDns(dns)
     end
     aAks --> aks

@@ -75,7 +75,7 @@ the Netherlands because it is amongst the cheapest regions in Europe.
 ```mermaid
 flowchart LR
     classDef red fill:#f96;
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet):::red --> dSub(subnet):::red
     end
 ```
@@ -144,7 +144,7 @@ flowchart LR
     subgraph rg: aks
     aLaw(law):::red
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
 ```
@@ -199,7 +199,7 @@ flowchart LR
     aAks(aks):::red --> |logs|aLaw(law)
     aAks --> aNode(nodes):::red
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
 ```
@@ -332,7 +332,7 @@ flowchart LR
     aAks --> aNode(nodes)
     aAcr(acr):::red --> |images|aNode
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
 ```

@@ -18,7 +18,7 @@ flowchart LR
     aAks --> aNode(nodes)
     aAcr(acr) --> |images|aNode
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
     aAks --> aks
@@ -72,7 +72,7 @@ flowchart LR
     aAcr(acr) --> |images|aNode
     aIp(public ip):::red
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
     aAks --> aks
@@ -111,7 +111,7 @@ flowchart LR
     aAcr(acr) --> |images|aNode
     aIp(public ip)
     end
-    subgraph rg: default
+    subgraph rg: net
     dNet(vnet) --> dSub(subnet)
     end
     aAks --> aks
@@ -199,7 +199,7 @@ flowchart LR
     aIp(public ip)
     end
     dDns --> aIp
-    subgraph rg: default
+    subgraph rg: dns
     dDns(dns):::red
     end
     aAks --> aks
@@ -276,7 +276,7 @@ flowchart LR
     aIp(public ip)
     end
     dDns --> aIp
-    subgraph rg: default
+    subgraph rg: dns
     dDns(dns):::red
     end
     aAks --> aks
