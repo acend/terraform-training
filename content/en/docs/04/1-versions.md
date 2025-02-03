@@ -22,16 +22,16 @@ Create a new file named `versions.tf` and add the following content:
 
 ```terraform
 terraform {
-  required_version = "= 1.0.5"
+  required_version = "= 1.10.4"
 
   required_providers {
     random  = {
       source  = "hashicorp/random"
-      version = "= 3.1.0"
+      version = "= 3.6.2"
     }
     local   = {
       source  = "hashicorp/local"
-      version = "= 2.1.0"
+      version = "= 2.5.1"
     }
   }
 }
