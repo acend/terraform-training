@@ -171,6 +171,7 @@ The list `for`-loop iterates over all `planets` and upper-cases the first charac
 
 The map `for`-loop iterates over all `objects` and prints `true`/`false` if the object is a star.
 
+
 ### Try it out
 
 Print a `list` of all objects which are stars. Use the following snippet:

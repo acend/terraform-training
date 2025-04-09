@@ -102,5 +102,5 @@ terraform output -json | jq '.number.value'
 This is useful when handling large JSON data structures.
 
 {{% alert title="Note" color="primary" %}}
-`terraform output` can be used to create input or configuration for other CLI tools like Ansible. 
+`terraform output` can be used to create input or configuration for other CLI tools like Ansible.  
 {{% /alert %}}

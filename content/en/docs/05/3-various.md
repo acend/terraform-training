@@ -61,15 +61,17 @@ The code snippet above defines a map for the top three cloud platforms with thre
 * founder
 * cloud_rank
 
+
 ### Try it out
 
-Create a list of the `founder` attributes of all `clouds` using a **SINGLE** output using the following snippet:   
+Create a list of the `founder` attributes of all `clouds` using a **SINGLE** output using the following snippet:
 
 ```terraform
 output "founders" {
   value = ["todo"]
 }
 ```
+
 
 ## Step {{% param sectionnumber %}}.2: Variable optional and default fields
 
@@ -109,6 +111,7 @@ kubernetes = {
 Partial initialization of variables is very useful in combination with `config/*.tfvars` files, to only specify the
 explicit and override values - keeping the config small and tidy!
 {{% /alert %}}
+
 
 ## Step {{% param sectionnumber %}}.3: Variable validation
 

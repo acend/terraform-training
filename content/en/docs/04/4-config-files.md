@@ -149,9 +149,10 @@ Do NOT store any sensitive information like credentials or keys in the configura
 Use a secrets management system like HashiCorp Vault, AWS SecretsManager, 1Password etc
 {{% /alert %}}
 
+
 ## Try it out
 
-It is a common pattern to set credentials via the shell environment. Terraform has built-in support to set 
+It is a common pattern to set credentials via the shell environment. Terraform has built-in support to set
 variables via environment by prefixing the Terraform variable name with `TF_VAR_`.
 
 Add the following to `variables.tf`:

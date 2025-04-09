@@ -137,7 +137,9 @@ Run apply:
 terraform apply
 ```
 
+
 ### Explanation
+
 The statement
 
 ```terraform
