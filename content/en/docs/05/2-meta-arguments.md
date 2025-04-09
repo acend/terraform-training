@@ -14,6 +14,12 @@ mkdir -p $LAB_ROOT/advanced/meta_arguments
 cd $LAB_ROOT/advanced/meta_arguments
 ```
 
+Optional: Create empty files:
+
+```bash
+touch main.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Missing dependency
 
@@ -42,7 +48,7 @@ terraform apply
 
 This will print the following error:
 
-```
+```text
 ╷
 │ Error: open foobar.txt: no such file or directory
 │
@@ -94,14 +100,14 @@ terraform apply
 
 Terraform will restore the file `foobar.txt` to the configuration defined in the code. All good!
 
-But sometimes we don't want that behaviour - we want to ignore the content.
+But sometimes we don't want that behaviour - we want to ignore the content.  
 Luckily Terraform offers another meta-argument for this purpose.
 
-Change the resource `local_file.foobar_txt` as followed:
+Change the `data` `local_file.foobar_txt` as followed:
 
 ```terraform
 resource "local_file" "foobar_txt" {
-  content  = "1337"
+  content  = "4thelulz"
   filename = "foobar.txt"
 
   lifecycle {
@@ -120,7 +126,7 @@ Now run:
 terraform apply
 ```
 
-And Terraform will happily ignore the new value `1337`.
+And Terraform will happily ignore the `content = "4thelulz"`.
 
 
 ### Explanation

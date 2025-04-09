@@ -11,14 +11,15 @@ There are many more topics regarding Terraform. Here we will a have look over so
 * state remove
 * import
 * debugging
-* tflint
+* linting
 
 
 ## Task {{% param sectionnumber %}}.1: State Inspection
 
-As you have learned, the Terraform state represents the applied objects that have been successfully applied. Here is the example from our first applied config:
+As we have learned, the Terraform state file contains the configuration of all provisioned objects.  
+Below is an example of the state file for the first exercise:
 
-```
+```json
 {
   "version": 4,
   "terraform_version": "1.0.0",
@@ -51,10 +52,8 @@ As you have learned, the Terraform state represents the applied objects that hav
 }
 ```
 
-You see a normal JSON file that contains every needed information.
-
 {{% alert title="Warning" color="secondary" %}}
-This file should be handled as sensible data, as it can contain passwords as well! Nobody should access it, except Terraform itself!
+The state file contains sensitive information and should be treated as such!
 {{% /alert %}}
 
 

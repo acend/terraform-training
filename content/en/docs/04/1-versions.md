@@ -27,15 +27,17 @@ terraform {
   required_providers {
     random  = {
       source  = "hashicorp/random"
-      version = "= 3.6.2"
+      version = "= 3.7.1"
     }
     local   = {
       source  = "hashicorp/local"
-      version = "= 2.5.1"
+      version = "= 2.5.2"
     }
   }
 }
 ```
+
+Pin the `required_version` to the Terraform version you are using localy!
 
 
 ### Explanation

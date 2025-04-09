@@ -48,13 +48,13 @@ terraform init
 
 Output:
 
-```
+```text
 Initializing the backend...
 
 Initializing provider plugins...
 - Finding latest version of hashicorp/random...
-- Installing hashicorp/random v3.1.0...
-- Installed hashicorp/random v3.1.0 (signed by HashiCorp)
+- Installing hashicorp/random v3.5.1...
+- Installed hashicorp/random v3.5.1 (signed by HashiCorp)
 
 Terraform has created a lock file .terraform.lock.hcl to record the provider
 selections it made above. Include this file in your version control repository

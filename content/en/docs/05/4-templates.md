@@ -13,6 +13,12 @@ mkdir $LAB_ROOT/advanced/templates
 cd $LAB_ROOT/advanced/templates
 ```
 
+Optional: Create empty files:
+
+```bash
+touch {main,variables,outputs}.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Multiline strings
 
@@ -40,7 +46,7 @@ EOT
 }
 ```
 
-This looks pretty ugly but does the job; create a multiline strings.  
+This looks pretty ugly but does the job; create a multiline string.  
 To add indentation, use the sequence `<<-` to improve readability:
 
 ```terraform
@@ -69,7 +75,7 @@ Templates can be rather large (ie. firewall config or cloud-init scripts) and bl
 For such use-cases the template is stored in a separate file and sourced using the `templatefile` function documented
 at https://www.terraform.io/docs/language/functions/templatefile.html
 
-We use a cloud-init template used for Gitlab runner deployments as an real-world example.
+In this real-world example, we will use a cloud-init template that is used for Gitlab runner deployments.
 
 Create a new file named `cloud_init.yml.tpl` and add the following content:
 
