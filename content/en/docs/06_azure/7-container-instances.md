@@ -1,19 +1,19 @@
 ---
-title: "6.7. Pure Container"
+title: "6.7. Container Instances (optional)"
 weight: 67
 sectionnumber: 6.7
 onlyWhen: azure
 ---
 
 
-There are situations, where you have a containerized app which should not run in the context of your AKS cluster.
-E.g. a monitoring dashbord or health checker, etc.
-Or you just simply want to run one container without all of the AKS overhead.
-Azure offers a container runtime for such cases. The ACI - Azure Container Instances.
-This engine allows you to run a simple container in a spearated environment.
+Sometimes, you need to run a containerized application outside of your AKS cluster—for example, a monitoring dashboard,
+health checker, or any lightweight utility.  
+Or, you might just want to run a single container without the complexity and overhead of managing AKS.
 
+For these scenarios, Azure provides Azure Container Instances (ACI)—a serverless container runtime that allows you to
+run containers in an isolated, standalone environment with minimal setup.
 
-This lab will show you, with a small example, how to archive this.
+This lab provides a simple example to demonstrate how to achieve this.
 
 
 ## Step {{% param sectionnumber %}}.1: Azure Container Instances
@@ -108,13 +108,15 @@ The application is now accessible via web browser at => `terraform output -raw f
 
 ## Step {{% param sectionnumber %}}.2: What's about security?
 
-As you can see, the ACI just offers a simple Container Runtime with direct accessability over the container port.
-If you want to have a secured endpoint, you have to find a own solution if container does not provide anything.
+As demonstrated, **Azure Container Instances (ACI)** provide a lightweight container runtime with direct access to
+the exposed container port.  
+However, if your container doesn’t include built-in support for secure endpoints,
+**you’ll need to implement your own solution** to secure the connection.
 
+You might have noticed that the Terraform resource is named `azurerm_container_group`.  
+This is because it allows you to define **multiple containers within a single container group**.
 
-You may saw, that the terraform ressource is called `azurerm_container_group`.
-The meaning of that is, you can put several containers in this object.
-One case would be, do use a proxy in front of your application to handle the connection endpoint.
+A common use case is to include a **proxy container** alongside your application to handle secure connections and expose a public or private endpoint.
 
 ```mermaid
 graph LR
@@ -123,21 +125,24 @@ graph LR
     C(App-Container)
 ```
 
-Your mission, should you decide to accept it:
 
-**Add an addtional container acting as a "reverse proxy" to the above example and secure your workload!**
+### Your Mission: Secure the Workload
 
-As always, should any of your ressources be crashing or disappearing, the Secretary will disavow any knowledge of your actions.
+**Challenge:**  
+Extend the previous example by **adding an additional container that acts as a reverse proxy** to secure your application endpoint.
 
-
-Here are some usefull links to consider:
-
-* check the terraform [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) how to use addtional containers
-* [here](https://caddyserver.com/docs/) is an excellent solution to protect endpoints
-* how to glue that together? Get an impression in this [blog](https://itnext.io/automatic-https-with-azure-container-instances-aci-4c4c8b03e8c9)
+If your resources fail, vanish, or behave unexpectedly, the Secretary will disavow all knowledge of your actions.
 
 
-In case of any problems, you can open this section below:
+### Useful Resources
+
+* Refer to the Terraform [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group)
+  to learn how to define additional containers in a container group.
+* [Caddy](https://caddyserver.com/docs/) is a powerful and simple solution for securing endpoints with automatic HTTPS.
+* Not sure how it all fits together? This [blog post](https://itnext.io/automatic-https-with-azure-container-instances-aci-4c4c8b03e8c9)
+  provides a practical example of integrating HTTPS with ACI.
+
+If you run into issues, expand the section below for troubleshooting tips:
 {{% details title="Solution" %}}
 ```terraform
 resource "azurerm_container_group" "aci" {
@@ -181,10 +186,12 @@ output "fqdn" {
 }
 ```
 
-In this solutions it takes some time to get the certificate from the provider up and running.
-Use the command `az container logs -g YOUR_RESSOURCE_GROUP --name YOUR_CONTAINER_GROUP_NAME --container-name caddy` to observe the logfiles from the container.
+In this setup, it may take a few moments for the certificate to be issued by the provider and become active.  
+To monitor the progress, use the following command to view logs from the Caddy container:
+`az container logs -g YOUR_RESOURCE_GROUP --name YOUR_CONTAINER_GROUP_NAME --container-name caddy`
 
-If you would use this solution in a production environment you have consider a storage to the certificate as well. You can see how in the full solution blog link above.
+If you’re considering this approach for a production environment, you should also persist the certificate to
+external storage. The blog post linked above explains how to implement this.
 {{% /details %}}
 
 Do you like this lab? Tell us what you think.
