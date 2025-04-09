@@ -14,6 +14,12 @@ mkdir -p $LAB_ROOT/advanced/modules
 cd $LAB_ROOT/advanced/modules
 ```
 
+Optional: Create empty file:
+
+```bash
+touch main.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Define the module
 

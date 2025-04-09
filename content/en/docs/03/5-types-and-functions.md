@@ -136,3 +136,32 @@ Run apply:
 ```bash
 terraform apply
 ```
+
+### Explanation
+The statement
+
+```terraform
+locals {
+  yaml_file  = yamldecode(file("project.yaml"))
+}
+```
+
+loads the file `project.yaml` and assigns it to the local variable `yaml_file`.  
+The statement
+
+```terraform
+output "app" {
+  value = local.yaml_file.components.0.metadata.annotations.app
+}
+```
+creates an output variable, whereas the part `components.0.metadata.annotations.app` refers to the YAML structure
+
+```yaml
+components:
+  - name: "project-name"
+    metadata:
+      annotations:
+        app: "example"
+```
+
+The `components` is a list of which we take the first (0th) element and access sub-attributes.

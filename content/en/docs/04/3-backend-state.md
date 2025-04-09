@@ -14,6 +14,12 @@ mkdir -p $LAB_ROOT/intermediate/backend_state
 cd $LAB_ROOT/intermediate/backend_state
 ```
 
+Optional: Create empty files:
+
+```bash
+touch main.tf 
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Define a backend
 

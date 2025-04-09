@@ -14,6 +14,12 @@ mkdir -p $LAB_ROOT/intermediate/count_loops
 cd $LAB_ROOT/intermediate/count_loops
 ```
 
+Optional: Create empty files:
+
+```bash
+touch {main,elvis,multiple,outputs}.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Conditional resource
 
@@ -62,7 +68,7 @@ output "ids" {
 ```
 
 The `terraform apply` output will look similar to this:
-```
+```text
 ...
 Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
 
@@ -116,3 +122,66 @@ resource "local_file" "cloud_godfathers" {
 
 The `for_each` loop sets the `key` and `value` attributes of the iterator `each` according to the map items.
 This construct allows the dynamic creation of resources based on a variable.
+
+
+## Step {{% param sectionnumber %}}.4: `for`-loops (list / map comprehension)
+
+List and maps can be iterated using a `for`-loop to modify, extract and/or filter records.
+
+Add the following content to the file `outputs.tf`:
+
+```terraform
+locals {
+  planets = [
+    "mars",
+    "saturn",
+    "venus"
+  ]
+}
+
+output "planets" {
+  value = [for p in local.planets : title(p)]
+}
+```
+
+Run `terraform init` followed by `terraform apply` to see the result.
+
+The `map` `for`-loop works very similar, but operates on a key/value pair.  
+Add the following `map` to `outputs.tf`:
+
+```terraform
+locals {
+  objects = {
+    "mars"   = "planet",
+    "saturn" = "planet",
+    "venus"  = "planet",
+    "sun"    = "star" 
+  }
+}
+
+output "is_star" {
+  value = {for k,v in local.objects : k => v == "star"}
+}
+```
+
+
+### Explanation
+
+The list `for`-loop iterates over all `planets` and upper-cases the first character (aka "title-case").
+
+The map `for`-loop iterates over all `objects` and prints `true`/`false` if the object is a star.
+
+### Try it out
+
+Print a `list` of all objects which are stars. Use the following snippet:
+
+```terraform
+output "stars" {
+  value = ["todo"]
+}
+```
+
+{{% alert title="Note" color="primary" %}}
+You can use `if` statements to filter elements, see:
+https://developer.hashicorp.com/terraform/language/expressions/for#filtering-elements
+{{% /alert %}}

@@ -13,6 +13,12 @@ mkdir -p $LAB_ROOT/intermediate/multi_env
 cd $LAB_ROOT/intermediate/multi_env
 ```
 
+Optional: Create empty files:
+
+```bash
+touch {main,variables,outputs}.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Define variable and output
 
@@ -82,7 +88,7 @@ terraform apply -var-file=config/dev.tfvars
 
 You should now see the following output:
 
-```
+```text
 ...
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
@@ -131,3 +137,41 @@ You should now see two Terraform state files for each set of configuration:
 
 * `dev.tfstate`
 * `prod.tfstate`
+
+{{% alert title="Note" color="primary" %}}
+The separation of configuration in the `config/` directory keeps the HCL code DRY.  
+It is a common pattern to have many different environments or customer configurations in this directory, which shall
+be under source control.
+{{% /alert %}}
+
+{{% alert title="Warning" color="secondary" %}}
+Do NOT store any sensitive information like credentials or keys in the configuration!  
+Use a secrets management system like HashiCorp Vault, AWS SecretsManager, 1Password etc
+{{% /alert %}}
+
+## Try it out
+
+It is a common pattern to set credentials via the shell environment. Terraform has built-in support to set 
+variables via environment by prefixing the Terraform variable name with `TF_VAR_`.
+
+Add the following to `variables.tf`:
+
+```terraform
+variable "secret" { }
+```
+
+and the following to `outputs.tf`:
+
+```terraform
+output "secret" {
+  value = var.secret
+}
+```
+
+Then set the value in the shell:
+
+```bash
+export TF_VAR_secret=mysupersecret
+```
+
+Now run `terraform apply  -var-file=config/prod.tfvars`

@@ -13,6 +13,12 @@ mkdir $LAB_ROOT/advanced/various
 cd $LAB_ROOT/advanced/various
 ```
 
+Optional: Create empty files:
+
+```bash
+touch {main,variables,outputs}.tf
+```
+
 
 ## Step {{% param sectionnumber %}}.1: Variable structure
 
@@ -55,8 +61,85 @@ The code snippet above defines a map for the top three cloud platforms with thre
 * founder
 * cloud_rank
 
+### Try it out
 
-## Step {{% param sectionnumber %}}.2: Dynamic blocks
+Create a list of the `founder` attributes of all `clouds` using a **SINGLE** output using the following snippet:   
+
+```terraform
+output "founders" {
+  value = ["todo"]
+}
+```
+
+## Step {{% param sectionnumber %}}.2: Variable optional and default fields
+
+Defining variables as objects with attributes is very useful, but sometimes we don't want to specify all
+attributes but use some defaults. This can be achieved by the `optional` keyword.
+
+Add the following snippet to `outputs.tf`:
+
+```terraform
+variable "kubernetes" {
+  type = object({
+    version     = optional(string)
+    node_count  = optional(number, 3)
+    vm_type     = optional(string, "t3.small")
+  })
+  default = {
+    version = "1.25.5"
+  }
+}
+
+output "kubernetes" {
+  value = var.kubernetes
+}
+```
+
+When you run `terraform apply` you should see a fully defined `kubernetes` variable:
+
+```terraform
+kubernetes = {
+  "node_count" = 3
+  "version" = "1.25.5"
+  "vm_type" = "t3.small"
+}
+```
+
+{{% alert tip %}}
+Partial initialization of variables is very useful in combination with `config/*.tfvars` files, to only specify the
+explicit and override values - keeping the config small and tidy!
+{{% /alert %}}
+
+## Step {{% param sectionnumber %}}.3: Variable validation
+
+Sometimes you want to validate if a variable meets certain conditions. For this purpose, the `validation` block can
+be added to a variable.
+
+Modify `outputs.tf` as followed:
+
+```terraform
+variable "kubernetes" {
+  type = object({
+    version    = optional(string)
+    node_count = optional(number, 0)
+    vm_type    = optional(string, "t3.small")
+  })
+  default = {
+    version = "1.25.5"
+  }
+  validation {
+    condition     = var.kubernetes.node_count > 0
+    error_message = "Minimum Kubernetes nodes is 1"
+  }
+}
+```
+
+**Note:** Set the `node_count` default to 0 to trigger a validation error!
+
+Now run `terraform apply` and verify the validation error is printed.
+
+
+## Step {{% param sectionnumber %}}.4: Dynamic blocks
 
 Some Terraform resources (and data sources) have repetitive blocks, for example `archive_file`. See documentation
 at https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file
@@ -78,7 +161,7 @@ data "archive_file" "dotfiles" {
     filename = ".ssh/config"
   }
 }
-{{< / highlight >}}
+{{< /highlight >}}
 
 To add such blocks repetitively, we can use the `dynamic` keyword as documented here:
 https://www.terraform.io/docs/language/expressions/dynamic-blocks.html

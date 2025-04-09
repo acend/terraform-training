@@ -36,7 +36,7 @@ terraform apply
 
 and you should see output similar to this:
 
-```bash
+```text
 Plan: 0 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
@@ -100,3 +100,7 @@ terraform output -json | jq '.number.value'
 ```
 
 This is useful when handling large JSON data structures.
+
+{{% alert title="Note" color="primary" %}}
+`terraform output` can be used to create input or configuration for other CLI tools like Ansible. 
+{{% /alert %}}

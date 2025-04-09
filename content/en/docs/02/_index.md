@@ -51,5 +51,5 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-Well done! You created your first "Hello World!" in Terraform.  
+**Well done!** You created your first "Hello World!" in Terraform.  
 The next chapters will explain what we've actually just done here - let's move on!
