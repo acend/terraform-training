@@ -91,14 +91,14 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=4.26.0"
+      version = "=3.117.1"
     }
   }
 }
 ```
 
 {{% alert title="Versions" color="primary" %}}
-As of this writing, the current version is `4.26.0`. Set the versions to the latest on by using `terraform version`
+As of this writing, the current version is `1.11.2`. Set the versions to the latest on by using `terraform version`
 {{% /alert %}}
 
 Now run Terraform init again:
