@@ -101,10 +101,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - workload.YOUR_USERNAME.labz.ch
+    - workload.YOUR_USERNAME.mobi.terraform-lab.cloud
     secretName: tls-workload
   rules:
-  - host: workload.YOUR_USERNAME.labz.ch
+  - host: workload.YOUR_USERNAME.mobi.terraform-lab.cloud
     http:
       paths:
       - path: /
@@ -124,7 +124,7 @@ Deploy the Kubernetes resources by running:
 kubectl apply -f tests/workload.yaml
 ```
 
-The application is now accessible via web browser at https://workload.YOUR_USERNAME.labz.ch
+The application is now accessible via web browser at https://workload.YOUR_USERNAME.mobi.terraform-lab.cloud
 
 To verify the application is connected to the MariaDB, run the following command to inspec the log files:
 ```bash
