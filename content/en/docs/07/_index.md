@@ -9,8 +9,10 @@ sectionnumber: 7
 After completing all the labs, try tackling the following challenges from scratch, without relying on existing
 Terraform code. Each challenge is independent—pick the one that interests you most!
 
+---
 
-### Challenge #1: GitLab Runner Deployment (Entry Level)
+
+### Challenge #1: Upgrade azurerm Provider Version (Entry Level)
 
 In the Azure Workshop, an outdated version of the `azurerm` Terraform provider (v3.117.1) was used.
 In this challenge, you'll modernize the code base.
@@ -48,7 +50,8 @@ Using Terraform, implement the following:
 
 #### Bonus
 
-1. Store the GitLab Runner token securely in **Azure Key Vault** as a secret  
+1. Store the GitLab Runner token securely in **Azure Key Vault** as a secret and reference the secret from the
+   cloud-init template instead sourcing from a variable
 2. Create a GitLab CI pipeline in a demo project to verify that the self-hosted Azure runner can execute jobs
 
 ---
