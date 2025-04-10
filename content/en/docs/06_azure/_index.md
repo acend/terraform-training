@@ -21,7 +21,7 @@ Main components:
 * Static IP + DNS A record
 * Load balancer (Layer 4) + Kubernetes Ingress Controller (NGINX)
 * SSL Cert Manager
-* MariaDB
+* MySQL
 
 
 ### Diagram
