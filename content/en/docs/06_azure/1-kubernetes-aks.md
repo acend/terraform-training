@@ -50,7 +50,7 @@ location        = "westeurope"
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
-to avoid uncontrolled version upgrades. 
+to avoid uncontrolled version upgrades.
 
 Create a new file named `versions.tf` and add the following content:
 ```terraform
