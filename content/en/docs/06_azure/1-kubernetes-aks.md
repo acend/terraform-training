@@ -234,7 +234,7 @@ data "azuread_group" "aks_admins" {
 resource "azurerm_role_assignment" "students" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
-  principal_id         = data.azuread_group.aks_admins.id
+  principal_id         = data.azuread_group.aks_admins.object_id
 }
 ```
 
