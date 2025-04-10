@@ -106,7 +106,7 @@ terraform apply
 The application is now accessible via web browser at => `terraform output -raw fqdn`
 
 
-## Step {{% param sectionnumber %}}.2: What's about security?
+## Step {{% param sectionnumber %}}.2: What about security?
 
 As demonstrated, **Azure Container Instances (ACI)** provide a lightweight container runtime with direct access to
 the exposed container port.  
@@ -116,7 +116,8 @@ However, if your container doesn’t include built-in support for secure endpoin
 You might have noticed that the Terraform resource is named `azurerm_container_group`.  
 This is because it allows you to define **multiple containers within a single container group**.
 
-A common use case is to include a **proxy container** alongside your application to handle secure connections and expose a public or private endpoint.
+A common use case is to include a **proxy container** alongside your application to handle secure connections and
+expose a public or private endpoint.
 
 ```mermaid
 graph LR

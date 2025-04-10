@@ -10,9 +10,27 @@ After completing all the labs, try tackling the following challenges from scratc
 Terraform code. Each challenge is independent—pick the one that interests you most!
 
 
-### Challenge #1: GitLab Runner Deployment (Intermediate)
+### Challenge #1: GitLab Runner Deployment (Entry Level)
 
-In many CI/CD workflows, it's standard practice to use dedicated GitLab Runners. This challenge guides you through provisioning a configurable number of runners using Terraform.
+In the Azure Workshop, an outdated version of the `azurerm` Terraform provider (v3.117.1) was used.
+In this challenge, you'll modernize the code base.
+
+
+#### Objectives
+
+Using Terraform, complete the following tasks:
+
+* Upgrade the Terraform code to use the latest version of the `azurerm` provider
+* Identify any deprecated or removed resources and either **migrate** them to supported alternatives or
+  **re-provision** the components
+
+---
+
+
+### Challenge #2: GitLab Runner Deployment (Intermediate)
+
+In many CI/CD workflows, it's standard practice to use dedicated GitLab Runners.
+This challenge guides you through provisioning a configurable number of runners using Terraform.
 
 
 #### Objectives
@@ -36,7 +54,7 @@ Using Terraform, implement the following:
 ---
 
 
-### Challenge #2: Azure Key Vault + External Secrets Operator (Advanced)
+### Challenge #3: Azure Key Vault + External Secrets Operator (Advanced)
 
 Kubernetes applications often require access to sensitive credentials. Rather than passing them during deployment, this challenge uses **[External Secrets Operator](https://external-secrets.io/)** to securely replicate secrets from **Azure Key Vault** into Kubernetes.
 

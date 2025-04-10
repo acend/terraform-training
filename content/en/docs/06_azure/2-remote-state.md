@@ -86,19 +86,19 @@ to avoid uncontrolled version upgrades. Try to merge this snippet into your actu
 
 ```terraform
 terraform {
-  required_version = "= 1.5.5"
+  required_version = "= 1.11.2"
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.69.0"
+      version = "=3.117.1"
     }
   }
 }
 ```
 
 {{% alert title="Versions" color="primary" %}}
-As of this writing, the current version is `3.69.0`. Set the versions to the latest on by using `terraform version`
+As of this writing, the current version is `1.11.2`. Set the versions to the latest on by using `terraform version`
 {{% /alert %}}
 
 Now run Terraform init again:
