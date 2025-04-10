@@ -22,7 +22,9 @@ Using Terraform, complete the following tasks:
 
 * Upgrade the Terraform code to use the latest version of the `azurerm` provider
 * Identify any deprecated or removed resources and either **migrate** them to supported alternatives or
-  **re-create** them
+  **re-provision** the components
+
+---
 
 
 ### Challenge #2: GitLab Runner Deployment (Intermediate)
