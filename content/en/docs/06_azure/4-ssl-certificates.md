@@ -208,7 +208,7 @@ This should show the following output:
 ```
 Server address: 10.244.0.11:80
 Server name: hello
-Date: 26/Aug/2021:14:19:30 +0000
+Date: 26/Mar/2025:14:19:30 +0000
 URI: /
 Request ID: f159d777a93e189c6955f31dde6dba38
 ```

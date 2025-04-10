@@ -50,11 +50,12 @@ location        = "westeurope"
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
 
 As seen earlier, its good practice to lock the Terraform CLI and provider versions
-to avoid uncontrolled version upgrades. Try to merge this snippet into your actual config.
+to avoid uncontrolled version upgrades. 
 
+Create a new file named `versions.tf` and add the following content:
 ```terraform
 terraform {
-  required_version = "= 1.11.2"
+  required_version = "= 1.10.5"
 
   required_providers {
     azurerm = {
@@ -309,7 +310,7 @@ Add the following content to the end of `config/dev.tfvars` (check the latest ku
 ```terraform
 aks = {
   // az aks get-versions --location westeurope -o table
-  kubernetes_version    = "1.21.2"
+  kubernetes_version    = "1.31.6"
   log_retention_in_days = 30
   ad_admin_group        = "students"
   node_pool = {
