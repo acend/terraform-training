@@ -32,19 +32,19 @@ flowchart LR
     end
     pAc --> mFire
     subgraph rg: db
-        mServer(mariadb) --> mDb(database)
+        mServer(mysql) --> mDb(database)
         mFire(firewall) --> mDb
     end
 ```
 
 To test the setup end-to-end, we deploy an example application on Kubernetes. The app exposes a web service on port
-5000 and writes sample records to the MariaDB.
+5000 and writes sample records to the MySQL.
 
-Create a Kubernetes secret containing the MariaDB URI to be exposed as the POD environment variable `MYSQL_URI`:
+Create a Kubernetes secret containing the MySQL URI to be exposed as the POD environment variable `MYSQL_URI`:
 
 ```bash
 kubectl create namespace workload
-kubectl create secret generic mariadb-uri --namespace workload --from-literal=mariadb_uri=$(terraform output -raw mariadb_uri)
+kubectl create secret generic mysql-uri --namespace workload --from-literal=mysql_uri=$(terraform output -raw mysql_uri)
 ```
 
 Create a new file named `tests/workload.yaml` and add the following content:
@@ -69,8 +69,8 @@ spec:
       - name: MYSQL_URI
         valueFrom:
           secretKeyRef:
-            name: mariadb-uri
-            key: mariadb_uri
+            name: mysql-uri
+            key: mysql_uri
 
 ---
 
@@ -126,7 +126,7 @@ kubectl apply -f tests/workload.yaml
 
 The application is now accessible via web browser at https://workload.YOUR_USERNAME.mobi.terraform-lab.cloud
 
-To verify the application is connected to the MariaDB, run the following command to inspec the log files:
+To verify the application is connected to the MySQL, run the following command to inspec the log files:
 ```bash
 kubectl logs -n workload example | head
 ```
