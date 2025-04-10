@@ -78,34 +78,3 @@ Do you want to copy existing state to the new backend?
 The Azure storage account is another resource which requires a global unique name. We therefore prefix and randomise
 the name.
 
-
-## Step {{% param sectionnumber %}}.3: Lock the Terraform versions
-
-As seen earlier, its good practice to lock the Terraform CLI and provider versions
-to avoid uncontrolled version upgrades. Try to merge this snippet into your actual config.
-
-```terraform
-terraform {
-  required_version = "= 1.11.2"
-
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=3.117.1"
-    }
-  }
-}
-```
-
-{{% alert title="Versions" color="primary" %}}
-As of this writing, the current version is `1.11.2`. Set the versions to the latest on by using `terraform version`
-{{% /alert %}}
-
-Now run Terraform init again:
-```bash
-terraform init -backend-config=config/dev_backend.tfvars
-```
-
-{{% alert title="Bonus" color="primary" %}}
-Try to lock the other provider versions as well.
-{{% /alert %}}

@@ -49,6 +49,26 @@ location        = "westeurope"
 
 **Note**: Please replace `YOUR_USERNAME` with the username assigned to you for this workshop.
 
+As seen earlier, its good practice to lock the Terraform CLI and provider versions
+to avoid uncontrolled version upgrades. Try to merge this snippet into your actual config.
+
+```terraform
+terraform {
+  required_version = "= 1.11.2"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.117.1"
+    }
+  }
+}
+```
+
+{{% alert title="Versions" color="primary" %}}
+As of this writing, the current version is `1.11.2`. Set the versions to the latest on by using `terraform version`
+{{% /alert %}}
+
 Now run
 ```bash
 terraform init
@@ -246,7 +266,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   role_based_access_control_enabled = true
   azure_active_directory_role_based_access_control {
-    tenant_id          = data.azurerm_subscription.current.tenant_id
+    // uncomment for azurerm version > 4.x
+    // tenant_id          = data.azurerm_subscription.current.tenant_id
+    managed            = true
     azure_rbac_enabled = true
   }
 
