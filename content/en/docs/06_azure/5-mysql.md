@@ -94,6 +94,13 @@ resource "azurerm_mysql_flexible_server" "demo" {
   }
 }
 
+resource "azurerm_mysql_flexible_server_configuration" "ssl_off" {
+  name                = "require_secure_transport"
+  resource_group_name = azurerm_resource_group.db.name
+  server_name         = azurerm_mysql_flexible_server.demo.name
+  value               = "off"
+}
+
 resource "azurerm_mysql_flexible_database" "demo_app" {
   name                ="demo_app"
   resource_group_name = azurerm_resource_group.db.name
