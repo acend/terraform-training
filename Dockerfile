@@ -1,4 +1,4 @@
-FROM docker.io/floryn90/hugo:0.140.2-ext-ubuntu AS builder
+FROM docker.io/floryn90/hugo:0.147.8-ext-ubuntu AS builder
 
 ARG TRAINING_HUGO_ENV=default
 USER root
@@ -29,7 +29,7 @@ RUN wkhtmltopdf --enable-internal-links --enable-local-file-access \
     --dpi 600 \
     /pdf/index.html /pdf.pdf
 
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginxinc/nginx-unprivileged:1.28-alpine
 
 LABEL maintainer acend.ch
 LABEL org.opencontainers.image.title "acend.ch's Terraform Training"
