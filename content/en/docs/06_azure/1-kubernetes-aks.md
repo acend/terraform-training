@@ -60,7 +60,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.117.1"
+      version = "=4.46.0"
     }
   }
 }
@@ -267,9 +267,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   role_based_access_control_enabled = true
   azure_active_directory_role_based_access_control {
-    // uncomment for azurerm version > 4.x
-    // tenant_id          = data.azurerm_subscription.current.tenant_id
-    managed            = true
+    tenant_id          = data.azurerm_subscription.current.tenant_id
     azure_rbac_enabled = true
   }
 
