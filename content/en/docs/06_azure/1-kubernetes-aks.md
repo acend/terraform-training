@@ -308,7 +308,7 @@ Add the following content to the end of `config/dev.tfvars` (check the latest ku
 ```terraform
 aks = {
   // az aks get-versions --location westeurope -o table
-  kubernetes_version    = "1.31.6"
+  kubernetes_version    = "1.33.3"
   log_retention_in_days = 30
   ad_admin_group        = "students"
   node_pool = {
