@@ -55,7 +55,7 @@ to avoid uncontrolled version upgrades.
 Create a new file named `versions.tf` and add the following content:
 ```terraform
 terraform {
-  required_version = "= 1.10.5"
+  required_version = "> 1.12.0"
 
   required_providers {
     azurerm = {
