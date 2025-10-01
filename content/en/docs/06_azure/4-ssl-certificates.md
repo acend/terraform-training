@@ -47,20 +47,25 @@ resource "helm_release" "cert_manager" {
   name         = "cert-manager"
   repository   = "https://charts.jetstack.io"
   chart        = "cert-manager"
-  version      = "1.5.3"
+  version      = "1.18.2"
   namespace    = kubernetes_namespace.cert_manager.id
   atomic       = true
   reset_values = true
 
-  set {
-    name  = "installCRDs"
-    value = "true"
-  }
-
-  set {
-    name  = "global.leaderElection.namespace"
-    value = kubernetes_namespace.cert_manager.id
-  }
+  set = [
+    {
+      name  = "installCRDs"
+      value = "true"
+    },
+    {
+      name  = "global.leaderElection.namespace"
+      value = kubernetes_namespace.cert_manager.id
+    },
+    {
+        name = "dns01RecursiveNameservers"
+        value = "9.9.9.10:53"
+    }
+  ]
 }
 ```
 

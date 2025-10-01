@@ -254,6 +254,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vnet_subnet_id     = azurerm_subnet.private.id
     vm_size            = var.aks.node_pool.vm_size
     node_count         = var.aks.node_pool.node_count
+
+    upgrade_settings {
+      drain_timeout_in_minutes      = 0
+      max_surge                     = "10%"
+      node_soak_duration_in_minutes = 0
+    }
   }
 
   network_profile {
