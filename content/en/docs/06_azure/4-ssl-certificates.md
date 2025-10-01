@@ -123,7 +123,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: noreply@mobi.terraform-lab.cloud
+    email: noreply@labz.ch
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
@@ -177,10 +177,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - secure.YOUR_USERNAME.mobi.terraform-lab.cloud
+    - secure.YOUR_USERNAME.labz.ch
     secretName: tls-secure
   rules:
-  - host: secure.YOUR_USERNAME.mobi.terraform-lab.cloud
+  - host: secure.YOUR_USERNAME.labz.ch
     http:
       paths:
       - path: /
@@ -201,7 +201,7 @@ kubectl apply -f tests/https.yaml
 
 Now use `curl` to access your service:
 ```bash
-curl https://secure.YOUR_USERNAME.mobi.terraform-lab.cloud
+curl https://secure.YOUR_USERNAME.labz.ch
 ```
 
 This should show the following output:

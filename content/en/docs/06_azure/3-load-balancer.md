@@ -126,7 +126,7 @@ flowchart LR
 Add the following content below the existing Kubernetes `provider` block of `main.tf`:
 ```terraform
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = azurerm_kubernetes_cluster.aks.kube_admin_config.0.host
     client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_certificate)
     client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_key)
@@ -214,7 +214,7 @@ flowchart LR
 Create a new file named `dns.tf` and add the following content:
 ```terraform
 data "azurerm_dns_zone" "parent" {
-  name                = "mobi.terraform-lab.cloud"
+  name                = "labz.ch"
 }
 
 resource "azurerm_dns_zone" "child" {
@@ -246,12 +246,12 @@ terraform apply -var-file=config/dev.tfvars
 
 Perform a DNS lookup for your subdomain by running:
 ```bash
-host foobar.YOUR_USERNAME.mobi.terraform-lab.cloud
+host foobar.YOUR_USERNAME.labz.ch
 ```
 
 Which should return something like:
 ```
-foobar.YOUR_USERNAME.mobi.terraform-lab.cloud has address 20.50.15.16
+foobar.YOUR_USERNAME.labz.ch has address 20.50.15.16
 ```
 
 Now traffic is ready to be routed to your new Kubernetes cluster!
@@ -259,7 +259,7 @@ Now traffic is ready to be routed to your new Kubernetes cluster!
 
 ### Explanation
 
-We create a subdomain (child DNS zone in Azure terminology) in the top-level domain `mobi.terraform-lab.cloud`
+We create a subdomain (child DNS zone in Azure terminology) in the top-level domain `labz.ch`
 for each workshop participant. The wildcard A record points to the layer 4 load balancer, so all traffic is sent to
 the load balancer and forwarded to the NGINX ingress controller.
 
@@ -371,7 +371,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: insecure.YOUR_USERNAME.mobi.terraform-lab.cloud
+  - host: insecure.YOUR_USERNAME.labz.ch
     http:
       paths:
       - path: /
@@ -403,7 +403,7 @@ hello      1/1     Running   0          97s
 
 Now use `curl` to access your service:
 ```bash
-curl insecure.YOUR_USERNAME.mobi.terraform-lab.cloud
+curl insecure.YOUR_USERNAME.labz.ch
 ```
 
 This should show the following output:
