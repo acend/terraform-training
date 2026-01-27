@@ -39,10 +39,11 @@ This challenge guides you through provisioning a configurable number of runners 
 
 Using Terraform, implement the following:
 
-* Initialize a new Terraform stack at `$LAB_ROOT/gitlab_runner`
-* Generate a GitLab Runner token from your GitLab instance (either [gitlab.com](https://gitlab.com) or a self-hosted GitLab)
+* Use your GitLab account (either [gitlab.com](https://gitlab.com) or a self-hosted GitLab)
+* Initialize a new Repository at gitlab_runner and check it out
+* Generate a GitLab Runner token from your GitLab instance
   * Runners can be registered at the **group** or **project** level—even for private projects
-* Provision a Linux VM configured via **cloud-init**:
+* Provision a Linux VM:
   * Register the `gitlab-runner` using the GitLab Runner token
   * Ensure the runner service starts on boot
 * Confirm successful registration of the runner in your GitLab group or project settings
@@ -50,9 +51,8 @@ Using Terraform, implement the following:
 
 #### Bonus
 
-1. Store the GitLab Runner token securely in **Azure Key Vault** as a secret and reference the secret from the
-   cloud-init template instead sourcing from a variable
-2. Create a GitLab CI pipeline in a demo project to verify that the self-hosted Azure runner can execute jobs
+1. Create a GitLab CI pipeline in a demo project to verify that the self-hosted Azure runner can execute jobs
+
 
 ---
 
