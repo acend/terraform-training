@@ -9,17 +9,16 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
-      #-
-      #  name: Set up npm for linting
-      #  uses: actions/setup-node@v4
-      #  with:
-      #    node-version: '18.x'
-      #-
-      #  name: Lint Markdown
-      #  run: npm ci && npm run mdlint
+      -
+        name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v22
+        with:
+          globs: '**/*.md'
+          config: '.markdownlint.json'
+          fix: false  # Set to true to auto-fix supported issues
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

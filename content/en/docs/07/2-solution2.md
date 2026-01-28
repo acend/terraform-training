@@ -86,7 +86,7 @@ variable "location" {
   type = string
 }
 
-variable "gitlab_projSect" {
+variable "gitlab_project" {
   type = string
 }
 
