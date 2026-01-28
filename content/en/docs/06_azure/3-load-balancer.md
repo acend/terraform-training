@@ -164,6 +164,7 @@ resource "helm_release" "nginx_ingress" {
       }
     })
   ]
+  depends_on = [ azurerm_kubernetes_cluster.aks ]
 }
 ```
 

@@ -102,6 +102,8 @@ resource "helm_release" "external-secrets" {
   atomic       = true
   reset_values = true
   timeout      = 900
+
+  depends_on = [ azurerm_kubernetes_cluster.aks ]
 }
 ```
 

@@ -66,6 +66,7 @@ resource "helm_release" "cert_manager" {
         value = "9.9.9.10:53"
     }
   ]
+  depends_on = [ azurerm_kubernetes_cluster.aks ]
 }
 ```
 
