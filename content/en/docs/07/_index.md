@@ -1,10 +1,10 @@
 ---
-title: "7. Self-guided Challenges"
+title: "7. Challenges"
 weight: 7
 sectionnumber: 7
 ---
 
-## Self-guided Challenges
+## Challenges
 
 After completing all the labs, try tackling the following challenges from scratch, without relying on existing
 Terraform code. Each challenge is independent—pick the one that interests you most!

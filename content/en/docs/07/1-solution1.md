@@ -1,5 +1,5 @@
 ---
-title: "7.1. Challenge #1"
+title: "7.1. Solution #1"
 weight: 71
 sectionnumber: 7.1
 ---

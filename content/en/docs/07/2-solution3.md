@@ -1,7 +1,7 @@
 ---
-title: "7.2. Challenge #2"
-weight: 72
-sectionnumber: 7.2
+title: "7.3. Solution #3"
+weight: 73
+sectionnumber: 7.3
 ---
 
 ```mermaid
