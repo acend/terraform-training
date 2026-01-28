@@ -182,8 +182,8 @@ resource "azurerm_linux_virtual_machine" "worker" {
 
   source_image_reference {
     publisher = "Debian"
-    offer     = "debian-11"
-    sku       = "11-backports-gen2"
+    offer     = "debian-13"
+    sku       = "13-gen2"
     version   = "latest"
   }
 }
