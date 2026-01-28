@@ -31,10 +31,17 @@ flowchart LR
 
 Clone your new repository on a GitLab instance and change into the directory.
 
+Dont forget to get your storage account from Chapter 6.2.1 for:
+- terraform init -backend-config=config/dev_backend.tfvars
+
 
 ## Step {{% param sectionnumber %}}.1: main.tf
 
 ```terraform
+terraform {
+  backend "azurerm" {}
+}
+
 provider "azurerm" {
   subscription_id = var.subscription_id
   features {
@@ -44,12 +51,16 @@ provider "azurerm" {
   }
 }
 
+provider "gitlab" {
+  token = var.gitlab_token
+}
+
 resource "azurerm_resource_group" "worker" {
   name     = "rg-${local.infix}"
   location = var.location
 }
 
-data "azurerm_subscription" "current" {}
+data "azuread_client_config" "current" {}
 ```
 
 ## Step {{% param sectionnumber %}}.2: variables.tf
@@ -59,10 +70,30 @@ locals {
   infix = "${var.purpose}-${var.environment}-gitlab"
 }
 
-variable "subscription_id" {}
-variable "purpose" {}
-variable "environment" {}
-variable "location" {}
+variable "subscription_id" {
+  type = string
+}
+
+variable "purpose" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+variable "location" {
+  type = string
+}
+
+variable "gitlab_projSect" {
+  type = string
+}
+
+variable "gitlab_token" {
+  type      = string
+  sensitive = true
+}
 ```
 
 ## Step {{% param sectionnumber %}}.3: config/dev.tfvars
@@ -111,11 +142,27 @@ terraform {
       source  = "gitlabhq/gitlab"
       version = "~> 18.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.1"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = ">= 3.2"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">= 2.5"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.13.1"
+    }
   }
 }
 ```
 
-## Step {{% param sectionnumber %}}.6: main.tf
+## Step {{% param sectionnumber %}}.6: worker.tf
 
 ```terraform
 resource "azurerm_virtual_network" "worker" {
@@ -136,7 +183,7 @@ resource "azurerm_public_ip" "worker" {
   name                = "gitlab-worker"
   resource_group_name = azurerm_resource_group.worker.name
   location            = azurerm_resource_group.worker.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "worker" {
@@ -232,7 +279,7 @@ resource "time_rotating" "gitlab" {
 
 resource "azuread_service_principal_password" "gitlab" {
   service_principal_id = azuread_service_principal.gitlab.id
-   rotate_when_changed = {
+  rotate_when_changed = {
     rotation = time_rotating.gitlab.id
   }
 }
@@ -241,10 +288,6 @@ resource "azuread_service_principal_password" "gitlab" {
 ## Step {{% param sectionnumber %}}.8: gitlab.tf
 
 ```terraform
-data "gitlab_project" "worker" {
-  id = var.gitlab_project
-}
-
 # GitLab Runner that runs only tagged jobs
 resource "gitlab_user_runner" "worker" {
   runner_type = "project_type"
@@ -252,7 +295,7 @@ resource "gitlab_user_runner" "worker" {
   description = "runner"
 
   untagged = "false"
-  tag_list = ["var.purpose"]
+  tag_list = ["acend", "terraform", var.purpose]
 }
 
 resource "local_sensitive_file" "gitlab_runner" {
@@ -266,7 +309,7 @@ resource "local_sensitive_file" "gitlab_runner" {
 
 resource "local_file" "docker_compose" {
   filename = "docker-compose.yaml"
-  content = templatefile("templates/docker-compose.tpl")
+  content  = file("templates/docker-compose.tpl")
 }
 
 resource "null_resource" "bootstrap" {
@@ -287,7 +330,7 @@ resource "null_resource" "bootstrap" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
-      "sudo apt install ca-certificates curl unattended-upgrades",
+      "sudo apt install ca-certificates curl unattended-upgrades -y",
       "sudo dpkg-reconfigure -pmedium unattended-upgrades",
       "curl -fsSL https://get.docker.com -o get-docker.sh",
       "which docker || sudo sh get-docker.sh",
@@ -341,7 +384,7 @@ resource "null_resource" "start_docker_compose" {
 
 ## Step {{% param sectionnumber %}}.9: templates/config.tpl
 
-```
+```conf
 concurrent = 2
 log_level = "warning"
 log_format = "text"
@@ -403,6 +446,8 @@ linting:
     - find . -name \*.tf -exec terraform fmt -check {} \+
     - tflint
   tags:
+    - acend
+    - terraform
     - <your-tag>
 
 planing:
@@ -412,6 +457,8 @@ planing:
     - terraform plan -var-file=config/dev.tfvars -out file.tfplan
   retry: 2
   tags:
+    - acend
+    - terraform
     - <your-tag>
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
