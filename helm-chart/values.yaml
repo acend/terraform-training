@@ -1,7 +1,8 @@
+---
 acendTraining:
   servicePort: 8080
   deployments:
-    - 
+    -
       name: azure-acend
       replicaCount: 2
       image:
@@ -13,7 +14,7 @@ acendTraining:
         secretOverride: acend-wildcard
         appname: terraform-azure
         domain: training.acend.ch
-    - 
+    -
       name: aws-acend
       replicaCount: 2
       image:
@@ -25,7 +26,7 @@ acendTraining:
         secretOverride: acend-wildcard
         appname: terraform-aws
         domain: training.acend.ch
-    - 
+    -
       name: gcp-acend
       replicaCount: 2
       image:
@@ -37,9 +38,6 @@ acendTraining:
         secretOverride: acend-wildcard
         appname: terraform-gcp
         domain: training.acend.ch
-
-
-
 
 nameOverride: "acend-terraform"
 fullnameOverride: ""

@@ -105,8 +105,8 @@ resource "azurerm_mysql_flexible_database" "demo_app" {
   name                ="demo_app"
   resource_group_name = azurerm_resource_group.db.name
   server_name         = azurerm_mysql_flexible_server.demo.name
-  charset             = "utf8"
-  collation           = "utf8_general_ci"
+  charset             = "utf8mb3"
+  collation           = "utf8mb3_general_ci"
 }
 
 resource "azurerm_mysql_flexible_server_firewall_rule" "aks_egress_ip" {

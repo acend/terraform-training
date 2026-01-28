@@ -247,6 +247,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   node_resource_group = "${azurerm_resource_group.aks.name}-nodes"
   dns_prefix          = local.infix
   kubernetes_version  = var.aks.kubernetes_version
+  oidc_issuer_enabled = true
+  workload_identity_enabled = true
 
   default_node_pool {
     name               = "linux"
@@ -276,16 +278,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     tenant_id          = data.azurerm_subscription.current.tenant_id
     azure_rbac_enabled = true
   }
-
-  oms_agent {
-    log_analytics_workspace_id = azurerm_log_analytics_workspace.aks.id
-  }
-}
-
-resource "azurerm_role_assignment" "aks_identity_monitoring" {
-  scope                = azurerm_kubernetes_cluster.aks.id
-  role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_kubernetes_cluster.aks.oms_agent[0].oms_agent_identity[0].object_id
 }
 
 resource "azurerm_role_assignment" "aks_identity_networking" {
@@ -314,7 +306,7 @@ Add the following content to the end of `config/dev.tfvars` (check the latest ku
 ```terraform
 aks = {
   // az aks get-versions --location westeurope -o table
-  kubernetes_version    = "1.33.3"
+  kubernetes_version    = "1.34.1"
   log_retention_in_days = 30
   ad_admin_group        = "students"
   node_pool = {
