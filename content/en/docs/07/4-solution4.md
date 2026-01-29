@@ -64,6 +64,7 @@ docker buildx build --push -t <your-registry>/builder .
 
 ## Step {{% param sectionnumber %}}.3: .gitlab-ci.yml
 
+{{% details title="Hints" %}}
 ```yaml
 ---
 image: <your-registry>/builder
@@ -86,3 +87,4 @@ linting:
     - terraform
     - <your-tag>
 ```
+{{% /details %}}
