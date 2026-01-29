@@ -6,13 +6,16 @@ sectionnumber: 7.4
 
 ```mermaid
 flowchart LR
-    user --> |insert|keyvault
-    subgraph azure
-        keyvault
+    user --> |run|fmt
+    user --> |run|tflint
+    dck <--> |automate|pipeline
+    subgraph pipeline
+        linting
     end
-    keyvault <--> |access|external-secrets
-    subgraph aks
-        external-secrets --> |create|secret
+    subgraph local
+        fmt(terraform fmt) --> |insert|dck
+        tflint --> |insert|dck
+        dck(docker image)
     end
 ```
 
