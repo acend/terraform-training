@@ -8,6 +8,7 @@ sectionnumber: 3.2
 ## Preparation
 
 Create a new directory for this exercise:
+
 ```bash
 mkdir -p $LAB_ROOT/basics/variables
 cd $LAB_ROOT/basics/variables
@@ -17,6 +18,7 @@ cd $LAB_ROOT/basics/variables
 ## Step {{% param sectionnumber %}}.1: Create variables.tf and main.tf
 
 Create a new file named `variables.tf` in your working directory and add the following content:
+
 ```terraform
 variable "random_min_value" {
   type        = number
@@ -26,6 +28,7 @@ variable "random_min_value" {
 ```
 
 Create a new file named `main.tf` in your working directory and add the following content:
+
 ```terraform
 resource "random_integer" "number" {
   min = var.random_min_value
@@ -58,7 +61,7 @@ To see how Terraform applies changes to your existing resources,
 change the `default` value of `random_min_value` to `2000` in the
 `variables.tf` file:
 
-```
+```terraform
 {{< highlight terraform "hl_lines=3" >}}
 variable "random_min_value" {
   type        = number
@@ -76,7 +79,8 @@ terraform apply
 
 And terraform will display the required changes to create the state in your code.
 You will see a similar plan like this:
-```
+
+```text
 random_integer.number: Refreshing state... [id=8731]
 
 Terraform used the selected providers to generate the following
@@ -94,6 +98,7 @@ Terraform will perform the following actions:
         # (1 unchanged attribute hidden)
     }
 
+
 Plan: 1 to add, 0 to change, 1 to destroy.
 
 Do you want to perform these actions?
@@ -101,7 +106,7 @@ Do you want to perform these actions?
   Only 'yes' will be accepted to approve.
 
   Enter a value:
-  ```
+```
 
 
 ## Step {{% param sectionnumber %}}.4: Add a local variable
