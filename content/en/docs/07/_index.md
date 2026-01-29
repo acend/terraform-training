@@ -12,10 +12,10 @@ Terraform code. Each challenge is independent—pick the one that interests you 
 ---
 
 
-### Challenge #1: Upgrade azurerm Provider Version (Entry Level)
+### Challenge #1: Upgrade Provider Version (Entry Level)
 
-In the Azure Workshop, an outdated version of the `azurerm` Terraform provider (v3.117.1) was used.
-In this challenge, you'll modernize the code base.
+In the Azure Workshop, an outdated versions has been used.
+In this challenge, you'll modernize the code whole base.
 
 
 #### Objectives
@@ -25,6 +25,7 @@ Using Terraform, complete the following tasks:
 * Upgrade the Terraform code to use the latest version of the `azurerm` provider
 * Identify any deprecated or removed resources and either **migrate** them to supported alternatives or
   **re-provision** the components
+* Update Kubernetes specific versions for used software as well
 
 ---
 
@@ -51,7 +52,7 @@ Using Terraform, implement the following:
 
 #### Bonus
 
-1. Create a GitLab CI pipeline in a demo project to verify that the self-hosted Azure runner can execute jobs
+1. Create a GitLab CI pipeline in a demo repo to verify that the self-hosted Azure runner can execute jobs
 
 
 ---
@@ -74,3 +75,20 @@ Using Terraform, implement the following:
 * Deploy the **External Secrets Operator** to the AKS cluster  
   * Grant permissions to the operator via an **Azure User-Assigned Managed Identity**
 * Manually create an `ExternalSecret` custom resource to sync the Key Vault secret into a target Kubernetes namespace
+
+
+---
+
+
+### Challenge #4: Terraform Linting (Enterprise)
+
+Your Infrastructure Code should be ready to be maintained from other people as yourself. Therefore it is important to follow specific guidelines to a default.
+
+
+#### Objectives
+
+Using terraform and tflint, and check your codebase:
+
+* Use the existing projects to run `terraform fmt --check` and `tflint` and check/correct the output
+* Create a new docker image with terraform and tflint and upload it into your registry
+* Build a linting stage in your pipeline to create a linting check of your code which should be added to the repo

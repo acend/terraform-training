@@ -431,35 +431,12 @@ Lets find out if the runner is functional. Don't forget to commit and push your 
 ---
 image: alpine
 
-stages:
-  - linting
-  - planing
-
-variables:
-  ARM_TENANT_ID: "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
-  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
-  TF_PLUGIN_CACHE_DIR: "/cache/plugin-cache"
-
-linting:
-  stage: linting
+test:
+  stage: test
   script:
-    - find . -name \*.tf -exec terraform fmt -check {} \+
-    - tflint
+    - ls -l
   tags:
     - acend
     - terraform
     - <your-tag>
-
-planing:
-  stage: planing
-  script:
-    - terraform init -backend-config=config/dev-backend.tfvars
-    - terraform plan -var-file=config/dev.tfvars -out file.tfplan
-  retry: 2
-  tags:
-    - acend
-    - terraform
-    - <your-tag>
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 ```
