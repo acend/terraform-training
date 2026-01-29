@@ -4,20 +4,25 @@ weight: 71
 sectionnumber: 7.1
 ---
 
-
-## Check Releases
-
-[azurerm](https://github.com/hashicorp/terraform-provider-azurerm/releases)
-
-```terraform
-terraform {
-  required_version = "> 1.12.0"
-
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=4.46.0"   # < -- UPDATE!
-    }
-  }
-}
+```mermaid
+flowchart LR
+    user --> |find|release
+    subgraph local
+      file
+    end
+    release --> |update|file
+    file --> |apply|object
+    subgraph azure
+      object
+    end
 ```
+
+## Preparation
+
+Check all the last chapters for versions.
+* required_providers
+* kubernetes_version
+* helm_release
+
+Find the releases of the software online and update them in youre files. Apply the changes to verfify everything is working well.
+
