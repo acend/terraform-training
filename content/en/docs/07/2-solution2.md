@@ -37,6 +37,7 @@ Dont forget to get your storage account from Chapter 6.2.1 for:
 
 ## Step {{% param sectionnumber %}}.1: main.tf
 
+{{% details title="Hints" %}}
 ```terraform
 terraform {
   backend "azurerm" {}
@@ -62,9 +63,11 @@ resource "azurerm_resource_group" "worker" {
 
 data "azuread_client_config" "current" {}
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.2: variables.tf
 
+{{% details title="Hints" %}}
 ```terraform
 locals {
   infix = "${var.purpose}-${var.environment}-gitlab"
@@ -95,9 +98,11 @@ variable "gitlab_token" {
   sensitive = true
 }
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.3: config/dev.tfvars
 
+{{% details title="Hints" %}}
 Take the values from Step 6.2.2
 
 ```terraform
@@ -106,9 +111,11 @@ purpose         = "YOUR_USERNAME"
 environment     = "dev"
 location        = "westeurope"
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.4: config/dev_backend.tfvars
 
+{{% details title="Hints" %}}
 Take the values from Step 6.2.2
 
 ```terraform
@@ -118,9 +125,11 @@ storage_account_name = "YOUR_ACCOUNT"
 container_name       = "terraform-state"
 key                  = "dev_gitlab.tfstate"
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.5: versions.tf
 
+{{% details title="Hints" %}}
 {{% alert title="Updates" color="primary" %}}
 Try always to use the latest version of a plugin
 {{% /alert %}}
@@ -161,9 +170,11 @@ terraform {
   }
 }
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.6: worker.tf
 
+{{% details title="Hints" %}}
 ```terraform
 resource "azurerm_virtual_network" "worker" {
   name                = "gitlab-worker"
@@ -258,9 +269,11 @@ resource "azurerm_network_interface_security_group_association" "worker" {
   network_security_group_id = azurerm_network_security_group.worker.id
 }
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.7: access.tf
 
+{{% details title="Hints" %}}
 ```terraform
 resource "azuread_application" "gitlab" {
   display_name = "GitLab-Pipeline"
@@ -284,9 +297,11 @@ resource "azuread_service_principal_password" "gitlab" {
   }
 }
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.8: gitlab.tf
 
+{{% details title="Hints" %}}
 ```terraform
 # GitLab Runner that runs only tagged jobs
 resource "gitlab_user_runner" "worker" {
@@ -381,9 +396,11 @@ resource "null_resource" "start_docker_compose" {
   }
 }
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.9: templates/config.tpl
 
+{{% details title="Hints" %}}
 ```conf
 concurrent = 2
 log_level = "warning"
@@ -408,9 +425,11 @@ check_interval = 10
     disable_cache = true
     volumes = ["/data/cache:/cache"]
 ```
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.10: templates/docker-compose.tpl
 
+{{% details title="Hints" %}}
 ```yaml
 services:
   gitlab:
@@ -420,9 +439,11 @@ services:
     - /data/gitlab:/etc/gitlab-runner:rw
     - /var/run/docker.sock:/var/run/docker.sock:rw
 ```
+{{% /details %}}
 
 ## Bonus {{% param sectionnumber %}}.11: .gitlab-ci.yml
 
+{{% details title="Hints" %}}
 Before starting with the Bonus content you should have applied all the code before. So that the GitLab runner is working.
 
 Lets find out if the runner is functional. Don't forget to commit and push your code for the first run.
@@ -440,3 +461,4 @@ test:
     - terraform
     - <your-tag>
 ```
+{{% /details %}}

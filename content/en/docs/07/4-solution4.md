@@ -28,14 +28,16 @@ cd $LAB_ROOT/<folder>
 
 ## Step {{% param sectionnumber %}}.1: local
 
+{{% details title="Hints" %}}
 ```bash
 terraform fmt -check
 tflint
 ```
-
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.2: Dockerfile
 
+{{% details title="Hints" %}}
 ```bash
 FROM alpine:3.22.1
 
@@ -60,7 +62,7 @@ USER infra
 az acr login -n <your-registry>  # from chapter 6.1
 docker buildx build --push -t <your-registry>/builder .
 ```
-
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.3: .gitlab-ci.yml
 
