@@ -26,6 +26,7 @@ cd $LAB_ROOT/azure
 
 ## Step {{% param sectionnumber %}}.1: keyvault.tf
 
+{{% details title="Hints" %}}
 ```terraform
 resource "random_integer" "keyvault" {
   min = 10000
@@ -82,10 +83,11 @@ output "identity" {
   value = azurerm_user_assigned_identity.podid.client_id
 }
 ```
-
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.2: external-secrets.tf
 
+{{% details title="Hints" %}}
 ```terraform
 resource "kubernetes_namespace" "external-secrets" {
   metadata {
@@ -106,10 +108,11 @@ resource "helm_release" "external-secrets" {
   depends_on = [ azurerm_kubernetes_cluster.aks ]
 }
 ```
-
+{{% /details %}}
 
 ## Step {{% param sectionnumber %}}.3: secret.yaml
 
+{{% details title="Hints" %}}
 ```yaml
 ---
 apiVersion: v1
@@ -157,3 +160,4 @@ spec:
       remoteRef:
         key: supersecret
 ```
+{{% /details %}}
