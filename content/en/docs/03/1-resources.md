@@ -76,7 +76,7 @@ terraform plan
 
 This will show output similar to:
 
-```
+```text
 Terraform will perform the following actions:
 
   # random_integer.acr will be created
@@ -102,7 +102,7 @@ terraform apply
 Terraform will print the execution plan again and ask for confirmation.
 Type `yes` to continue.
 
-```
+```text
 random_integer.number: Creating...
 random_integer.number: Creation complete after 0s [id=9437]
 

@@ -73,7 +73,7 @@ Can you spot the difference between the outputs?
 
 Add the `sensitive` keyword to the `outputs.tf` file as followed:
 
-```
+```terraform
 {{< highlight terraform "hl_lines=4" >}}
 output "number" {
   value       = "The number is ${random_integer.number.result}"

@@ -211,7 +211,7 @@ curl https://secure.YOUR_USERNAME.labz.ch
 ```
 
 This should show the following output:
-```
+```text
 Server address: 10.244.0.11:80
 Server name: hello
 Date: 26/Mar/2025:14:19:30 +0000

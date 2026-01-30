@@ -251,7 +251,7 @@ host foobar.YOUR_USERNAME.labz.ch
 ```
 
 Which should return something like:
-```
+```text
 foobar.YOUR_USERNAME.labz.ch has address 20.50.15.16
 ```
 
@@ -306,7 +306,7 @@ kubectl get ns
 ```
 
 This should show you the following output:
-```
+```text
 NAME              STATUS   AGE
 default           Active   3h42m
 kube-node-lease   Active   3h42m
@@ -397,7 +397,7 @@ kubectl get pod,ing -n tests
 ```
 
 This should show the following output:
-```
+```text
 NAME       READY   STATUS    RESTARTS   AGE
 hello      1/1     Running   0          97s
 ```
@@ -408,7 +408,7 @@ curl insecure.YOUR_USERNAME.labz.ch
 ```
 
 This should show the following output:
-```
+```text
 Server address: 10.244.0.9:80
 Server name: hello
 Date: 26/Aug/2021:13:49:10 +0000
