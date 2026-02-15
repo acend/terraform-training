@@ -10,10 +10,12 @@ onlyWhen: azure
 
 The Azure storage account and storage container to store the Terraform state are not managed by Terraform; it is a
 chicken and egg problem we resolve by using the `az` CLI as followed:
-```
+
+```bash
 export NAME=YOUR_USERNAME
 export ACCOUNT=tfstate$RANDOM
 ```
+
 ```bash
 az group create --location westeurope --name rg-terraform-$NAME
 az storage account create --name $ACCOUNT --resource-group rg-terraform-$NAME
@@ -34,6 +36,7 @@ echo $ACCOUNT
 ## Step {{% param sectionnumber %}}.2: Configure the Terraform backend
 
 Add the following content to the **start** of `main.tf`:
+
 ```terraform
 terraform {
   backend "azurerm" {}
@@ -41,6 +44,7 @@ terraform {
 ```
 
 Create a new file named `config/dev_backend.tfvars` and add the following content:
+
 ```terraform
 subscription_id      = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
 resource_group_name  = "rg-terraform-YOUR_USERNAME"
@@ -53,6 +57,7 @@ key                  = "dev.tfstate"
 with the value of the `$ACCOUNT` variable.
 
 Now run
+
 ```bash
 terraform init -backend-config=config/dev_backend.tfvars
 ```
@@ -60,7 +65,7 @@ terraform init -backend-config=config/dev_backend.tfvars
 Terraform will detect that a local state already exists and asks if you would like to migrate
 the local state to the new remote state; enter `yes`:
 
-```
+```text
 Initializing the backend...
 Do you want to copy existing state to the new backend?
   Pre-existing state was found while migrating the previous "local" backend to the
