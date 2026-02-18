@@ -351,7 +351,7 @@ resource "null_resource" "bootstrap" {
       "which docker || sudo sh get-docker.sh",
       "sudo mkdir -p /data/gitlab /data/cache",
       "sudo chown -R ${var.purpose}:${var.purpose} /data/",
-      "sudo addgroup ${var.purpose} docker",
+      "sudo adduser ${var.purpose} docker",
       "sudo systemctl reboot"
     ]
   }
