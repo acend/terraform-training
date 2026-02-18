@@ -441,6 +441,16 @@ services:
 ```
 {{% /details %}}
 
+## Step {{% param sectionnumber %}}.11: .gitignore
+
+{{% details title="Hints" %}}
+```bash
+.terraform*
+terraform.tfstate*
+```
+{{% /details %}}
+
+
 ## Bonus {{% param sectionnumber %}}.11: .gitlab-ci.yml
 
 {{% details title="Hints" %}}
