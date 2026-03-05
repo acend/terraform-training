@@ -178,7 +178,7 @@ Success! 2 passed, 0 failed.
 Each `run` block:
 
 | Property | Description |
-|----------|-------------|
+| --- | --- |
 | `command` | `plan` (default) or `apply` – use `apply` when assert values depend on computed attributes |
 | `variables` | Override input variables for this run only |
 | `module` | Target a child module directly instead of the root module |

@@ -77,7 +77,7 @@ You will see Terraform create three separate `local_file` resources, each identi
 values are available:
 
 | Symbol | Description |
-|--------|-------------|
+| --- | --- |
 | `each.key` | The current map key (or set element) |
 | `each.value` | The current map value (only for maps) |
 
@@ -123,7 +123,7 @@ easy to pass individual values to downstream resources.
 ## Step {{% param sectionnumber %}}.3: `for_each` vs `count` – When to use which
 
 | Scenario | Recommended |
-|----------|-------------|
+| --- | --- |
 | Fixed number of identical resources | `count` |
 | Conditional resource creation | `count = 0 / 1` |
 | Named, distinct resources from a map or set | `for_each` |

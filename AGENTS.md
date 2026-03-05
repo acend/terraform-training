@@ -59,7 +59,7 @@ onlyWhen: azure   # or: aws | gcp
 
 Labs follow a consistent structure:
 
-```markdown
+````markdown
 ## Preparation
 
 Create a new directory for this exercise:
@@ -69,7 +69,7 @@ mkdir -p $LAB_ROOT/<path>
 cd $LAB_ROOT/<path>
 ```
 
-## Step {{% param sectionnumber %}}.1: Title
+## Step N.M.1: Title
 
 ...instructions...
 
@@ -77,8 +77,8 @@ cd $LAB_ROOT/<path>
 
 ...why this matters...
 
-## Step {{% param sectionnumber %}}.2: Next Step
-```
+## Step N.M.2: Next Step
+````
 
 ### Hugo Shortcodes
 
@@ -216,6 +216,55 @@ Or with Docker (no local Node.js needed):
 ```bash
 docker run --rm -it -v $(pwd):/src floryn90/hugo:${HUGO_VERSION}-ci /bin/bash -c "set -euo pipefail; npm install; npm run mdlint;"
 ```
+
+### Active markdownlint rules (`.markdownlint.json`)
+
+The project enables all default rules with the following overrides:
+
+| Rule | Setting | Effect |
+| --- | --- | --- |
+| MD003 | `atx` | Headings must use `#` style |
+| MD004 | `asterisk` | Unordered lists must use `*` |
+| MD012 | max 2 | At most two consecutive blank lines |
+| MD013 | disabled | No line-length limit |
+| MD022 | 1 blank line above | Headings need one blank line above them |
+| MD024 | disabled | Duplicate heading text is allowed |
+| MD031 | disabled | Fenced code blocks inside lists allowed |
+| MD034 | disabled | Bare URLs are allowed |
+| MD035 | `---` | Horizontal rules must use `---` |
+| MD040 | disabled | Fenced code blocks without language tag allowed |
+| MD048 | `backtick` | Fenced code blocks must use backticks |
+
+### Common pitfalls to avoid
+
+**MD060 – Table column style**
+
+Use **compact-style** separators (`| --- | --- |`) for all tables. Fixed-width separators that
+match the header width (e.g. `|--------|-------------|`) trigger "aligned" style detection; if any
+data row is then wider than the header, markdownlint raises MD060 errors across every pipe in the
+table.
+
+```markdown
+<!-- correct – compact style -->
+| Symbol | Description |
+| --- | --- |
+| `each.key` | The current map key |
+
+<!-- wrong – aligned style -->
+| Symbol | Description |
+|--------|-------------|
+| `each.key` | The current map key |
+```
+
+**Hugo shortcodes inside fenced blocks**
+
+Do not place Hugo shortcodes (e.g. `{{% param sectionnumber %}}`) inside fenced code blocks;
+Hugo will try to render them even inside backtick fences when `unsafe` rendering is enabled.
+
+**Blank lines around headings (MD022)**
+
+Always leave one blank line above every heading (`##`, `###`, etc.). The rule is configured with
+`lines_above: 1`, so a heading immediately after a paragraph or code block will fail.
 
 ---
 
