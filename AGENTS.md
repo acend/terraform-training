@@ -85,7 +85,7 @@ cd $LAB_ROOT/<path>
 Use the following shortcodes where appropriate:
 
 | Shortcode | Purpose |
-|-----------|---------|
+| --- | --- |
 | `{{% alert title="..." color="secondary" %}}...{{% /alert %}}` | Important notices / warnings |
 | `{{% details title="Hints" %}}...{{% /details %}}` | Collapsible hint/solution blocks |
 | `{{% param sectionnumber %}}` | Inject the current section number |
@@ -114,7 +114,7 @@ All Terraform snippets in the training must follow these standards:
 The config key `enabledModule` controls which sections are rendered:
 
 | Environment | `enabledModule` | Active Workshop |
-|-------------|-----------------|-----------------|
+| --- | --- | --- |
 | default     | `base azure`    | Azure (ch. 06_azure) |
 | aws         | `base aws`      | AWS (ch. 06_aws) |
 | gcp         | `base gcp`      | GCP (ch. 06_gcp) |
@@ -237,7 +237,7 @@ The project enables all default rules with the following overrides:
 
 ### Common pitfalls to avoid
 
-**MD060 – Table column style**
+#### MD060 – Table column style
 
 Use **compact-style** separators (`| --- | --- |`) for all tables. Fixed-width separators that
 match the header width (e.g. `|--------|-------------|`) trigger "aligned" style detection; if any
@@ -256,12 +256,12 @@ table.
 | `each.key` | The current map key |
 ```
 
-**Hugo shortcodes inside fenced blocks**
+#### Hugo shortcodes inside fenced blocks
 
 Do not place Hugo shortcodes (e.g. `{{% param sectionnumber %}}`) inside fenced code blocks;
 Hugo will try to render them even inside backtick fences when `unsafe` rendering is enabled.
 
-**Blank lines around headings (MD022)**
+#### Blank lines around headings (MD022)
 
 Always leave one blank line above every heading (`##`, `###`, etc.). The rule is configured with
 `lines_above: 1`, so a heading immediately after a paragraph or code block will fail.
