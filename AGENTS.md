@@ -115,9 +115,9 @@ The config key `enabledModule` controls which sections are rendered:
 
 | Environment | `enabledModule` | Active Workshop |
 | --- | --- | --- |
-| default     | `base azure`    | Azure (ch. 06_azure) |
-| aws         | `base aws`      | AWS (ch. 06_aws) |
-| gcp         | `base gcp`      | GCP (ch. 06_gcp) |
+| default | `base azure` | Azure (ch. 06_azure) |
+| aws | `base aws` | AWS (ch. 06_aws) |
+| gcp | `base gcp` | GCP (ch. 06_gcp) |
 
 Pages using `onlyWhen: azure` (or `aws`/`gcp`) are only rendered in the matching environment.
 
