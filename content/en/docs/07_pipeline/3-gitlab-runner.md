@@ -1,8 +1,17 @@
 ---
-title: "7.2. Solution #2"
-weight: 72
-sectionnumber: 7.2
+title: "7.3. GitLab Runner on Azure"
+weight: 73
+sectionnumber: 7.3
 ---
+
+Shared GitLab runners work for many scenarios, but teams that deploy to Azure often need a
+**self-hosted runner** that:
+
+* Has network access to private Azure resources
+* Can cache Terraform provider plugins locally to speed up pipelines
+* Can be tagged so only specific pipelines use it
+
+In this lab we provision a dedicated GitLab Runner on an Azure Linux VM using Terraform.
 
 ```mermaid
 flowchart LR
@@ -27,113 +36,34 @@ flowchart LR
     end
 ```
 
+
 ## Preparation
 
-Clone your new repository on a GitLab instance and change into the directory.
+Create a new directory for this exercise and initialise it from the Azure Workshop remote state
+storage created in Chapter 6.2:
 
-Don't forget to get your storage account from Chapter 6.2.1 for:
-* `terraform init -backend-config=config/dev_backend.tfvars`
-
-
-## Step {{% param sectionnumber %}}.1: main.tf
-
-{{% details title="Hints" %}}
-```terraform
-terraform {
-  backend "azurerm" {}
-}
-
-provider "azurerm" {
-  subscription_id = var.subscription_id
-  features {
-    resource_group {
-      prevent_deletion_if_contains_resources = false
-    }
-  }
-}
-
-provider "gitlab" {
-  token = var.gitlab_token
-}
-
-resource "azurerm_resource_group" "worker" {
-  name     = "rg-${local.infix}"
-  location = var.location
-}
-
-data "azuread_client_config" "current" {}
+```bash
+mkdir -p $LAB_ROOT/pipeline/gitlab_runner
+cd $LAB_ROOT/pipeline/gitlab_runner
 ```
-{{% /details %}}
 
-## Step {{% param sectionnumber %}}.2: variables.tf
+In your GitLab project, generate a **Runner registration token**:
 
-{{% details title="Hints" %}}
-```terraform
-locals {
-  infix = "${var.purpose}-${var.environment}-gitlab"
-}
+* Go to **Settings → CI/CD → Runners → New project runner**
+* Add tags `acend`, `terraform`, and your username
+* Copy the token — you will need it as a variable
 
-variable "subscription_id" {
-  type = string
-}
+Optional: create empty files:
 
-variable "purpose" {
-  type = string
-}
-
-variable "environment" {
-  type = string
-}
-
-variable "location" {
-  type = string
-}
-
-variable "gitlab_project" {
-  type = string
-}
-
-variable "gitlab_token" {
-  type      = string
-  sensitive = true
-}
+```bash
+touch {main,variables,versions,worker,access,gitlab}.tf
+mkdir -p config templates
 ```
-{{% /details %}}
 
-## Step {{% param sectionnumber %}}.3: config/dev.tfvars
 
-{{% details title="Hints" %}}
-Take the values from Step 6.2.2
-
-```terraform
-subscription_id = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
-purpose         = "YOUR_USERNAME"
-environment     = "dev"
-location        = "westeurope"
-```
-{{% /details %}}
-
-## Step {{% param sectionnumber %}}.4: config/dev_backend.tfvars
+## Step {{% param sectionnumber %}}.1: versions.tf
 
 {{% details title="Hints" %}}
-Take the values from Step 6.2.2
-
-```terraform
-subscription_id      = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
-resource_group_name  = "rg-terraform-YOUR_USERNAME"
-storage_account_name = "YOUR_ACCOUNT"
-container_name       = "terraform-state"
-key                  = "dev_gitlab.tfstate"
-```
-{{% /details %}}
-
-## Step {{% param sectionnumber %}}.5: versions.tf
-
-{{% details title="Hints" %}}
-{{% alert title="Updates" color="primary" %}}
-Try always to use the latest version of a plugin
-{{% /alert %}}
-
 ```terraform
 terraform {
   required_version = "> 1.12.0"
@@ -141,7 +71,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=4.46.0"
+      version = "=4.36.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -172,7 +102,109 @@ terraform {
 ```
 {{% /details %}}
 
-## Step {{% param sectionnumber %}}.6: worker.tf
+
+## Step {{% param sectionnumber %}}.2: main.tf and variables.tf
+
+{{% details title="Hints" %}}
+```terraform
+terraform {
+  backend "azurerm" {}
+}
+
+provider "azurerm" {
+  subscription_id = var.subscription_id
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
+}
+
+provider "gitlab" {
+  token = var.gitlab_token
+}
+
+resource "azurerm_resource_group" "worker" {
+  name     = "rg-${local.infix}"
+  location = var.location
+}
+
+data "azuread_client_config" "current" {}
+```
+
+```terraform
+locals {
+  infix = "${var.purpose}-${var.environment}-gitlab"
+}
+
+variable "subscription_id" {
+  description = "Azure subscription ID."
+  type        = string
+}
+
+variable "purpose" {
+  description = "Short identifier used in resource names."
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name (e.g. dev, prod)."
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region."
+  type        = string
+}
+
+variable "gitlab_project" {
+  description = "GitLab project ID (numeric) to register the runner against."
+  type        = string
+}
+
+variable "gitlab_token" {
+  description = "GitLab personal access token with runner registration permissions."
+  type        = string
+  sensitive   = true
+}
+```
+{{% /details %}}
+
+
+## Step {{% param sectionnumber %}}.3: Config files
+
+Don't forget to get your storage account from Chapter 6.2 for the backend config.
+
+{{% details title="Hints" %}}
+`config/dev.tfvars`:
+
+```terraform
+subscription_id = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
+purpose         = "YOUR_USERNAME"
+environment     = "dev"
+location        = "westeurope"
+gitlab_project  = "YOUR_GITLAB_PROJECT_ID"
+```
+
+`config/dev_backend.tfvars`:
+
+```terraform
+subscription_id      = "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
+resource_group_name  = "rg-terraform-YOUR_USERNAME"
+storage_account_name = "YOUR_ACCOUNT"
+container_name       = "terraform-state"
+key                  = "dev_gitlab.tfstate"
+```
+{{% /details %}}
+
+Init Terraform with the backend config:
+
+```bash
+terraform init -backend-config=config/dev_backend.tfvars
+```
+
+
+## Step {{% param sectionnumber %}}.4: worker.tf – Azure VM
 
 {{% details title="Hints" %}}
 ```terraform
@@ -271,7 +303,8 @@ resource "azurerm_network_interface_security_group_association" "worker" {
 ```
 {{% /details %}}
 
-## Step {{% param sectionnumber %}}.7: access.tf
+
+## Step {{% param sectionnumber %}}.5: access.tf – Service Principal
 
 {{% details title="Hints" %}}
 ```terraform
@@ -299,18 +332,23 @@ resource "azuread_service_principal_password" "gitlab" {
 ```
 {{% /details %}}
 
-## Step {{% param sectionnumber %}}.8: gitlab.tf
+### Explanation
+
+The `time_rotating` resource triggers a secret rotation every 90 days. When the rotation date
+passes, `rotate_when_changed` detects the change and Terraform automatically generates a new
+service principal password on the next apply — without any manual intervention.
+
+
+## Step {{% param sectionnumber %}}.6: gitlab.tf – Runner registration and bootstrap
 
 {{% details title="Hints" %}}
 ```terraform
-# GitLab Runner that runs only tagged jobs
 resource "gitlab_user_runner" "worker" {
   runner_type = "project_type"
   project_id  = var.gitlab_project
   description = "runner"
-
-  untagged = "false"
-  tag_list = ["acend", "terraform", var.purpose]
+  untagged    = false
+  tag_list    = ["acend", "terraform", var.purpose]
 }
 
 resource "local_sensitive_file" "gitlab_runner" {
@@ -341,7 +379,6 @@ resource "null_resource" "bootstrap" {
     host        = azurerm_public_ip.worker.ip_address
   }
 
-  # install tools, prepare directories, reboot
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
@@ -376,19 +413,16 @@ resource "null_resource" "start_docker_compose" {
     host        = azurerm_public_ip.worker.ip_address
   }
 
-  # upload gitlab runner config
   provisioner "file" {
     source      = local_sensitive_file.gitlab_runner.filename
     destination = "/data/gitlab/config.toml"
   }
 
-  # upload docker compose file
   provisioner "file" {
     source      = local_file.docker_compose.filename
     destination = "/home/${var.purpose}/docker-compose.yaml"
   }
 
-  # start docker compose (restart runner during run is a bad idea)
   provisioner "remote-exec" {
     inline = [
       "docker compose up -d"
@@ -398,77 +432,55 @@ resource "null_resource" "start_docker_compose" {
 ```
 {{% /details %}}
 
-## Step {{% param sectionnumber %}}.9: templates/config.tpl
+### Explanation
 
-{{% details title="Hints" %}}
-```conf
-concurrent = 2
-log_level = "warning"
-log_format = "text"
-check_interval = 10
+`null_resource` with `remote-exec` and `file` provisioners is a pragmatic way to bootstrap a VM
+without a configuration management tool. The `triggers` map re-runs the provisioner whenever the
+VM is replaced or the template files change.
+
+`local_sensitive_file` generates the GitLab Runner `config.toml` locally from a template. The
+`sensitive` variant ensures the file content (which contains the runner token) is treated as
+sensitive in Terraform state and logs.
+
+
+## Step {{% param sectionnumber %}}.7: Runner config templates
+
+Create `templates/config.tpl`:
+
+```
+concurrent = 1
+check_interval = 0
 
 [[runners]]
-  name = "training"
+  name = "terraform-runner"
+  url = "https://gitlab.com/"
   token = "${gitlab_runner_token}"
-  url = "https://gitlab.com"
-  environment = ["ARM_CLIENT_ID=${client_id}", "ARM_CLIENT_SECRET=${client_secret}"]
   executor = "docker"
-
   [runners.docker]
     image = "alpine:latest"
-    cpus = "1"
-    memory = "512m"
-    dns = ["1.1.1.1"]
-    privileged = false
-    disable_entrypoint_overwrite = false
-    oom_kill_disable = false
-    disable_cache = true
-    volumes = ["/data/cache:/cache"]
+    volumes = ["/cache:/cache", "/data/cache:/data/cache"]
+  [runners.cache]
+    Type = "local"
+    Path = "/data/cache"
 ```
-{{% /details %}}
 
-## Step {{% param sectionnumber %}}.10: templates/docker-compose.tpl
-
-{{% details title="Hints" %}}
-```yaml
-services:
-  gitlab:
-    image: gitlab/gitlab-runner:alpine-v18.1.1
-    restart: always
-    volumes:
-    - /data/gitlab:/etc/gitlab-runner:rw
-    - /var/run/docker.sock:/var/run/docker.sock:rw
-```
-{{% /details %}}
-
-## Step {{% param sectionnumber %}}.11: .gitignore
-
-{{% details title="Hints" %}}
-```bash
-.terraform*
-terraform.tfstate*
-```
-{{% /details %}}
-
-
-## Bonus {{% param sectionnumber %}}.11: .gitlab-ci.yml
-
-{{% details title="Hints" %}}
-Before starting with the Bonus content you should have applied all the code before. So that the GitLab runner is working.
-
-Lets find out if the runner is functional. Don't forget to commit and push your code for the first run.
+Create `templates/docker-compose.tpl`:
 
 ```yaml
 ---
-image: alpine
-
-test:
-  stage: test
-  script:
-    - ls -l
-  tags:
-    - acend
-    - terraform
-    - <your-tag>
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    restart: always
+    volumes:
+      - /data/gitlab:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
-{{% /details %}}
+
+Now apply:
+
+```bash
+terraform apply -var-file=config/dev.tfvars
+```
+
+Verify the runner appears under **Settings → CI/CD → Runners** in your GitLab project.

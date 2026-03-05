@@ -18,8 +18,9 @@ content/en/docs/           # Main lab content (one folder per chapter)
   06_azure/                # Azure Workshop (primary cloud)
   06_aws/                  # AWS Workshop (stub – needs content)
   06_gcp/                  # GCP Workshop (stub – needs content)
-  07/                      # Challenges + Solutions
-  08/                      # Cleanup
+  07_pipeline/             # Terraform with Pipeline (GitLab CI/CD)
+  08/                      # Challenges (ch. 8)
+  09/                      # Cleanup (ch. 9)
 content/en/setup/          # Pre-lab setup instructions
 config/_default/           # Default Hugo config (Azure-flavored)
 config/aws/                # AWS environment override
@@ -154,32 +155,22 @@ Pages using `onlyWhen: azure` (or `aws`/`gcp`) are only rendered in the matching
   - `hashicorp/kubernetes`, `hashicorp/helm`
   - AKS Kubernetes version, cert-manager Helm chart version
 
-- **`for_each` lab** – Chapter 4 covers `count` but lacks a dedicated `for_each` lab. Add
-  `content/en/docs/04/3-for-each.md` (shift current `3-backend-state.md` to `4-backend-state.md`
-  and `4-config-files.md` to `5-config-files.md` adjusting weights accordingly).
+- ~~**`for_each` lab**~~ – **DONE**: `content/en/docs/04/3-for-each.md` created; former
+  `3-backend-state.md` → `4-backend-state.md`, `4-config-files.md` → `5-config-files.md`.
 
-- **Terraform import** – Add a lab in chapter 5 covering `terraform import` and / or the newer
-  `import` block syntax introduced in Terraform 1.5.
+- ~~**Terraform import**~~ – **DONE**: `content/en/docs/05/5-import.md` created.
 
-- **`moved` block** – Add content about the `moved` block for safe resource renaming / refactoring.
+- ~~**`moved` block**~~ – **DONE**: `content/en/docs/05/6-moved.md` created.
 
-- **Testing** – Add a section on `terraform test` (introduced in Terraform 1.6) to chapter 5 or 7.
+- ~~**Testing**~~ – **DONE**: `content/en/docs/05/7-testing.md` created.
 
 ### Low Priority
 
-- **Typos to fix** throughout the content:
-  - `content/en/docs/_index.md`: "Indroduction" → "Introduction"
-  - `content/en/docs/06_azure/_index.md`: "navgiate" → "navigate"
-  - `content/en/docs/06_azure/7-container-instances.md`: "Ressource" → "Resource"
-  - `content/en/docs/07/1-solution1.md`: "youre" → "your", "verfify" → "verify"
-  - `content/en/docs/07/2-solution2.md`: "Dont" → "Don't"
-  - `content/en/docs/07/3-solution3.md`: "exisiting" → "existing"
+- ~~**Typos to fix**~~ – **DONE**: All 6 typos fixed across content files.
 
-- **Setup page** – The setup page references `tfenv` for version management but does not mention
-  `mise` or `asdf` as modern alternatives. Update to include at least a note about these tools.
+- ~~**Setup page**~~ – **DONE**: `mise` and `asdf` alternatives added to setup page.
 
-- **Chapter 1 links** – The Terraform docs links in `01/_index.md` point to old `hashicorp.com` URLs.
-  Update to the current `developer.hashicorp.com/terraform` domain.
+- ~~**Chapter 1 links**~~ – **DONE**: Updated to `developer.hashicorp.com/terraform` domain.
 
 - **Mermaid diagrams** – The Azure workshop uses Mermaid for solution architecture diagrams.
   Add equivalent architecture diagrams to the AWS and GCP workshops once those chapters are filled.

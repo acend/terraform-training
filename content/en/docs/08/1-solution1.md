@@ -1,7 +1,7 @@
 ---
-title: "7.1. Solution #1"
-weight: 71
-sectionnumber: 7.1
+title: "8.1. Solution #1"
+weight: 81
+sectionnumber: 8.1
 ---
 
 ```mermaid
