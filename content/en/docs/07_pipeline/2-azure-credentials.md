@@ -115,5 +115,116 @@ and Terraform will be able to authenticate using the same environment variables 
 az logout
 ```
 
-You are now ready to continue with [Lab 7.1 steps 7.1.2 and 7.1.3](../1-introduction/#step-712-write-a-basic-terraform-pipeline)
-to wire these credentials into your GitLab pipeline.
+You are now ready to wire these credentials into a Terraform pipeline.
+
+
+## Step {{% param sectionnumber %}}.4: Write a basic Terraform pipeline
+
+Copy your existing Azure Terraform code into the pipeline repository:
+
+```bash
+cp -r $LAB_ROOT/azure/. $LAB_ROOT/pipeline/
+```
+
+Create (or replace) `.gitlab-ci.yml` at the root of your repository:
+
+```yaml
+---
+image: hashicorp/terraform:1.12.2
+
+stages:
+  - validate
+  - plan
+
+variables:
+  TF_VAR_FILE: "config/dev.tfvars"
+  TF_BACKEND_CONFIG: "config/dev_backend.tfvars"
+  TF_PLUGIN_CACHE_DIR: "/cache/plugin-cache"
+  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
+
+before_script:
+  - mkdir -p $TF_PLUGIN_CACHE_DIR
+  - terraform init -backend-config=$TF_BACKEND_CONFIG
+
+validate:
+  stage: validate
+  script:
+    - terraform validate
+
+plan:
+  stage: plan
+  script:
+    - terraform plan -var-file=$TF_VAR_FILE -out=tfplan
+  artifacts:
+    paths:
+      - tfplan
+    expire_in: 1 day
+```
+
+Push to GitLab and watch the pipeline run:
+
+```bash
+git add .gitlab-ci.yml
+git commit -m "ci: add terraform validate and plan pipeline"
+git push
+```
+
+Navigate to **CI/CD → Pipelines** in your GitLab project to see the result.
+
+
+### Explanation
+
+The `image:` key sets the Docker image used for all jobs. Using the official HashiCorp image pins
+the Terraform version to match `versions.tf`.
+
+The `before_script:` block runs before every job script, making `terraform init` a single
+place to maintain.
+
+Saving the plan as an **artifact** lets the apply job (added next) use the exact same plan that
+was reviewed — preventing drift between plan and apply.
+
+
+## Step {{% param sectionnumber %}}.5: Add a manual apply job
+
+Extend `.gitlab-ci.yml` by appending the following:
+
+```yaml
+apply:
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+  dependencies:
+    - plan
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+  environment:
+    name: production
+```
+
+Also extend the `stages:` list:
+
+```yaml
+stages:
+  - validate
+  - plan
+  - apply
+```
+
+Push the change, open a merge request, and observe that the `apply` job appears but requires a
+manual click to execute.
+
+
+### Explanation
+
+`rules: when: manual` means the job is created but waits for a human to click the play button.
+Restricting it to the `main` branch ensures feature branches only run validate and plan — apply
+only happens after a merge.
+
+The `dependencies:` key tells GitLab to download the `tfplan` artifact from the `plan` job so
+the apply step uses the reviewed plan exactly.
+
+{{% alert title="Note" color="secondary" %}}
+For production workflows, also add a `terraform show -json tfplan | jq` step to make the planned
+changes visible directly in the merge request pipeline output before someone clicks apply.
+{{% /alert %}}
