@@ -126,7 +126,9 @@ Copy your existing Azure Terraform code into the pipeline repository:
 cp -r $LAB_ROOT/azure/. $LAB_ROOT/pipeline/
 ```
 
-Create (or replace) `.gitlab-ci.yml` at the root of your repository:
+Create `.gitlab-ci.yml` at the root of your repository. We use the official HashiCorp image
+for now — in Lab 7.4 you will replace it with a custom builder image that also contains
+`tflint` and additional tooling.
 
 ```yaml
 ---
@@ -135,6 +137,7 @@ image: hashicorp/terraform:1.12.2
 stages:
   - validate
   - plan
+  - apply
 
 variables:
   TF_VAR_FILE: "config/dev.tfvars"

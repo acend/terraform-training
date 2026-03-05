@@ -133,18 +133,13 @@ pull images via `az acr login` or a service principal credential stored as a mas
 {{% /alert %}}
 
 
-## Step {{% param sectionnumber %}}.4: Add a linting stage to `.gitlab-ci.yml`
+## Step {{% param sectionnumber %}}.4: Update `.gitlab-ci.yml` with the full pipeline
 
-The linting stage is placed first in the pipeline so a simple formatting mistake fails
-immediately — before Terraform downloads providers, contacts the Azure API, or runs a plan.
-This is the cheapest possible failure: no cloud API calls, no state locking, just a filesystem
-check.
+Now replace the top-level `image:` with your custom builder image and add the `linting` stage
+at the front. The builder image contains both `terraform` and `tflint`, so all jobs — including
+validate and plan — benefit from the same pinned versions.
 
-The `image:` key at the top level sets the default image for all jobs to the builder image we
-just pushed. The `linting` job overrides nothing — it simply runs `terraform fmt -check`
-recursively across all `.tf` files, then `tflint`.
-
-Extend the `.gitlab-ci.yml` created in Lab 7.2 with the following:
+The complete updated `.gitlab-ci.yml` (replaces the file from Lab 7.2):
 
 ```yaml
 ---
@@ -157,9 +152,14 @@ stages:
   - apply
 
 variables:
-  ARM_TENANT_ID: "c1b34118-6a8f-4348-88c2-b0b1f7350f04"
-  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
+  TF_VAR_FILE: "config/dev.tfvars"
+  TF_BACKEND_CONFIG: "config/dev_backend.tfvars"
   TF_PLUGIN_CACHE_DIR: "/cache/plugin-cache"
+  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
+
+before_script:
+  - mkdir -p $TF_PLUGIN_CACHE_DIR
+  - terraform init -backend-config=$TF_BACKEND_CONFIG
 
 linting:
   stage: linting
@@ -170,7 +170,47 @@ linting:
     - acend
     - terraform
     - <your-tag>
+
+validate:
+  stage: validate
+  script:
+    - terraform validate
+
+plan:
+  stage: plan
+  script:
+    - terraform plan -var-file=$TF_VAR_FILE -out=tfplan
+  artifacts:
+    paths:
+      - tfplan
+    expire_in: 1 day
+
+apply:
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+  dependencies:
+    - plan
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+  environment:
+    name: production
 ```
+
+### Explanation
+
+The `linting` stage runs first and is the only stage that requires the self-hosted tagged
+runner (because it needs access to ACR). The `validate`, `plan`, and `apply` jobs can run on
+shared runners since the image is already embedded.
+
+The `before_script` is not added to the `linting` job because linting does not need
+`terraform init` — no providers are downloaded and no backend is contacted. All other stages
+inherit `before_script` automatically.
+
+Swapping the top-level `image:` from `hashicorp/terraform:1.12.2` to the ACR builder image
+means the pinned Terraform version is now controlled by the `ARG TERRAFORM_VERSION` in the
+`Dockerfile` rather than the image tag — a single place to update when upgrading.
 
 
 ## Step {{% param sectionnumber %}}.5: Verify in GitLab

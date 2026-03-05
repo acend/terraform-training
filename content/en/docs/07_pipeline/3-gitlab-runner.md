@@ -75,6 +75,9 @@ for Azure resources, we add:
 * `hashicorp/local` — to write the rendered `config.toml` and `docker-compose.yaml` to disk
 * `hashicorp/time` — to drive automatic credential rotation every 90 days
 
+The `azuread` provider is used to manage the existing service principal (imported from Lab 7.2)
+and to issue a new rotating password for it.
+
 ```terraform
 terraform {
   required_version = "> 1.12.0"
@@ -143,8 +146,6 @@ resource "azurerm_resource_group" "worker" {
   name     = "rg-${local.infix}"
   location = var.location
 }
-
-data "azuread_client_config" "current" {}
 ```
 
 The variables file defines inputs for subscription, naming, location, and GitLab access. The
@@ -334,27 +335,34 @@ resource "azurerm_network_interface_security_group_association" "worker" {
 ```
 
 
-## Step {{% param sectionnumber %}}.5: access.tf – Service Principal
+## Step {{% param sectionnumber %}}.5: access.tf – Import and manage the Service Principal
 
-The pipeline running on the GitLab Runner needs its own Azure identity to call the Azure API —
-separate from your personal credentials. This file creates an Azure AD application and a
-service principal, then attaches a password that rotates automatically every 90 days.
+In Lab 7.2 you created a service principal with `az ad sp create-for-rbac`. Rather than
+creating a second identity, we import that existing AAD application and service principal into
+Terraform state so Terraform fully manages both objects — including automatic password rotation
+every 90 days.
 
-The `time_rotating` resource tracks the rotation schedule. The `rotate_when_changed` argument
-on `azuread_service_principal_password` watches for changes in the `time_rotating` output: once
-the 90-day mark is crossed, the resource is marked as changed on the next `terraform plan`, so
-a subsequent `terraform apply` generates a fresh password without any manual work.
+First, look up the object IDs required by `terraform import`. The `appId` from Lab 7.2 is the
+**client ID**; the object ID is a different UUID:
+
+```bash
+# Object ID of the AAD application (not the appId!)
+az ad app show --id <appId-from-lab-7.2> --query id -o tsv
+
+# Object ID of the service principal
+az ad sp show --id <appId-from-lab-7.2> --query id -o tsv
+```
+
+Add the following resources to `access.tf`:
 
 ```terraform
 resource "azuread_application" "gitlab" {
-  display_name = "GitLab-Pipeline"
-  owners       = [data.azuread_client_config.current.object_id]
+  display_name = "sp-gitlab-pipeline-<your-username>"
 }
 
 resource "azuread_service_principal" "gitlab" {
   client_id                    = azuread_application.gitlab.client_id
   app_role_assignment_required = false
-  owners                       = [data.azuread_client_config.current.object_id]
 }
 
 resource "time_rotating" "gitlab" {
@@ -362,10 +370,45 @@ resource "time_rotating" "gitlab" {
 }
 
 resource "azuread_service_principal_password" "gitlab" {
-  service_principal_id = azuread_service_principal.gitlab.id
+  service_principal_id = azuread_service_principal.gitlab.object_id
   rotate_when_changed = {
     rotation = time_rotating.gitlab.id
   }
+}
+```
+
+Now import the existing cloud objects into Terraform state using the object IDs retrieved above.
+After the import, Terraform manages these resources and will not recreate them:
+
+```bash
+terraform import azuread_application.gitlab <app-object-id>
+terraform import azuread_service_principal.gitlab <sp-object-id>
+```
+
+Run `terraform plan` to verify that no destructive changes are proposed — only the new
+`azuread_service_principal_password` and `time_rotating` resources should be created:
+
+```bash
+terraform plan -var-file=config/dev.tfvars
+```
+
+The `time_rotating` resource tracks the rotation schedule. The `rotate_when_changed` argument
+on `azuread_service_principal_password` watches for changes in the `time_rotating` output: once
+the 90-day mark is crossed, the resource is marked as changed on the next `terraform plan`, so
+a subsequent `terraform apply` generates a fresh password automatically. After each rotation,
+update the `ARM_CLIENT_SECRET` variable in your GitLab project's CI/CD settings with the new
+value from Terraform state:
+
+```bash
+terraform output -raw client_secret
+```
+
+Add the corresponding output to `main.tf` or a dedicated `outputs.tf`:
+
+```terraform
+output "client_secret" {
+  value     = azuread_service_principal_password.gitlab.value
+  sensitive = true
 }
 ```
 
