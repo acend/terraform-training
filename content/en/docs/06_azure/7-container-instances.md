@@ -20,7 +20,7 @@ This lab provides a simple example to demonstrate how to achieve this.
 
 We will create the following:
 
-* Ressource group
+* Resource group
 * Azure container instance
 
 ```mermaid

@@ -18,7 +18,7 @@ flowchart LR
 
 ## Preparation
 
-Use the exisiting directory from chapter 6.1
+Use the existing directory from chapter 6.1
 
 ```bash
 cd $LAB_ROOT/azure

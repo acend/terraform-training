@@ -28,16 +28,25 @@ The exercises assume a UNIX environment. In case you are working under Windows, 
 Please install the following applications:
 
 * `terraform` - Terraform CLI  
-  There are two methods for installing `terraform`:
-  * **Recommended:** Install and manage different versions with `tfenv` from  
-    https://github.com/tfutils/tfenv  
-    Run the following commands to install the latest version of Terraform:
-    ```bash
-    tfenv install latest
-    tfenv use latest    
-    ```
-  * **Alternative:** Follow the instructions on the Hashicorp website at  
-  https://learn.hashicorp.com/tutorials/terraform/install-cli
+  There are several methods for installing `terraform`:
+  * **Recommended:** Use a version manager so you can easily switch between Terraform versions:
+    * **`mise`** (modern, multi-runtime) – https://mise.jdx.dev  
+      ```bash
+      mise use --global terraform@latest
+      ```
+    * **`asdf`** (multi-runtime) – https://asdf-vm.com  
+      ```bash
+      asdf plugin add terraform
+      asdf install terraform latest
+      asdf global terraform latest
+      ```
+    * **`tfenv`** (Terraform-specific) – https://github.com/tfutils/tfenv  
+      ```bash
+      tfenv install latest
+      tfenv use latest
+      ```
+  * **Direct install:** Follow the instructions on the HashiCorp website at  
+    https://developer.hashicorp.com/terraform/install
 * `az` - Azure CLI  
    **Note:** This is used for the Azure workshop only!  
    See https://docs.microsoft.com/en-us/cli/azure/install-azure-cli

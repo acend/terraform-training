@@ -31,7 +31,7 @@ flowchart LR
 
 Clone your new repository on a GitLab instance and change into the directory.
 
-Dont forget to get your storage account from Chapter 6.2.1 for:
+Don't forget to get your storage account from Chapter 6.2.1 for:
 * `terraform init -backend-config=config/dev_backend.tfvars`
 
 
