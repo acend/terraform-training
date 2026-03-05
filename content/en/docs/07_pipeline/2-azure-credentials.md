@@ -137,7 +137,6 @@ image: hashicorp/terraform:1.12.2
 stages:
   - validate
   - plan
-  - apply
 
 variables:
   TF_VAR_FILE: "config/dev.tfvars"
