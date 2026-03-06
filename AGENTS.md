@@ -25,6 +25,12 @@ content/en/setup/          # Pre-lab setup instructions
 config/_default/           # Default Hugo config (Azure-flavored)
 config/aws/                # AWS environment override
 config/gcp/                # GCP environment override
+extract-terraform.sh       # Script to extract Terraform/YAML from chapters 6–8
+extracted-terraform/       # (gitignored) output of extract-terraform.sh
+  06_azure/                #   per-lab extracted blocks (one folder per lab page)
+  06_azure_combined/       #   merged runnable project for chapters 6.1–6.6
+  07_pipeline/             #   per-lab extracted blocks
+  08/                      #   per-lab extracted blocks
 ```
 
 ---
@@ -98,6 +104,21 @@ Use the following shortcodes where appropriate:
 - Expected output: ` ```text `
 - Mermaid diagrams: ` ```mermaid ` (supported via `[params.mermaid] enable = true` in config)
 
+### Placeholder Conventions
+
+Lab content uses the following standard placeholders that students replace with their own values:
+
+| Placeholder | Meaning |
+| --- | --- |
+| `YOUR_USERNAME` | Student's assigned workshop username (lowercase, alphanumeric only) |
+| `YOUR_ACCOUNT` | Azure storage account name (from `echo $ACCOUNT` in lab 6.2) |
+| `<your-subscription-id>` | Azure subscription ID |
+| `<your-gitlab-repo-url>` | Student's GitLab repository URL |
+| `<your-username>` | Same as `YOUR_USERNAME` but in angle-bracket style |
+| `<your-tag>` | Student's GitLab runner tag |
+
+Use these exact placeholders when authoring new content to stay consistent.
+
 ### Terraform Code Quality
 
 All Terraform snippets in the training must follow these standards:
@@ -121,6 +142,24 @@ The config key `enabledModule` controls which sections are rendered:
 | gcp | `base gcp` | GCP (ch. 06_gcp) |
 
 Pages using `onlyWhen: azure` (or `aws`/`gcp`) are only rendered in the matching environment.
+
+---
+
+## Azure Workshop – Provider & File Dependencies
+
+The Azure workshop (ch. 6) builds up a project incrementally. Each lab adds providers and
+modifies files from earlier labs. This map is essential when merging labs into a combined
+folder or understanding cross-references.
+
+| Chapter | New providers added | Files created | Files modified from earlier labs |
+| --- | --- | --- | --- |
+| 6.1 | `azurerm`, `random`, `azuread` | `main.tf`, `variables.tf`, `versions.tf`, `config/dev.tfvars`, `network.tf`, `aks.tf`, `analytics_workspace.tf`, `iam.tf`, `acr.tf` | — |
+| 6.2 | — | `config/dev_backend.tfvars` | `main.tf` (add `backend "azurerm"`) |
+| 6.3 | `kubernetes`, `helm` | `nginx_ingress.tf`, `dns.tf` | `main.tf` (add kubernetes + helm providers), `aks.tf` (add public IP + role assignment) |
+| 6.4 | — | `cert_manager.tf`, `helm/cert_manager_issuer/` | — |
+| 6.5 | — | `mysql.tf`, `outputs.tf` | `aks.tf` (add egress IP + `load_balancer_profile`) |
+| 6.6 | — | `tests/workload.yaml` | — (uses `kubectl` only) |
+| 6.7 | — | separate folder: `main.tf`, `variables.tf`, `aci.tf` | — (standalone exercise) |
 
 ---
 
@@ -181,6 +220,42 @@ Pages using `onlyWhen: azure` (or `aws`/`gcp`) are only rendered in the matching
 
 - **Mermaid diagrams** – The Azure workshop uses Mermaid for solution architecture diagrams.
   Add equivalent architecture diagrams to the AWS and GCP workshops once those chapters are filled.
+
+---
+
+## Terraform Code Extraction
+
+The script `extract-terraform.sh` parses markdown files from chapters 6–8 and writes all
+` ```terraform ` code blocks into standalone `.tf` files, organized by chapter and lab page.
+It also detects target filenames from surrounding context (e.g. "Create a file named `main.tf`")
+and appends multiple blocks that target the same file with separator comments.
+
+```bash
+./extract-terraform.sh              # output to ./extracted-terraform/
+./extract-terraform.sh /tmp/tf      # custom output directory
+```
+
+The output directory is listed in `.gitignore`.
+
+### Combined folder: `06_azure_combined/`
+
+A hand-curated merge of chapters 6.1–6.6 into a single runnable Terraform project with the
+Azure remote backend configured from the start. It includes:
+
+* All `.tf` files (main, variables, versions, aks, network, acr, iam, dns, nginx\_ingress,
+  cert\_manager, mysql, outputs, analytics\_workspace)
+* `config/dev.tfvars` and `config/dev_backend.tfvars`
+* `helm/cert_manager_issuer/` chart (Chart.yaml + ClusterIssuer template)
+* `tests/` directory with Kubernetes YAML manifests (http.yaml, https.yaml, workload.yaml)
+
+To run:
+
+```bash
+cd extracted-terraform/06_azure_combined
+# Edit config/dev.tfvars and config/dev_backend.tfvars with your values
+terraform init -backend-config=config/dev_backend.tfvars
+terraform apply -var-file=config/dev.tfvars
+```
 
 ---
 
@@ -273,9 +348,13 @@ When asked to improve or extend this training, typical tasks include:
 - **Add a new lab page**: create `content/en/docs/NN/M-topic.md` with correct front matter, preparation
   section, numbered steps, explanations, and code blocks following the patterns above.
 - **Update a version number**: find every occurrence across all `.md` and `.tf` snippet files and update
-  them consistently. Verify the syntax is still valid for the new version.
-- **Fix a typo**: use the list above or search the content directory.
+  them consistently. Also update `extracted-terraform/06_azure_combined/` if it exists. Verify the
+  syntax is still valid for the new version.
+- **Fix a typo**: search the content directory for the term.
 - **Expand the AWS/GCP workshop**: create the missing lab files in `06_aws/` or `06_gcp/` mirroring
   the Azure workshop structure, adapted for the target cloud provider.
 - **Add a Terraform feature lab**: insert it into the appropriate chapter (03–05) and adjust the
   `weight` of subsequent pages so they remain in order.
+- **Merge labs into a combined folder**: use the Provider & File Dependencies table above to
+  understand which files are created vs. modified, then produce a single coherent project.
+  Always include the `backend "azurerm"` block from the start when merging chapter 6.

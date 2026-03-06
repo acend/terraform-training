@@ -10,3 +10,4 @@ public
 .env
 resources
 .idea/
+extracted-terraform/
