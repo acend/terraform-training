@@ -166,6 +166,13 @@ Pages using `onlyWhen: azure` (or `aws`/`gcp`) are only rendered in the matching
 
 ### Low Priority
 
+- ~~**Kaniko image-build lab**~~ – **DONE**: `content/en/docs/07_pipeline/4-build-docker-image.md`
+  created (lab 7.4). Former `4-linting.md` → `5-linting.md` (weight 75, sectionnumber 7.5).
+  Lab 7.4 extends Terraform from 7.3 to grant the service principal `AcrPush` on the ACR from
+  Ch. 6, creates the `Dockerfile`, stores the registry server as a CI variable, and wires up a
+  Kaniko `build-image` CI job. Lab 7.5 (linting) removes the manual docker-build steps and
+  references the image built in 7.4.
+
 - ~~**Typos to fix**~~ – **DONE**: All 6 typos fixed across content files.
 
 - ~~**Setup page**~~ – **DONE**: `mise` and `asdf` alternatives added to setup page.
