@@ -17,73 +17,126 @@ cd $LAB_ROOT/advanced/import
 Optional: Create empty files:
 
 ```bash
-touch {main,versions}.tf
+touch {main,outputs,versions}.tf
 ```
 
 
-## Step {{% param sectionnumber %}}.1: Create a resource outside of Terraform
+## Step {{% param sectionnumber %}}.1: Define the configuration
 
-To simulate a resource that already exists in the real world (e.g. provisioned manually or by
-another tool), create a local file directly with the shell:
+A common real-world scenario for `terraform import` is when a resource was created by a previous
+Terraform run but the state file was accidentally deleted or corrupted — for example after a botched
+workspace migration. Without the state entry Terraform treats the resource as non-existent and would
+try to create a new one, producing a completely different value and breaking any infrastructure that
+depended on the original.
 
-```bash
-echo "created outside terraform" > existing.txt
-```
+In this lab you will use a `random_string` resource that generates a unique suffix — a very common
+pattern for globally unique resource names. You will apply it, simulate state loss, and then import
+the resource back into state.
 
-This file is not yet tracked by any Terraform state.
-
-
-## Step {{% param sectionnumber %}}.2: Declare the resource in code
-
-Create a new file named `main.tf` and add the following content:
+Create a new file named `main.tf` with the following content:
 
 ```terraform
-resource "local_file" "existing" {
-  filename = "existing.txt"
-  content  = "created outside terraform"
+resource "random_string" "suffix" {
+  length  = 8
+  special = false
+  upper   = false
 }
 ```
 
-Create a new file named `versions.tf` and add the following content:
+Create a new file named `outputs.tf` with the following content:
+
+```terraform
+output "suffix" {
+  value = random_string.suffix.result
+}
+```
+
+Create a new file named `versions.tf` with the following content:
 
 ```terraform
 terraform {
-  required_version = "= 1.12.2"
+  required_version = ">= 1.12.2"
 
   required_providers {
-    local = {
-      source  = "hashicorp/local"
-      version = "= 2.5.2"
+    random = {
+      source  = "hashicorp/random"
+      version = "= 3.7.1"
     }
   }
 }
 ```
 
-Run `terraform init`, then try to apply immediately:
+Run `terraform init` and `terraform apply` to create the resource:
 
 ```bash
 terraform init
 terraform apply
 ```
 
-Terraform will show a diff and try to overwrite the file because it does not yet manage the
-existing resource. Cancel with `no`.
+Terraform creates the random string and stores it in state. Save the generated value to a shell
+variable — you will need it in the import steps:
+
+```bash
+SUFFIX=$(terraform output -raw suffix)
+echo "Generated suffix: $SUFFIX"
+```
+
+```text
+Generated suffix: k7m2px4n
+```
+
+
+## Step {{% param sectionnumber %}}.2: Simulate state loss
+
+Remove the resource from the Terraform state to simulate a lost or corrupted state file:
+
+```bash
+terraform state rm random_string.suffix
+```
+
+```text
+Removed random_string.suffix
+Successfully removed 1 resource instance(s).
+```
+
+Run `terraform plan` to see what Terraform would do without the state entry:
+
+```bash
+terraform plan
+```
+
+```text
+Terraform will perform the following actions:
+
+  # random_string.suffix will be created
+  + resource "random_string" "suffix" {
+      + id      = (known after apply)
+      + length  = 8
+      ...
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+```
+
+Terraform would generate a brand-new random string — a completely different value — which would
+break any existing resource names that rely on the original suffix. This is the problem that
+`terraform import` solves.
 
 
 ## Step {{% param sectionnumber %}}.3: Import with a CLI command
 
 Before Terraform 1.5, importing an existing resource into state required the `terraform import`
-CLI command:
+CLI command. Use the `$SUFFIX` variable you captured earlier as the import ID:
 
 ```bash
-terraform import local_file.existing existing.txt
+terraform import random_string.suffix "$SUFFIX"
 ```
 
 ```text
-local_file.existing: Importing from ID "existing.txt"...
-local_file.existing: Import prepared!
-  Prepared local_file for import
-local_file.existing: Refreshing state... [id=...]
+random_string.suffix: Importing from ID "k7m2px4n"...
+random_string.suffix: Import prepared!
+  Prepared random_string for import
+random_string.suffix: Refreshing state... [id=k7m2px4n]
 
 Import successful!
 
@@ -105,12 +158,12 @@ No changes. Your infrastructure matches the configuration.
 
 `terraform import <resource_address> <provider-specific-id>` reads the current state of the
 existing resource from the provider and writes it into the Terraform state file. The resource
-configuration in `.tf` files must already exist and must match what the provider returns, otherwise
-a follow-up `apply` would still show a diff.
+configuration in `.tf` files must already exist before importing — the command does **not**
+generate configuration for you.
 
-The `<provider-specific-id>` is provider-dependent. For `local_file` it is the file path; for an
-AWS S3 bucket it would be the bucket name; for an Azure resource group it would be the full
-resource ID.
+The `<provider-specific-id>` is provider-dependent. For `random_string` it is the string value
+itself; for an AWS S3 bucket it would be the bucket name; for an Azure resource group it would be
+the full resource ID.
 
 
 ## Step {{% param sectionnumber %}}.4: Import block (Terraform ≥ 1.5)
@@ -121,15 +174,16 @@ plan/apply workflow and eliminates the need for a separate CLI step.
 Remove the existing state entry first so we can demonstrate importing afresh:
 
 ```bash
-terraform state rm local_file.existing
+terraform state rm random_string.suffix
 ```
 
-Add the following `import` block to `main.tf`:
+Add the following `import` block to `main.tf`, replacing `<your-suffix>` with the value you
+saved earlier (e.g. `k7m2px4n`):
 
 ```terraform
 import {
-  to = local_file.existing
-  id = "existing.txt"
+  to = random_string.suffix
+  id = "<your-suffix>"
 }
 ```
 
@@ -140,9 +194,9 @@ terraform plan
 terraform apply
 ```
 
-Terraform will import the resource during the apply and the `import` block is automatically
-consumed—you can remove it from `main.tf` afterwards (or leave it; it becomes a no-op on
-subsequent applies once the resource is in state).
+Terraform imports the resource during the apply. Once the import is complete you can remove the
+`import` block from `main.tf` — or leave it in place, as it becomes a no-op on subsequent applies
+once the resource is in state.
 
 ### Explanation
 
@@ -156,5 +210,5 @@ The `import` block approach has several advantages over the CLI command:
 
 {{% alert title="Note" color="secondary" %}}
 The `import` block is idempotent. If the resource is already in state, the block is silently
-skipped—it will not cause errors if left in the code.
+skipped — it will not cause errors if left in the code.
 {{% /alert %}}
