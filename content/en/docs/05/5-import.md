@@ -38,8 +38,6 @@ Create a new file named `main.tf` with the following content:
 ```terraform
 resource "random_string" "suffix" {
   length  = 8
-  special = false
-  upper   = false
 }
 ```
 
