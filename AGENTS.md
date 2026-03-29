@@ -13,8 +13,8 @@ content/en/docs/           # Main lab content (one folder per chapter)
   01/                      # Introduction
   02/                      # First Steps
   03/                      # Basics (resources, variables, outputs, data sources, types)
-  04/                      # Intermediate (versions, loops, backend state, config files)
-  05/                      # Advanced (modules, meta-arguments, various, templates)
+  04/                      # Intermediate (versions, count/loops, for_each, backend state, config files)
+  05/                      # Advanced (modules, meta-arguments, various, templates, import, moved, testing)
   06_azure/                # Azure Workshop (primary cloud)
   06_aws/                  # AWS Workshop (stub – needs content)
   06_gcp/                  # GCP Workshop (stub – needs content)
@@ -32,6 +32,42 @@ extracted-terraform/       # (gitignored) output of extract-terraform.sh
   07_pipeline/             #   per-lab extracted blocks
   08/                      #   per-lab extracted blocks
 ```
+
+---
+
+## Slide Deck Reference
+
+The canonical training presentation is `slides/Terraform on Azure Basics.odp` (101 slides, last updated
+Feb 2026). When authoring or reviewing lab content, use the slide deck as the source of truth for learning
+goals, exercise titles, and conceptual explanations.
+
+### Slide-to-chapter mapping
+
+| Slides | Topic | Lab chapter |
+| --- | --- | --- |
+| 5–12 | Public Cloud Engineering | ch. 1 & 2 (intro / first steps) |
+| 13–24 | Terraform Introduction | ch. 1 & 2 (intro / first steps) |
+| 26–33 | Terraform Basics | ch. 03 |
+| 34–41 | Terraform Intermediate | ch. 04 |
+| 42–48 | Terraform Advanced | ch. 05 |
+| 49–52 | Container Basics | **slides only – no lab chapter** |
+| 53–67 | Kubernetes Basics | **slides only – no lab chapter** |
+| 68–81 | Azure Workshop | ch. 06\_azure |
+| 82–93 | GitLab CI/CD | ch. 07\_pipeline |
+| 94–100 | Best Practices | **slides only – no lab chapter** |
+
+### Slides vs. repo deviations
+
+* **ch. 04 – `for_each` lab**: Slides bundle `for_each` as a bullet under Exercise #2 ("count / loops").
+  The repo adds a dedicated lab `04/3-for-each.md`; as a result `backend-state` and `config-files` shift
+  by one (now labs 4 and 5).
+* **ch. 05 – extra labs**: Slides cover 4 Advanced exercises (modules, meta-arguments, various, templates).
+  The repo adds three more labs (`5-import.md`, `6-moved.md`, `7-testing.md`) that go beyond the slides.
+* **lab 6.5 – MySQL vs MariaDB**: Slide 80 titles the exercise "MariaDB"; the lab (`5-mysql.md`) uses
+  `azurerm_mysql_flexible_server` (Azure Database for MySQL Flexible Server). The slides contain a stale
+  reference and should be updated to say "MySQL".
+* **lab 6.7 – Container Instances**: `06_azure/7-container-instances.md` is a bonus standalone exercise
+  added to the repo; it is not covered in the slide deck.
 
 ---
 
@@ -159,7 +195,7 @@ folder or understanding cross-references.
 | 6.4 | — | `cert_manager.tf`, `helm/cert_manager_issuer/` | — |
 | 6.5 | — | `mysql.tf`, `outputs.tf` | `aks.tf` (add egress IP + `load_balancer_profile`) |
 | 6.6 | — | `tests/workload.yaml` | — (uses `kubectl` only) |
-| 6.7 | — | separate folder: `main.tf`, `variables.tf`, `aci.tf` | — (standalone exercise) |
+| 6.7 | — | separate folder: `main.tf`, `variables.tf`, `aci.tf` | — (standalone exercise; bonus, not in slide deck) |
 
 ---
 
@@ -194,6 +230,10 @@ folder or understanding cross-references.
   - `hashicorp/kubernetes`, `hashicorp/helm`
   - AKS Kubernetes version, cert-manager Helm chart version
 
+- **Slides say "MariaDB" for lab 6.5** – Slide 80 titles exercise 5 as "MariaDB" but the lab uses
+  `azurerm_mysql_flexible_server` (MySQL Flexible Server). Update the slide deck to say "MySQL Flexible
+  Server" to match the lab content and the current Azure provider resource.
+
 - ~~**`for_each` lab**~~ – **DONE**: `content/en/docs/04/3-for-each.md` created; former
   `3-backend-state.md` → `4-backend-state.md`, `4-config-files.md` → `5-config-files.md`.
 
@@ -220,6 +260,14 @@ folder or understanding cross-references.
 
 - **Mermaid diagrams** – The Azure workshop uses Mermaid for solution architecture diagrams.
   Add equivalent architecture diagrams to the AWS and GCP workshops once those chapters are filled.
+
+- **Slides-only theory sections** – Container Basics (slides 49–52), Kubernetes Basics (slides 53–67),
+  and Best Practices (slides 94–100) are covered in the slide deck but have no corresponding lab chapter.
+  Consider adding a brief reference page or pointers in the adjacent lab chapters if students need
+  anchors to the slide content.
+
+- **Lab 6.7 not in slide deck** – `06_azure/7-container-instances.md` is a bonus exercise added to
+  the repo. If it becomes a regular part of the training, add a matching slide to the presentation.
 
 ---
 
@@ -300,7 +348,7 @@ The project enables all default rules with the following overrides:
 | MD004 | `asterisk` | Unordered lists must use `*` |
 | MD012 | max 2 | At most two consecutive blank lines |
 | MD013 | disabled | No line-length limit |
-| MD022 | 1 blank line above | Headings need one blank line above them |
+| MD022 | 2 blank lines above | Headings need two blank lines above them |
 | MD024 | disabled | Duplicate heading text is allowed |
 | MD031 | disabled | Fenced code blocks inside lists allowed |
 | MD034 | disabled | Bare URLs are allowed |
@@ -336,8 +384,8 @@ Hugo will try to render them even inside backtick fences when `unsafe` rendering
 
 #### Blank lines around headings (MD022)
 
-Always leave one blank line above every heading (`##`, `###`, etc.). The rule is configured with
-`lines_above: 1`, so a heading immediately after a paragraph or code block will fail.
+Always leave two blank lines above every heading (`##`, `###`, etc.). The rule is configured with
+`lines_above: 2`, so a heading immediately after a paragraph or code block will fail.
 
 ---
 
