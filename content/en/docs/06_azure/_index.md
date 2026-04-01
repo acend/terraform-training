@@ -38,7 +38,7 @@ mkdir $LAB_ROOT/azure
 cd $LAB_ROOT/azure
 ```
 
-If you don't have `az` CLI installed yet, navgiate to https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+If you don't have `az` CLI installed yet, navigate to https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 and follow the instructions.
 
 After installation, run

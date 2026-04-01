@@ -8,7 +8,7 @@ menu:
 
 In this training, you're going to learn the basics behind Terraform technology.
 
-* Introductory presentation: Terraform Indroduction?
+* Introductory presentation: Terraform Introduction?
 * Install Terraform on your computer
 * Learn Terraform Basics
 * Terraform advanced topics

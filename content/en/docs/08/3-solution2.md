@@ -1,7 +1,7 @@
 ---
-title: "7.3. Solution #3"
-weight: 73
-sectionnumber: 7.3
+title: "8.2. Solution #2"
+weight: 82
+sectionnumber: 8.2
 ---
 
 ```mermaid
@@ -18,7 +18,7 @@ flowchart LR
 
 ## Preparation
 
-Use the exisiting directory from chapter 6.1
+Use the existing directory from chapter 6.1
 
 ```bash
 cd $LAB_ROOT/azure

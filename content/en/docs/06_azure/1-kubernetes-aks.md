@@ -67,7 +67,7 @@ terraform {
 ```
 
 {{% alert title="Versions" color="primary" %}}
-As of this writing, the current version is `1.11.2`. Set the versions to the latest on by using `terraform version`
+As of this writing, the current version is `1.12.2`. Set the versions to the latest on by using `terraform version`
 {{% /alert %}}
 
 Now run

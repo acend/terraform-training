@@ -1,7 +1,7 @@
 ---
-title: "7.1. Solution #1"
-weight: 71
-sectionnumber: 7.1
+title: "8.1. Solution #1"
+weight: 81
+sectionnumber: 8.1
 ---
 
 ```mermaid
@@ -24,5 +24,5 @@ Check all the last chapters for versions.
 * kubernetes_version
 * helm_release
 
-Find the releases of the software online and update them in youre files. Apply the changes to verfify everything is working well.
+Find the releases of the software online and update them in your files. Apply the changes to verify everything is working well.
 

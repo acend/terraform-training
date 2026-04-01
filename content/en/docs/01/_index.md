@@ -15,9 +15,9 @@ workflow to manage hundreds of cloud services. Terraform codifies cloud APIs int
 
 ## Useful Links
 
-* [Terraform Docs](https://www.terraform.io/docs/index.html)
+* [Terraform Docs](https://developer.hashicorp.com/terraform/docs)
 * [Terraform Registry & Modules](https://registry.terraform.io/)
-* [Terraform Tutorials](https://learn.hashicorp.com/terraform)
+* [Terraform Tutorials](https://developer.hashicorp.com/terraform/tutorials)
 
 
 ## Terraform Infrastructure-as-Code (IaC)
