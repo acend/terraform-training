@@ -27,6 +27,7 @@ github.com/google/docsy v0.14.1 h1:7TCLfklsLlPlYFly+nsBol6uYIrC8lzJpbXEAwZ8BSs=
 github.com/google/docsy v0.14.1/go.mod h1:1Fj1W1O3esZh7IBQ8XAYtxtg10udBXuGI89+LUQc1AU=
 github.com/google/docsy v0.14.2 h1:XJud05ZWCUFgvE9G1KdxhGsDdr7OmWYdnWPxrclIPWE=
 github.com/google/docsy v0.14.2/go.mod h1:1Fj1W1O3esZh7IBQ8XAYtxtg10udBXuGI89+LUQc1AU=
+github.com/google/docsy v0.14.3/go.mod h1:1Fj1W1O3esZh7IBQ8XAYtxtg10udBXuGI89+LUQc1AU=
 github.com/google/docsy/dependencies v0.4.0 h1:FXwyjtuFfPIPBauU2t7uIAgS6VYfJf+OD5pzxGvkQsQ=
 github.com/google/docsy/dependencies v0.4.0/go.mod h1:2zZxHF+2qvkyXhLZtsbnqMotxMukJXLaf8fAZER48oo=
 github.com/google/docsy/dependencies v0.7.2 h1:+t5ufoADQAj4XneFphz4A+UU0ICAxmNaRHVWtMYXPSI=
