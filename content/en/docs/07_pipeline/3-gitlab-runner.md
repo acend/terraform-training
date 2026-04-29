@@ -382,7 +382,7 @@ After the import, Terraform manages these resources and will not recreate them:
 
 ```bash
 terraform import -var-file=config/dev.tfvars /applications/azuread_application.gitlab <app-object-id>
-terraform import -var-file=config/dev.tfvars /applications/azuread_service_principal.gitlab <sp-object-id>
+terraform import -var-file=config/dev.tfvars /servicePrincipals/azuread_service_principal.gitlab <sp-object-id>
 ```
 
 Run `terraform plan` to verify that no destructive changes are proposed — only the new
