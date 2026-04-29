@@ -65,7 +65,7 @@ jobs:
             quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-gcp-acend
       -
         name: 'Install Helm'
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@v5
         with:
           version: v3.6.2
       -
