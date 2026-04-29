@@ -448,10 +448,13 @@ resource "local_sensitive_file" "gitlab_runner" {
   filename = "config.toml"
   content = templatefile("templates/config.tpl", {
     gitlab_runner_token = gitlab_user_runner.worker.token
-    client_id           = azuread_application.gitlab.client_id
-    client_secret       = azuread_service_principal_password.gitlab.value
+    client_id           = var.arm_client_id
+    client_secret       = var.arm_client_secret
   })
 }
+
+variable "arm_client_id" {}
+variable "arm_client_secret" {}
 
 resource "local_file" "docker_compose" {
   filename = "docker-compose.yaml"
