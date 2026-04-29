@@ -567,6 +567,7 @@ services:
 Now apply:
 
 ```bash
+export TF_VAR_gitlab_token=<gitlab_pat_token_from_ui>
 terraform apply -var-file=config/dev.tfvars
 ```
 

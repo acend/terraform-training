@@ -227,14 +227,10 @@ flowchart LR
 
 Create a new file named `iam.tf` and add the following content:
 ```terraform
-data "azuread_group" "aks_admins" {
-  display_name = var.aks.ad_admin_group
-}
-
 resource "azurerm_role_assignment" "students" {
   scope                = azurerm_kubernetes_cluster.aks.id
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
-  principal_id         = data.azuread_group.aks_admins.object_id
+  principal_id         = "1fdf3579-081c-433d-af2a-ccafc690a2b7"
 }
 ```
 

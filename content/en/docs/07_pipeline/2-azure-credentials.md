@@ -132,7 +132,9 @@ for now — in Lab 7.4 you will replace it with a custom builder image that also
 
 ```yaml
 ---
-image: hashicorp/terraform:1.12.2
+image: 
+  name: hashicorp/terraform:1.12.2
+  entrypoint: [""]
 
 stages:
   - validate
@@ -141,11 +143,8 @@ stages:
 variables:
   TF_VAR_FILE: "config/dev.tfvars"
   TF_BACKEND_CONFIG: "config/dev_backend.tfvars"
-  TF_PLUGIN_CACHE_DIR: "/cache/plugin-cache"
-  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
 
 before_script:
-  - mkdir -p $TF_PLUGIN_CACHE_DIR
   - terraform init -backend-config=$TF_BACKEND_CONFIG
 
 validate:
