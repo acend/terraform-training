@@ -30,10 +30,6 @@ terraform {
     }
   }
 }
-
-provider "cloudscale" {
-  # Authentication is done via the CLOUDSCALE_API_TOKEN environment variable.
-}
 ```
 
 
@@ -43,9 +39,6 @@ The [cloudscale Terraform provider](https://registry.terraform.io/providers/clou
 is maintained by cloudscale.ch and mirrors the full cloudscale.ch REST API. Setting
 `version = "~> 5.0"` pins to the `5.x` series and allows patch-level upgrades while
 preventing breaking changes from a future major version.
-
-The provider reads the API token exclusively from the `CLOUDSCALE_API_TOKEN` environment
-variable. This keeps credentials out of your Terraform code and state file.
 
 
 ## Step {{% param sectionnumber %}}.2: Declare Variables
@@ -132,6 +125,10 @@ inside Terraform configuration.
 Create `main.tf`:
 
 ```terraform
+provider "cloudscale" {
+  # Authentication is done via the CLOUDSCALE_API_TOKEN environment variable.
+}
+
 locals {
   prefix = "alpdeploy-${var.username}"
 }
@@ -161,6 +158,9 @@ resource "cloudscale_server" "web" {
 
 When no `interfaces` block is specified, the server gets a **public** IPv4 and IPv6
 address on the cloudscale internet network by default.
+
+The provider reads the API token exclusively from the `CLOUDSCALE_API_TOKEN` environment
+variable. This keeps credentials out of your Terraform code and state file.
 
 
 ## Step {{% param sectionnumber %}}.5: Declare Outputs

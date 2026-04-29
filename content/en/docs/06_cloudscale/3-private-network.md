@@ -48,9 +48,9 @@ resource "cloudscale_subnet" "backend" {
 Setting `auto_create_ipv4_subnet = false` prevents cloudscale from automatically creating
 a default subnet so that we can define our own CIDR (`10.0.1.0/24`).
 
-cloudscale assigns DHCP addresses from approximately `.101` to `.254` within the subnet.
-Addresses in the lower part of the range (`.1` to `.100`) are available for static
-assignment — which we will use for the backend server.
+cloudscale assigns DHCP addresses from `.101` to `.254` within the subnet.
+Addresses `.1` to `.100` are reserved for static assignment — which we will use
+for the backend server.
 
 
 ## Step {{% param sectionnumber %}}.2: Add the Backend Server cloud-init Script
