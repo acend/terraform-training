@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.QUAYIO_TOKEN }}
       -
         name: Build azure acend Version
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -43,7 +43,7 @@ jobs:
             quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-azure-acend
       -
         name: Build aws acend Version
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -54,7 +54,7 @@ jobs:
             quay.io/acend/terraform-training:pr-${{ github.event.pull_request.number }}-aws-acend
       -
         name: Build gcp acend Version
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
