@@ -73,7 +73,8 @@ resource "cloudscale_load_balancer_health_monitor" "web" {
 
 ### Explanation
 
-**Load balancer and pool**
+
+#### Load balancer and pool
 
 The `lb-standard` flavor is the default load balancer size for cloudscale.ch. When
 created without explicit `vip_addresses`, the load balancer is assigned a **public IPv4
@@ -82,7 +83,8 @@ and IPv6 VIP** automatically.
 The pool algorithm `round_robin` distributes each new TCP connection to the next member in
 rotation — exactly what you need to demonstrate that both web servers receive traffic.
 
-**Pool members**
+
+#### Pool members
 
 The `for_each = var.web_servers` pattern used here mirrors lab 10.4: one pool member is
 created per web server entry in the map. Each member references:
@@ -94,7 +96,8 @@ created per web server entry in the map. Each member references:
 By pointing pool members at the **private IPs**, all HTTP traffic between the load
 balancer and the web servers stays within the private network.
 
-**Health monitor**
+
+#### Health monitor
 
 An HTTP health monitor polls `GET /` on port 80 of each member. If a member fails two
 consecutive checks, the load balancer stops sending traffic to it until it recovers. This
