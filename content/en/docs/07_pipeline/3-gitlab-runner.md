@@ -138,6 +138,8 @@ provider "azurerm" {
   }
 }
 
+data "azuread_client_config" "current" {}
+
 provider "gitlab" {
   token = var.gitlab_token
 }
