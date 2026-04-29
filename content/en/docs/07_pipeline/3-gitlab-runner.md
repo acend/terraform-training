@@ -335,33 +335,19 @@ resource "azurerm_network_interface_security_group_association" "worker" {
 ```
 
 
-## Step {{% param sectionnumber %}}.5: access.tf – Import and manage the Service Principal
-
-In Lab 7.2 you created a service principal with `az ad sp create-for-rbac`. Rather than
-creating a second identity, we import that existing AAD application and service principal into
-Terraform state so Terraform fully manages both objects — including automatic password rotation
-every 90 days.
-
-First, look up the object IDs required by `terraform import`. The `appId` from Lab 7.2 is the
-**client ID**; the object ID is a different UUID:
-
-```bash
-# Object ID of the AAD application (not the appId!)
-# az ad app show --id <appId-from-lab-7.2> --query id -o tsv
-
-# Object ID of the service principal
-# az ad sp show --id <appId-from-lab-7.2> --query id -o tsv
-```
+## Step {{% param sectionnumber %}}.5: access.tf – Manage the Service Principal
 
 Add the following resources to `access.tf`:
 
 ```terraform
 resource "azuread_application" "gitlab" {
   display_name = "sp-gitlab-pipeline-<your-username>"
+  owners       = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal" "gitlab" {
   client_id                    = azuread_application.gitlab.client_id
+  owners                       = [data.azuread_client_config.current.object_id]
   app_role_assignment_required = false
 }
 
@@ -377,21 +363,12 @@ resource "azuread_service_principal_password" "gitlab" {
 }
 ```
 
-Now import the existing cloud objects into Terraform state using the object IDs retrieved above.
-After the import, Terraform manages these resources and will not recreate them:
-
-```bash
-# terraform import -var-file=config/dev.tfvars azuread_application.gitlab /applications/<app-object-id>
-# terraform import -var-file=config/dev.tfvars azuread_service_principal.gitlab /servicePrincipals/<sp-object-id>
-```
-
-Run `terraform plan` to verify that no destructive changes are proposed — only the new
-`azuread_service_principal_password` and `time_rotating` resources should be created:
+Run `terraform plan`:
 
 ```bash
 export TF_VAR_gitlab_token=<gitlab_pat_token_from_ui>
-export TF_VAR_arm_client_id=<appId_from_7.2>
-export TF_VAR_arm_client_secret=<secret_from_7.2>
+# export TF_VAR_arm_client_id=<appId_from_7.2>
+# export TF_VAR_arm_client_secret=<secret_from_7.2>
 terraform plan -var-file=config/dev.tfvars
 ```
 
@@ -450,13 +427,15 @@ resource "local_sensitive_file" "gitlab_runner" {
   filename = "config.toml"
   content = templatefile("templates/config.tpl", {
     gitlab_runner_token = gitlab_user_runner.worker.token
-    client_id           = var.arm_client_id
-    client_secret       = var.arm_client_secret
+    client_id           = azuread_application.gitlab.client_id
+-   client_secret       = azuread_service_principal_password.gitlab.value
+    # client_id           = var.arm_client_id
+    # client_secret       = var.arm_client_secret
   })
 }
 
-variable "arm_client_id" {}
-variable "arm_client_secret" {}
+# variable "arm_client_id" {}
+# variable "arm_client_secret" {}
 
 resource "local_file" "docker_compose" {
   filename = "docker-compose.yaml"
