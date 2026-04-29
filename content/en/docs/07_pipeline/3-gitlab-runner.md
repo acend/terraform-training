@@ -381,14 +381,15 @@ Now import the existing cloud objects into Terraform state using the object IDs 
 After the import, Terraform manages these resources and will not recreate them:
 
 ```bash
-terraform import azuread_application.gitlab <app-object-id>
-terraform import azuread_service_principal.gitlab <sp-object-id>
+terraform import -var-file=config/dev.tfvars /applications/azuread_application.gitlab <app-object-id>
+terraform import -var-file=config/dev.tfvars /applications/azuread_service_principal.gitlab <sp-object-id>
 ```
 
 Run `terraform plan` to verify that no destructive changes are proposed — only the new
 `azuread_service_principal_password` and `time_rotating` resources should be created:
 
 ```bash
+export TF_VAR_gitlab_token=<gitlab_pat_token_from_ui>
 terraform plan -var-file=config/dev.tfvars
 ```
 
@@ -567,7 +568,6 @@ services:
 Now apply:
 
 ```bash
-export TF_VAR_gitlab_token=<gitlab_pat_token_from_ui>
 terraform apply -var-file=config/dev.tfvars
 ```
 
