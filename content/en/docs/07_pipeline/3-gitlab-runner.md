@@ -347,10 +347,10 @@ First, look up the object IDs required by `terraform import`. The `appId` from L
 
 ```bash
 # Object ID of the AAD application (not the appId!)
-az ad app show --id <appId-from-lab-7.2> --query id -o tsv
+# az ad app show --id <appId-from-lab-7.2> --query id -o tsv
 
 # Object ID of the service principal
-az ad sp show --id <appId-from-lab-7.2> --query id -o tsv
+# az ad sp show --id <appId-from-lab-7.2> --query id -o tsv
 ```
 
 Add the following resources to `access.tf`:
@@ -381,8 +381,8 @@ Now import the existing cloud objects into Terraform state using the object IDs 
 After the import, Terraform manages these resources and will not recreate them:
 
 ```bash
-terraform import -var-file=config/dev.tfvars azuread_application.gitlab /applications/<app-object-id>
-terraform import -var-file=config/dev.tfvars azuread_service_principal.gitlab /servicePrincipals/<sp-object-id>
+# terraform import -var-file=config/dev.tfvars azuread_application.gitlab /applications/<app-object-id>
+# terraform import -var-file=config/dev.tfvars azuread_service_principal.gitlab /servicePrincipals/<sp-object-id>
 ```
 
 Run `terraform plan` to verify that no destructive changes are proposed — only the new
