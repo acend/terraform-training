@@ -60,8 +60,6 @@ The backend server runs a minimal Python HTTP API that returns its hostname in J
 
 ```yaml
 #cloud-config
-packages:
-  - python3
 write_files:
   - path: /opt/backend.py
     permissions: '0755'
