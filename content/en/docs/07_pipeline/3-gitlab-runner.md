@@ -390,6 +390,8 @@ Run `terraform plan` to verify that no destructive changes are proposed — only
 
 ```bash
 export TF_VAR_gitlab_token=<gitlab_pat_token_from_ui>
+export TF_VAR_arm_client_id=<appId_from_7.2>
+export TF_VAR_arm_client_secret=<secret_from_7.2>
 terraform plan -var-file=config/dev.tfvars
 ```
 
