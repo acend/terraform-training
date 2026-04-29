@@ -381,8 +381,8 @@ Now import the existing cloud objects into Terraform state using the object IDs 
 After the import, Terraform manages these resources and will not recreate them:
 
 ```bash
-terraform import -var-file=config/dev.tfvars /applications/azuread_application.gitlab <app-object-id>
-terraform import -var-file=config/dev.tfvars /servicePrincipals/azuread_service_principal.gitlab <sp-object-id>
+terraform import -var-file=config/dev.tfvars azuread_application.gitlab /applications/<app-object-id>
+terraform import -var-file=config/dev.tfvars azuread_service_principal.gitlab /servicePrincipals/<sp-object-id>
 ```
 
 Run `terraform plan` to verify that no destructive changes are proposed — only the new
