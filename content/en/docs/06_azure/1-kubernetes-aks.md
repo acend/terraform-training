@@ -25,6 +25,7 @@ resource "azurerm_resource_group" "default" {
 }
 
 data "azurerm_subscription" "current" {}
+data "azuread_client_config" "current" {}
 ```
 
 Create a new file named `variables.tf` and add the following content:
