@@ -75,7 +75,7 @@ copyright = "acend gmbh"
 github_repo = "https://github.com/acend/terraform-training"
 github_branch = "main"
 
-enabledModule = "base azure"
+enabledModule = "base azure cloudscale"
 trainingFlavor = "Azure"
 
 # Enable Lunr.js offline search
