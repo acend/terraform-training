@@ -100,7 +100,7 @@ jobs:
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-gcp-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
       -
         name: Comment PR Environments in PR
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3.0.4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           message: |
