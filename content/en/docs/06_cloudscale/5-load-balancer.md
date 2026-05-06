@@ -61,7 +61,6 @@ resource "cloudscale_load_balancer_pool_member" "web" {
 }
 
 resource "cloudscale_load_balancer_health_monitor" "web" {
-  name           = "${local.prefix}-healthcheck"
   pool_uuid      = cloudscale_load_balancer_pool.web.id
   type           = "http"
   http_url_path  = "/"
@@ -176,7 +175,7 @@ each one:
 ```bash
 LB_IP=$(terraform output -raw lb_public_ip)
 for i in {1..6}; do
-  curl -s "http://${LB_IP}" | grep -o 'Hostname:[^<]*'
+  curl -s "http://${LB_IP}" | grep -oP '(?<=Hostname:</b> )[^<]+'
 done
 ```
 
@@ -205,7 +204,7 @@ connection (keep-alive). Force a new connection each time:
 ```bash
 LB_IP=$(terraform output -raw lb_public_ip)
 for i in {1..6}; do
-  curl -s --no-keepalive "http://${LB_IP}" | grep -o 'Hostname:[^<]*'
+  curl -s --no-keepalive "http://${LB_IP}" | grep -oP '(?<=Hostname:</b> )[^<]+'
 done
 ```
 
