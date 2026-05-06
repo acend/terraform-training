@@ -61,7 +61,6 @@ resource "cloudscale_load_balancer_pool_member" "web" {
 }
 
 resource "cloudscale_load_balancer_health_monitor" "web" {
-  name           = "${local.prefix}-healthcheck"
   pool_uuid      = cloudscale_load_balancer_pool.web.id
   type           = "http"
   http_url_path  = "/"
