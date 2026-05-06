@@ -21,23 +21,9 @@ The AlpDeploy web service needs persistent storage that survives server re-creat
 example for uploaded files or a local cache. cloudscale.ch provides SSD and bulk block
 volumes that can be attached to servers.
 
-Add the following resource to `main.tf`:
+Add the `"cloudscale_volume" "web_data"` resource to `main.tf`:
 
 ```terraform
-locals {
-  prefix = "alpdeploy-${var.username}"
-}
-
-resource "cloudscale_server" "web" {
-  name           = "${local.prefix}-web"
-  flavor_slug    = "flex-4-2"
-  image_slug     = "debian-13"
-  zone_slug      = var.zone
-  volume_size_gb = 10
-  ssh_keys       = [var.ssh_public_key]
-  user_data      = file("${path.module}/cloud-init/web.yaml")
-}
-
 resource "cloudscale_volume" "web_data" {
   name         = "${local.prefix}-web-data"
   zone_slug    = var.zone

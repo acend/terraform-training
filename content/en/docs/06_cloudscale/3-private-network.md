@@ -162,7 +162,7 @@ runcmd:
   - systemctl start nginx
 ```
 
-Update `main.tf` to add the private interface to the web server:
+Update `main.tf` and addthe private interface to the web server `"cloudscale_server" "web"` resource:
 
 ```terraform
 locals {
@@ -189,14 +189,6 @@ resource "cloudscale_server" "web" {
       address     = "10.0.1.11"
     }
   }
-}
-
-resource "cloudscale_volume" "web_data" {
-  name         = "${local.prefix}-web-data"
-  zone_slug    = var.zone
-  size_gb      = 50
-  type         = "ssd"
-  server_uuids = [cloudscale_server.web.id]
 }
 ```
 
